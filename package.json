@@ -1,0 +1,25 @@
+{
+  "name": "cms",
+  "private": true,
+  "scripts": {
+    "watch": "NODE_ENV=development webpack-dev-server -d"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "eslint": "^3.11.1",
+    "eslint-config-artcom": "^0.5.1",
+    "eslint-config-artcom-react": "^0.3.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^6.8.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
