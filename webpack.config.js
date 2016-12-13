@@ -17,6 +17,14 @@ module.exports = {
         test: /\.js$/,
         include: [path.resolve(__dirname, "src")],
         loader: "babel"
+      },
+      {
+        test: /\.css$/,
+        loaders: ["style", "css"]
+      },
+      {
+        test: /\.(eot|woff|woff2|ttf|svg)$/,
+        loader: "file?name=[path][name].[ext]"
       }
     ]
   },

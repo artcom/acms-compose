@@ -1,9 +1,9 @@
 import Immutable from "immutable"
 
-export function content(state = new Immutable.Map(), action) {
+export function content(state = null, action) {
   switch (action.type) {
     case "UPDATE_DATA":
-      return action.payload.content
+      return Immutable.fromJS(action.payload.content)
 
     default:
       return state

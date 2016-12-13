@@ -9,7 +9,9 @@ import { loadData } from "./actions"
 import { configureStore } from "./store"
 
 import Application from "./containers/application"
-import EntityList from "./containers/entityList"
+import Entity from "./containers/entity"
+
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const params = querystring.parse(window.location.search.substring(1))
 
@@ -22,7 +24,8 @@ render(
   <Provider store={ store } >
     <Router history={ history } >
       <Route path="/" component={ Application }>
-        <IndexRoute component={ EntityList } />
+        <IndexRoute component={ Entity } />
+        <Route path="*" component={ Entity } />
       </Route>
     </Router>
   </Provider>
