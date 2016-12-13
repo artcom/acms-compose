@@ -1,3 +1,6 @@
 {
-  "extends": "artcom-react"
+  "extends": "artcom-react",
+  "rules": {
+    "func-names": 0
+  }
 }

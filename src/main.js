@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import { IndexRoute, Router, Route, browserHistory } from "react-router"
 import { syncHistoryWithStore } from "react-router-redux"
 
+import { loadData } from "./actions"
 import { configureStore } from "./store"
 
 import Application from "./containers/application"
@@ -14,6 +15,8 @@ const params = querystring.parse(window.location.search.substring(1))
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
+
+store.dispatch(loadData(params.gitJsonApi))
 
 render(
   <Provider store={ store } >

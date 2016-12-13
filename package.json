@@ -5,6 +5,8 @@
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },
   "dependencies": {
+    "axios": "^0.15.3",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "immutable": "^3.8.1",
     "lodash": "^4.17.2",
     "react": "^15.4.1",
