@@ -3,10 +3,12 @@ import React from "react"
 import { Panel } from "react-bootstrap"
 
 import EnumEditor from "../editors/enumEditor"
+import MarkdownEditor from "../editors/markdownEditor"
 import StringEditor from "../editors/stringEditor"
 
 const editors = {
   enum: EnumEditor,
+  markdown: MarkdownEditor,
   string: StringEditor
 }
 
