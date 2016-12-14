@@ -26,12 +26,12 @@ function Entity({ children, path, template, values }) {
   return (
     <Row>
       <Col md={ 4 }>
-        <h2>Children</h2>
+        <h4>Children</h4>
         { renderChildren(children, path) }
       </Col>
 
       <Col md={ 8 }>
-        <h2>Fields</h2>
+        <h4>Fields</h4>
         { renderFields(template.fields, values) }
       </Col>
     </Row>

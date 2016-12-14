@@ -1,7 +1,11 @@
 export function fromPath(path) {
-  return `#${path.join("/")}`
+  return `#/${path.join("/")}`
 }
 
 export function toPath(hash) {
-  return hash ? hash.substring(1).split("/") : []
+  if (hash === "" || hash === "#/") {
+    return []
+  } else {
+    return hash.substring(2).split("/")
+  }
 }
