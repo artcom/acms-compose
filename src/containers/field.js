@@ -2,26 +2,28 @@ import startCase from "lodash/startCase"
 import React from "react"
 import { Panel } from "react-bootstrap"
 
+import EnumEditor from "../editors/enumEditor"
 import StringEditor from "../editors/stringEditor"
 
 const editors = {
+  enum: EnumEditor,
   string: StringEditor
 }
 
-export default function Field({ name, type, value }) {
-  const Editor = editors[type]
+export default function Field(field) {
+  const Editor = editors[field.type]
 
   if (!Editor) {
     return (
-      <Panel bsStyle="danger" header={ startCase(name) }>
-        Unknown field type <code>{ type }</code>
+      <Panel bsStyle="danger" header={ startCase(field.name) }>
+        Unknown field type <code>{ field.type }</code>
       </Panel>
     )
   }
 
   return (
-    <Panel header={ startCase(name) }>
-      <Editor value={ value } />
+    <Panel header={ startCase(field.name) }>
+      <Editor field={ field } />
     </Panel>
   )
 }
