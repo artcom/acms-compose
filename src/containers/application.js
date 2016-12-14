@@ -1,3 +1,4 @@
+import startCase from "lodash/startCase"
 import React from "react"
 import { Breadcrumb, Button, Col, Grid, Row } from "react-bootstrap"
 import { connect } from "react-redux"
@@ -24,14 +25,14 @@ function Application({ children, loading, path }) {
         <Col md={ 10 }>
           <Breadcrumb>
             <Breadcrumb.Item href={ fromPath([]) }>
-              exhibition
+              Exhibition
             </Breadcrumb.Item>
             { path.map((item, i) =>
               <Breadcrumb.Item
                 key={ item }
                 href={ fromPath(path.slice(0, i + 1)) }
                 active={ i === path.length - 1 }>
-                { item }
+                { startCase(item) }
               </Breadcrumb.Item>
             )}
           </Breadcrumb>

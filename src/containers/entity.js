@@ -1,3 +1,4 @@
+import startCase from "lodash/startCase"
 import React from "react"
 import { Col, ListGroup, ListGroupItem, Row } from "react-bootstrap"
 import { connect } from "react-redux"
@@ -43,7 +44,7 @@ function renderChildren(children, path) {
     <ListGroup>
       { children.map(child =>
         <ListGroupItem key={ child } href={ fromPath([...path, child]) }>
-          { child }
+          { startCase(child) }
         </ListGroupItem>
       ) }
     </ListGroup>
