@@ -14,16 +14,18 @@ const TEMPLATE_KEY = "template"
 
 function mapStateToProps(state) {
   const values = state.content.getIn([...state.path, INDEX_KEY])
+  const template = state.templates[values.get(TEMPLATE_KEY)]
+  const fields = template.fields
+    .map(field => ({ ...field, value: values.get(field.name) }))
 
   return {
-    values,
     children: state.content.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
-    template: state.templates[values.get(TEMPLATE_KEY)],
+    fields,
     path: state.path
   }
 }
 
-function Entity({ children, path, template, values }) {
+function Entity({ children, fields, path }) {
   return (
     <Row>
       <Col md={ 4 }>
@@ -33,7 +35,7 @@ function Entity({ children, path, template, values }) {
 
       <Col md={ 8 }>
         <h4>Fields</h4>
-        { renderFields(template.fields, values) }
+        { renderFields(fields) }
       </Col>
     </Row>
   )
@@ -51,8 +53,8 @@ function renderChildren(children, path) {
   )
 }
 
-function renderFields(fields, values) {
+function renderFields(fields) {
   return fields.map(field =>
-    <Field key={ field.name } value={ values.get(field.name) } { ...field } />
+    <Field key={ field.name } { ...field } />
   )
 }
