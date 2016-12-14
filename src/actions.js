@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import { toPath } from "./hash"
+
 export function loadData(url, version = "master") {
   return async function(dispatch) {
     const response = await axios.get(version, { baseURL: url })
@@ -15,5 +17,12 @@ function updateData(data, version) {
       templates: data.templates,
       version
     }
+  }
+}
+
+export function updatePath(hash) {
+  return {
+    type: "UPDATE_PATH",
+    payload: toPath(hash)
   }
 }

@@ -4,30 +4,30 @@ import { connect } from "react-redux"
 
 import Field from "./field"
 
+import { fromPath } from "../hash"
+
 export default connect(mapStateToProps)(Entity)
 
 const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
 
-function mapStateToProps(state, ownProps) {
-  const { splat } = ownProps.location
-  const path = splat ? splat.split("/") : []
-
-  const values = state.content.getIn([...path, INDEX_KEY])
+function mapStateToProps(state) {
+  const values = state.content.getIn([...state.path, INDEX_KEY])
 
   return {
     values,
-    children: state.content.getIn(path).keySeq().filter(key => key !== INDEX_KEY),
-    template: state.templates[values.get(TEMPLATE_KEY)]
+    children: state.content.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
+    template: state.templates[values.get(TEMPLATE_KEY)],
+    path: state.path
   }
 }
 
-function Entity({ children, values, template }) {
+function Entity({ children, path, template, values }) {
   return (
     <Row>
       <Col md={ 4 }>
         <h2>Children</h2>
-        { renderChildren(children) }
+        { renderChildren(children, path) }
       </Col>
 
       <Col md={ 8 }>
@@ -38,10 +38,14 @@ function Entity({ children, values, template }) {
   )
 }
 
-function renderChildren(children) {
+function renderChildren(children, path) {
   return (
     <ListGroup>
-      { children.map(child => <ListGroupItem key={ child }>{ child }</ListGroupItem>) }
+      { children.map(child =>
+        <ListGroupItem key={ child } href={ fromPath([...path, child]) }>
+          { child }
+        </ListGroupItem>
+      ) }
     </ListGroup>
   )
 }

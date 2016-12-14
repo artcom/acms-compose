@@ -1,8 +1,7 @@
 import Immutable from "immutable"
 import mapValues from "lodash/mapValues"
-import { routerReducer } from "react-router-redux"
 import createLogger from "redux-logger"
-import { applyMiddleware, createStore, combineReducers } from "redux"
+import { applyMiddleware, combineReducers, createStore } from "redux"
 import thunkMiddleware from "redux-thunk"
 
 import * as reducers from "./reducers"
@@ -14,7 +13,7 @@ const loggerMiddleware = createLogger({
 
 export function configureStore() {
   return createStore(
-    combineReducers(Object.assign({}, reducers, { routing: routerReducer })),
+    combineReducers(reducers),
     applyMiddleware(thunkMiddleware, loggerMiddleware)
   )
 }

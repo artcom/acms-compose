@@ -29,3 +29,13 @@ export function version(state = null, action) {
       return state
   }
 }
+
+export function path(state = [], action) {
+  switch (action.type) {
+    case "UPDATE_PATH":
+      return action.payload
+
+    default:
+      return state
+  }
+}
