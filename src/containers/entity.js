@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 
 import Field from "./field"
 
+import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
 export default connect(mapStateToProps)(Entity)
@@ -15,8 +16,10 @@ const TEMPLATE_KEY = "template"
 function mapStateToProps(state) {
   const values = state.content.getIn([...state.path, INDEX_KEY])
   const template = state.templates[values.get(TEMPLATE_KEY)]
+
   const fields = template.fields
     .map(field => ({ ...field, value: values.get(field.name) }))
+    .filter(field => !field.condition || evaluate(field.condition, values))
 
   return {
     children: state.content.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
