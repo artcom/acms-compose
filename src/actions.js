@@ -37,3 +37,33 @@ export function changeValue(path, value) {
     }
   }
 }
+
+export function localize(path) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const languages = state.config.languages
+
+    dispatch({
+      type: "LOCALIZE",
+      payload: {
+        path,
+        languages
+      }
+    })
+  }
+}
+
+export function unlocalize(path) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const defaultLanguage = state.config.languages[0]
+
+    dispatch({
+      type: "UNLOCALIZE",
+      payload: {
+        path,
+        defaultLanguage
+      }
+    })
+  }
+}

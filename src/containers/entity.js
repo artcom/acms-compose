@@ -6,7 +6,6 @@ import { connect } from "react-redux"
 
 import Field from "./field"
 
-import { changeValue } from "../actions"
 import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
@@ -87,9 +86,7 @@ function renderChildren(children) {
 }
 
 function renderFields(fields, dispatch) {
-  const onChange = (path, value) => { dispatch(changeValue(path, value)) }
-
   return fields.map(field =>
-    <Field key={ field.name } onChange={ onChange } field={ field } />
+    <Field key={ field.name } dispatch={ dispatch } field={ field } />
   )
 }

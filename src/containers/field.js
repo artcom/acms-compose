@@ -7,23 +7,25 @@ import EnumEditor from "../editors/enumEditor"
 import MarkdownEditor from "../editors/markdownEditor"
 import StringEditor from "../editors/stringEditor"
 
+import { changeValue, localize, unlocalize } from "../actions"
+
 const editors = {
   enum: EnumEditor,
   markdown: MarkdownEditor,
   string: StringEditor
 }
 
-export default function Field({ field, onChange }) {
-  const { style, content } = renderContent(field, onChange)
+export default function Field(props) {
+  const { style, content } = renderContent(props)
 
   return (
-    <Panel bsStyle={ style } header={ renderHeader(field) }>
+    <Panel bsStyle={ style } header={ renderHeader(props) }>
       { content }
     </Panel>
   )
 }
 
-function renderHeader(field) {
+function renderHeader({ field, dispatch }) {
   return <div>
     { startCase(field.name) }
     <Dropdown pullRight style={ { float: "right" } } id={ field.name }>
@@ -31,25 +33,37 @@ function renderHeader(field) {
         <Glyphicon glyph="option-vertical" />
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        { renderMenuItems(field) }
+        { renderMenuItems(field, dispatch) }
       </Dropdown.Menu>
     </Dropdown>
   </div>
 }
 
-function renderMenuItems(field) {
+function renderMenuItems(field, dispatch) {
   const items = []
 
   if (field.isLocalized) {
-    items.push(<MenuItem key="unlocalize">Unlocalize</MenuItem>)
+    items.push(
+      <MenuItem
+        key="unlocalize"
+        onClick={ () => dispatch(unlocalize(field.path)) }>
+        Unlocalize
+      </MenuItem>
+    )
   } else {
-    items.push(<MenuItem key="localize">Localize</MenuItem>)
+    items.push(
+      <MenuItem
+        key="localize"
+        onClick={ () => dispatch(localize(field.path)) }>
+        Localize
+      </MenuItem>
+    )
   }
 
   return items
 }
 
-function renderContent(field, onChange) {
+function renderContent({ field, dispatch }) {
   const Editor = editors[field.type]
 
   if (!Editor) {
@@ -62,12 +76,12 @@ function renderContent(field, onChange) {
   return {
     style: field.hasChanged ? "primary" : "default",
     content: field.isLocalized
-      ? renderLocalizedEditors(field, onChange, Editor)
-      : renderEditor(field, onChange, Editor)
+      ? renderLocalizedEditors(field, dispatch, Editor)
+      : renderEditor(field, dispatch, Editor)
   }
 }
 
-function renderLocalizedEditors(field, onChange, Editor) {
+function renderLocalizedEditors(field, dispatch, Editor) {
   return field.value.map((value, language) => {
     const languageField = { ...field,
       path: [...field.path, language],
@@ -82,17 +96,17 @@ function renderLocalizedEditors(field, onChange, Editor) {
           { languageName }
         </ControlLabel>
 
-        { renderEditor(languageField, onChange, Editor) }
+        { renderEditor(languageField, dispatch, Editor) }
       </FormGroup>
     )
   })
 }
 
-function renderEditor(field, onChange, Editor) {
+function renderEditor(field, dispatch, Editor) {
   return (
     <Editor
       key={ field.path }
       field={ field }
-      onChange={ (event) => onChange(field.path, event.target.value) } />
+      onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) } />
   )
 }

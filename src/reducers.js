@@ -28,6 +28,15 @@ export function changedContent(state = null, { type, payload }) {
     case "CHANGE_VALUE":
       return state.setIn(payload.path, payload.value)
 
+    case "LOCALIZE": {
+      const value = state.getIn(payload.path)
+      const pairs = payload.languages.map(language => [language, value])
+      return state.setIn(payload.path, new Immutable.Map(pairs))
+    }
+
+    case "UNLOCALIZE":
+      return state.setIn(payload.path, state.getIn([...payload.path, payload.defaultLanguage]))
+
     default:
       return state
   }
