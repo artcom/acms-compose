@@ -1,3 +1,4 @@
+import Immutable from "immutable"
 import startCase from "lodash/startCase"
 import React from "react"
 import { Col, ListGroup, ListGroupItem, Row } from "react-bootstrap"
@@ -15,8 +16,10 @@ const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
 
 function mapStateToProps(state) {
-  const originalValues = state.originalContent.getIn([...state.path, INDEX_KEY])
-  const changedValues = state.changedContent.getIn([...state.path, INDEX_KEY])
+  const originalSelf = state.originalContent.getIn(state.path)
+  const changedSelf = state.changedContent.getIn(state.path)
+  const originalValues = originalSelf.get(INDEX_KEY)
+  const changedValues = changedSelf.get(INDEX_KEY)
   const template = state.templates[changedValues.get(TEMPLATE_KEY)]
 
   const fields = template.fields
@@ -31,8 +34,16 @@ function mapStateToProps(state) {
       }
     })
 
+  const children = state.changedContent.getIn(state.path)
+    .keySeq()
+    .filter(key => key !== INDEX_KEY)
+    .map(child => ({
+      name: child,
+      changed: !Immutable.is(originalSelf.get(child), changedSelf.get(child))
+    }))
+
   return {
-    children: state.changedContent.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
+    children,
     fields,
     path: state.path
   }
@@ -58,8 +69,11 @@ function renderChildren(children, path) {
   return (
     <ListGroup>
       { children.map(child =>
-        <ListGroupItem key={ child } href={ fromPath([...path, child]) }>
-          { startCase(child) }
+        <ListGroupItem
+          key={ child.name }
+          active={ child.changed }
+          href={ fromPath([...path, child.name]) }>
+          { startCase(child.name) }
         </ListGroupItem>
       ) }
     </ListGroup>
