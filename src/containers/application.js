@@ -10,14 +10,14 @@ export default connect(mapStateToProps)(Application)
 
 function mapStateToProps(state) {
   return {
-    hasChanges: !Immutable.is(state.originalContent, state.changedContent),
-    loading: state.originalContent === null,
+    hasChanged: !Immutable.is(state.originalContent, state.changedContent),
+    isLoading: state.originalContent === null,
     path: state.path
   }
 }
 
-function Application({ children, hasChanges, loading, path }) {
-  if (loading) {
+function Application({ children, hasChanged, isLoading, path }) {
+  if (isLoading) {
     return null
   }
 
@@ -40,7 +40,7 @@ function Application({ children, hasChanges, loading, path }) {
           </Breadcrumb>
         </Col>
         <Col md={ 2 }>
-          <Button block disabled={ !hasChanges } bsStyle="primary">Save</Button>
+          <Button block disabled={ !hasChanged } bsStyle="primary">Save</Button>
         </Col>
       </Row>
       { children }

@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 
       return { ...field,
         value: changedValue,
-        changed: originalValue !== changedValue
+        hasChanged: originalValue !== changedValue
       }
     })
 
@@ -39,7 +39,7 @@ function mapStateToProps(state) {
     .filter(key => key !== INDEX_KEY)
     .map(child => ({
       name: child,
-      changed: !Immutable.is(originalSelf.get(child), changedSelf.get(child))
+      hasChanged: !Immutable.is(originalSelf.get(child), changedSelf.get(child))
     }))
 
   return {
@@ -71,7 +71,7 @@ function renderChildren(children, path) {
       { children.map(child =>
         <ListGroupItem
           key={ child.name }
-          active={ child.changed }
+          active={ child.hasChanged }
           href={ fromPath([...path, child.name]) }>
           { startCase(child.name) }
         </ListGroupItem>
