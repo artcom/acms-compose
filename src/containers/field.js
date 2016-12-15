@@ -1,3 +1,4 @@
+import langs from "langs"
 import startCase from "lodash/startCase"
 import React from "react"
 import { ControlLabel, FormGroup, Panel } from "react-bootstrap"
@@ -56,10 +57,12 @@ function localizedEditors(field, onChange, Editor) {
       value: field.value.get(language)
     }
 
+    const languageName = langs.has(1, language) ? langs.where(1, language).name : "Custom Language"
+
     return (
       <FormGroup key={ language }>
         <ControlLabel>
-          { language }
+          { languageName }
         </ControlLabel>
 
         { editor(languageField, onChange, Editor) }
