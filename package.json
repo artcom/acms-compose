@@ -2,6 +2,7 @@
   "name": "cms",
   "private": true,
   "scripts": {
+    "build": "NODE_ENV=production webpack -p",
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },
   "dependencies": {
