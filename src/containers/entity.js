@@ -29,8 +29,10 @@ function mapStateToProps(state) {
       const changedValue = changedValues.get(field.name)
 
       return { ...field,
-        value: changedValue,
-        hasChanged: originalValue !== changedValue
+        hasChanged: !Immutable.is(originalValue, changedValue),
+        isLocalized: isLocalized(changedValue, state.config.languages),
+        path: [...state.path, INDEX_KEY, field.name],
+        value: changedValue
       }
     })
 
@@ -38,41 +40,45 @@ function mapStateToProps(state) {
     .keySeq()
     .filter(key => key !== INDEX_KEY)
     .map(child => ({
+      hasChanged: !Immutable.is(originalSelf.get(child), changedSelf.get(child)),
       name: child,
-      hasChanged: !Immutable.is(originalSelf.get(child), changedSelf.get(child))
+      path: [...state.path, child]
     }))
 
   return {
     children,
-    fields,
-    path: state.path
+    fields
   }
 }
 
-function Entity({ children, dispatch, fields, path }) {
+function isLocalized(value, languages) {
+  return Immutable.Map.isMap(value) && languages.every(language => value.has(language))
+}
+
+function Entity({ children, dispatch, fields }) {
   return (
     <Row>
       <Col md={ 4 }>
         <h4>Children</h4>
-        { renderChildren(children, path) }
+        { renderChildren(children) }
       </Col>
 
       <Col md={ 8 }>
         <h4>Fields</h4>
-        { renderFields(fields, path, dispatch) }
+        { renderFields(fields, dispatch) }
       </Col>
     </Row>
   )
 }
 
-function renderChildren(children, path) {
+function renderChildren(children) {
   return (
     <ListGroup>
       { children.map(child =>
         <ListGroupItem
           key={ child.name }
           active={ child.hasChanged }
-          href={ fromPath([...path, child.name]) }>
+          href={ fromPath(child.path) }>
           { startCase(child.name) }
         </ListGroupItem>
       ) }
@@ -80,13 +86,10 @@ function renderChildren(children, path) {
   )
 }
 
-function renderFields(fields, path, dispatch) {
+function renderFields(fields, dispatch) {
+  const onChange = (path, value) => { dispatch(changeValue(path, value)) }
+
   return fields.map(field =>
-    <Field
-      key={ field.name }
-      onChange={ (event) => {
-        dispatch(changeValue([...path, INDEX_KEY, field.name], event.target.value))
-      } }
-      { ...field } />
+    <Field key={ field.name } onChange={ onChange } field={ field } />
   )
 }

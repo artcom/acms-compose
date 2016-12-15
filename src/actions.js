@@ -13,6 +13,7 @@ function updateData(data, version) {
   return {
     type: "UPDATE_DATA",
     payload: {
+      config: data.config,
       content: data.content,
       templates: data.templates,
       version

@@ -1,5 +1,15 @@
 import Immutable from "immutable"
 
+export function config(state = null, action) {
+  switch (action.type) {
+    case "UPDATE_DATA":
+      return action.payload.config
+
+    default:
+      return state
+  }
+}
+
 export function originalContent(state = null, action) {
   switch (action.type) {
     case "UPDATE_DATA":
