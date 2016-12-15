@@ -14,7 +14,7 @@ const editors = {
 }
 
 export default function Field({ field, onChange }) {
-  const { style, content } = handleField(field, onChange)
+  const { style, content } = renderContent(field, onChange)
 
   return (
     <Panel bsStyle={ style } header={ startCase(field.name) }>
@@ -23,7 +23,7 @@ export default function Field({ field, onChange }) {
   )
 }
 
-function handleField(field, onChange) {
+function renderContent(field, onChange) {
   const Editor = editors[field.type]
 
   if (!Editor) {
@@ -36,21 +36,12 @@ function handleField(field, onChange) {
   return {
     style: field.hasChanged ? "primary" : "default",
     content: field.isLocalized
-      ? localizedEditors(field, onChange, Editor)
-      : editor(field, onChange, Editor)
+      ? renderLocalizedEditors(field, onChange, Editor)
+      : renderEditor(field, onChange, Editor)
   }
 }
 
-function editor(field, onChange, Editor) {
-  return (
-    <Editor
-      key={ field.path }
-      field={ field }
-      onChange={ (event) => onChange(field.path, event.target.value) } />
-  )
-}
-
-function localizedEditors(field, onChange, Editor) {
+function renderLocalizedEditors(field, onChange, Editor) {
   return field.value.map((value, language) => {
     const languageField = { ...field,
       path: [...field.path, language],
@@ -65,8 +56,17 @@ function localizedEditors(field, onChange, Editor) {
           { languageName }
         </ControlLabel>
 
-        { editor(languageField, onChange, Editor) }
+        { renderEditor(languageField, onChange, Editor) }
       </FormGroup>
     )
   })
+}
+
+function renderEditor(field, onChange, Editor) {
+  return (
+    <Editor
+      key={ field.path }
+      field={ field }
+      onChange={ (event) => onChange(field.path, event.target.value) } />
+  )
 }
