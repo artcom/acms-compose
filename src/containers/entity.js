@@ -15,12 +15,21 @@ const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
 
 function mapStateToProps(state) {
-  const values = state.changedContent.getIn([...state.path, INDEX_KEY])
-  const template = state.templates[values.get(TEMPLATE_KEY)]
+  const originalValues = state.originalContent.getIn([...state.path, INDEX_KEY])
+  const changedValues = state.changedContent.getIn([...state.path, INDEX_KEY])
+  const template = state.templates[changedValues.get(TEMPLATE_KEY)]
 
   const fields = template.fields
-    .map(field => ({ ...field, value: values.get(field.name) }))
-    .filter(field => !field.condition || evaluate(field.condition, values))
+    .filter(field => !field.condition || evaluate(field.condition, changedValues))
+    .map(field => {
+      const originalValue = originalValues.get(field.name)
+      const changedValue = changedValues.get(field.name)
+
+      return { ...field,
+        value: changedValue,
+        changed: originalValue !== changedValue
+      }
+    })
 
   return {
     children: state.changedContent.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),

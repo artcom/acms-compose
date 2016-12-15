@@ -24,7 +24,7 @@ export default function Field(field) {
   }
 
   return (
-    <Panel header={ startCase(field.name) }>
+    <Panel bsStyle={ field.changed ? "primary" : "default" } header={ startCase(field.name) }>
       <Editor field={ field } />
     </Panel>
   )
