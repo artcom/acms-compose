@@ -1,7 +1,7 @@
 import langs from "langs"
 import startCase from "lodash/startCase"
 import React from "react"
-import { ControlLabel, FormGroup, Panel } from "react-bootstrap"
+import { ControlLabel, Dropdown, FormGroup, Glyphicon, MenuItem, Panel } from "react-bootstrap"
 
 import EnumEditor from "../editors/enumEditor"
 import MarkdownEditor from "../editors/markdownEditor"
@@ -17,10 +17,36 @@ export default function Field({ field, onChange }) {
   const { style, content } = renderContent(field, onChange)
 
   return (
-    <Panel bsStyle={ style } header={ startCase(field.name) }>
+    <Panel bsStyle={ style } header={ renderHeader(field) }>
       { content }
     </Panel>
   )
+}
+
+function renderHeader(field) {
+  return <div>
+    { startCase(field.name) }
+    <Dropdown pullRight style={ { float: "right" } } id={ field.name }>
+      <Dropdown.Toggle noCaret bsSize="xsmall">
+        <Glyphicon glyph="option-vertical" />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        { renderMenuItems(field) }
+      </Dropdown.Menu>
+    </Dropdown>
+  </div>
+}
+
+function renderMenuItems(field) {
+  const items = []
+
+  if (field.isLocalized) {
+    items.push(<MenuItem key="unlocalize">Unlocalize</MenuItem>)
+  } else {
+    items.push(<MenuItem key="localize">Localize</MenuItem>)
+  }
+
+  return items
 }
 
 function renderContent(field, onChange) {
