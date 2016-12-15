@@ -75,17 +75,11 @@ function renderChildren(children, dispatch) {
   return (
     <ListGroup>
       { children.map(child =>
-        <ListGroupItem
-          key={ child.name }
-          active={ child.hasChanged }
-          href={ fromPath(child.path) }>
-          { startCase(child.name) }
+        <ListGroupItem key={ child.name } bsStyle={ child.hasChanged ? "info" : undefined }>
+          <a href={ fromPath(child.path) }>{ startCase(child.name) }</a>
 
           <Dropdown pullRight style={ { float: "right" } } id={ child.name }>
-            <Dropdown.Toggle
-              noCaret
-              bsSize="xsmall"
-              onClick={ (event) => { event.preventDefault() } }>
+            <Dropdown.Toggle noCaret bsSize="xsmall">
               <Glyphicon glyph="option-vertical" />
             </Dropdown.Toggle>
             <Dropdown.Menu>

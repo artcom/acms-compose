@@ -40,7 +40,7 @@ function Application({ children, hasChanged, isLoading, path }) {
           </Breadcrumb>
         </Col>
         <Col md={ 2 }>
-          <Button block disabled={ !hasChanged } bsStyle="primary">Save</Button>
+          <Button block disabled={ !hasChanged } bsStyle="info">Save</Button>
         </Col>
       </Row>
       { children }

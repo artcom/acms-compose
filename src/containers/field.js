@@ -82,7 +82,7 @@ function renderContent({ field, dispatch }) {
   }
 
   return {
-    style: field.hasChanged ? "primary" : "default",
+    style: field.hasChanged ? "info" : "default",
     content: field.isLocalized
       ? renderLocalizedEditors(field, dispatch, Editor)
       : renderEditor(field, dispatch, Editor)
