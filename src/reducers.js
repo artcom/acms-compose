@@ -1,62 +1,62 @@
 import Immutable from "immutable"
 
-export function config(state = null, action) {
-  switch (action.type) {
+export function config(state = null, { type, payload }) {
+  switch (type) {
     case "UPDATE_DATA":
-      return action.payload.config
+      return payload.config
 
     default:
       return state
   }
 }
 
-export function originalContent(state = null, action) {
-  switch (action.type) {
+export function originalContent(state = null, { type, payload }) {
+  switch (type) {
     case "UPDATE_DATA":
-      return Immutable.fromJS(action.payload.content)
+      return Immutable.fromJS(payload.content)
 
     default:
       return state
   }
 }
 
-export function changedContent(state = null, action) {
-  switch (action.type) {
+export function changedContent(state = null, { type, payload }) {
+  switch (type) {
     case "UPDATE_DATA":
-      return Immutable.fromJS(action.payload.content)
+      return Immutable.fromJS(payload.content)
 
     case "CHANGE_VALUE":
-      return state.setIn(action.payload.path, action.payload.value)
+      return state.setIn(payload.path, payload.value)
 
     default:
       return state
   }
 }
 
-export function templates(state = null, action) {
-  switch (action.type) {
+export function templates(state = null, { type, payload }) {
+  switch (type) {
     case "UPDATE_DATA":
-      return action.payload.templates
+      return payload.templates
 
     default:
       return state
   }
 }
 
-export function version(state = null, action) {
-  switch (action.type) {
+export function version(state = null, { type, payload }) {
+  switch (type) {
     case "UPDATE_DATA":
-      return action.payload.version
+      return payload.version
 
     default:
       return state
   }
 }
 
-export function path(state = [], action) {
-  switch (action.type) {
+export function path(state = [], { type, payload }) {
+  switch (type) {
     case "UPDATE_PATH":
-      return action.payload
+      return payload
 
     default:
       return state
