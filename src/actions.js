@@ -24,7 +24,9 @@ function updateData(data, version) {
 export function updatePath(hash) {
   return {
     type: "UPDATE_PATH",
-    payload: toPath(hash)
+    payload: {
+      path: toPath(hash)
+    }
   }
 }
 
@@ -38,10 +40,27 @@ export function changeValue(path, value) {
   }
 }
 
+export function undoChanges(path) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const originalValue = state.originalContent.getIn(path)
+
+    dispatch({
+      type: "UNDO_CHANGES",
+      payload: {
+        path,
+        originalValue
+      }
+    })
+  }
+}
+
 export function deleteEntity(path) {
   return {
     type: "DELETE_ENTITY",
-    payload: path
+    payload: {
+      path
+    }
   }
 }
 

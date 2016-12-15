@@ -7,7 +7,7 @@ import EnumEditor from "../editors/enumEditor"
 import MarkdownEditor from "../editors/markdownEditor"
 import StringEditor from "../editors/stringEditor"
 
-import { changeValue, localize, unlocalize } from "../actions"
+import { changeValue, undoChanges, localize, unlocalize } from "../actions"
 
 const editors = {
   enum: EnumEditor,
@@ -41,7 +41,14 @@ function renderHeader({ field, dispatch }) {
 }
 
 function renderMenuItems(field, dispatch) {
-  const items = []
+  const items = [
+    <MenuItem
+      key="undo"
+      disabled={ !field.hasChanged }
+      onClick={ () => dispatch(undoChanges(field.path)) }>
+      Undo Changes
+    </MenuItem>
+  ]
 
   if (field.isLocalized) {
     items.push(

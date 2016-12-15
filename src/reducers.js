@@ -28,8 +28,11 @@ export function changedContent(state = null, { type, payload }) {
     case "CHANGE_VALUE":
       return state.setIn(payload.path, payload.value)
 
+    case "UNDO_CHANGES":
+      return state.setIn(payload.path, payload.originalValue)
+
     case "DELETE_ENTITY":
-      return state.deleteIn(payload)
+      return state.deleteIn(payload.path)
 
     case "LOCALIZE": {
       const value = state.getIn(payload.path)
@@ -68,7 +71,7 @@ export function version(state = null, { type, payload }) {
 export function path(state = [], { type, payload }) {
   switch (type) {
     case "UPDATE_PATH":
-      return payload
+      return payload.path
 
     default:
       return state

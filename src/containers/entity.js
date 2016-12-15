@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 
 import Field from "./field"
 
-import { deleteEntity } from "../actions"
+import { deleteEntity, undoChanges } from "../actions"
 import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
@@ -89,7 +89,15 @@ function renderChildren(children, dispatch) {
               <Glyphicon glyph="option-vertical" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <MenuItem onClick={ () => dispatch(deleteEntity(child.path)) }>Delete</MenuItem>
+              <MenuItem
+                disabled={ !child.hasChanged }
+                onClick={ () => dispatch(undoChanges(child.path)) }>
+                Undo Changes
+              </MenuItem>
+              <MenuItem
+                onClick={ () => dispatch(deleteEntity(child.path)) }>
+                Delete
+              </MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         </ListGroupItem>
