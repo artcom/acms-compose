@@ -1,3 +1,4 @@
+import Immutable from "immutable"
 import startCase from "lodash/startCase"
 import React from "react"
 import { Breadcrumb, Button, Col, Grid, Row } from "react-bootstrap"
@@ -9,12 +10,13 @@ export default connect(mapStateToProps)(Application)
 
 function mapStateToProps(state) {
   return {
+    hasChanges: !Immutable.is(state.originalContent, state.changedContent),
     loading: state.originalContent === null,
     path: state.path
   }
 }
 
-function Application({ children, loading, path }) {
+function Application({ children, hasChanges, loading, path }) {
   if (loading) {
     return null
   }
@@ -34,11 +36,11 @@ function Application({ children, loading, path }) {
                 active={ i === path.length - 1 }>
                 { startCase(item) }
               </Breadcrumb.Item>
-            )}
+            ) }
           </Breadcrumb>
         </Col>
         <Col md={ 2 }>
-          <Button block bsStyle="danger">Save</Button>
+          <Button block disabled={ !hasChanges } bsStyle="danger">Save</Button>
         </Col>
       </Row>
       { children }
