@@ -28,6 +28,9 @@ export function changedContent(state = null, { type, payload }) {
     case "CHANGE_VALUE":
       return state.setIn(payload.path, payload.value)
 
+    case "DELETE_ENTITY":
+      return state.deleteIn(payload)
+
     case "LOCALIZE": {
       const value = state.getIn(payload.path)
       const pairs = payload.languages.map(language => [language, value])

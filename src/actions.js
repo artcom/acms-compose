@@ -38,6 +38,13 @@ export function changeValue(path, value) {
   }
 }
 
+export function deleteEntity(path) {
+  return {
+    type: "DELETE_ENTITY",
+    payload: path
+  }
+}
+
 export function localize(path) {
   return (dispatch, getState) => {
     const state = getState()

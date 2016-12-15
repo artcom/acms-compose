@@ -28,6 +28,7 @@ export default function Field(props) {
 function renderHeader({ field, dispatch }) {
   return <div>
     { startCase(field.name) }
+
     <Dropdown pullRight style={ { float: "right" } } id={ field.name }>
       <Dropdown.Toggle noCaret bsSize="xsmall">
         <Glyphicon glyph="option-vertical" />

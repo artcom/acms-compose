@@ -1,11 +1,12 @@
 import Immutable from "immutable"
 import startCase from "lodash/startCase"
 import React from "react"
-import { Col, ListGroup, ListGroupItem, Row } from "react-bootstrap"
+import { Col, Dropdown, Glyphicon, ListGroup, ListGroupItem, MenuItem, Row } from "react-bootstrap"
 import { connect } from "react-redux"
 
 import Field from "./field"
 
+import { deleteEntity } from "../actions"
 import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
@@ -59,7 +60,7 @@ function Entity({ children, dispatch, fields }) {
     <Row>
       <Col md={ 4 }>
         <h4>Children</h4>
-        { renderChildren(children) }
+        { renderChildren(children, dispatch) }
       </Col>
 
       <Col md={ 8 }>
@@ -70,7 +71,7 @@ function Entity({ children, dispatch, fields }) {
   )
 }
 
-function renderChildren(children) {
+function renderChildren(children, dispatch) {
   return (
     <ListGroup>
       { children.map(child =>
@@ -79,6 +80,18 @@ function renderChildren(children) {
           active={ child.hasChanged }
           href={ fromPath(child.path) }>
           { startCase(child.name) }
+
+          <Dropdown pullRight style={ { float: "right" } } id={ child.name }>
+            <Dropdown.Toggle
+              noCaret
+              bsSize="xsmall"
+              onClick={ (event) => { event.preventDefault() } }>
+              <Glyphicon glyph="option-vertical" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <MenuItem onClick={ () => dispatch(deleteEntity(child.path)) }>Delete</MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
         </ListGroupItem>
       ) }
     </ListGroup>
