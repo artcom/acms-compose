@@ -26,3 +26,13 @@ export function updatePath(hash) {
     payload: toPath(hash)
   }
 }
+
+export function changeValue(path, value) {
+  return {
+    type: "CHANGE_VALUE",
+    payload: {
+      path,
+      value
+    }
+  }
+}

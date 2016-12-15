@@ -9,7 +9,7 @@ export default connect(mapStateToProps)(Application)
 
 function mapStateToProps(state) {
   return {
-    loading: state.content === null,
+    loading: state.originalContent === null,
     path: state.path
   }
 }

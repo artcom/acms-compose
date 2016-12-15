@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 
 import Field from "./field"
 
+import { changeValue } from "../actions"
 import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
@@ -14,7 +15,7 @@ const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
 
 function mapStateToProps(state) {
-  const values = state.content.getIn([...state.path, INDEX_KEY])
+  const values = state.changedContent.getIn([...state.path, INDEX_KEY])
   const template = state.templates[values.get(TEMPLATE_KEY)]
 
   const fields = template.fields
@@ -22,13 +23,13 @@ function mapStateToProps(state) {
     .filter(field => !field.condition || evaluate(field.condition, values))
 
   return {
-    children: state.content.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
+    children: state.changedContent.getIn(state.path).keySeq().filter(key => key !== INDEX_KEY),
     fields,
     path: state.path
   }
 }
 
-function Entity({ children, fields, path }) {
+function Entity({ children, dispatch, fields, path }) {
   return (
     <Row>
       <Col md={ 4 }>
@@ -38,7 +39,7 @@ function Entity({ children, fields, path }) {
 
       <Col md={ 8 }>
         <h4>Fields</h4>
-        { renderFields(fields) }
+        { renderFields(fields, path, dispatch) }
       </Col>
     </Row>
   )
@@ -56,8 +57,13 @@ function renderChildren(children, path) {
   )
 }
 
-function renderFields(fields) {
+function renderFields(fields, path, dispatch) {
   return fields.map(field =>
-    <Field key={ field.name } { ...field } />
+    <Field
+      key={ field.name }
+      onChange={ (event) => {
+        dispatch(changeValue([...path, INDEX_KEY, field.name], event.target.value))
+      } }
+      { ...field } />
   )
 }
