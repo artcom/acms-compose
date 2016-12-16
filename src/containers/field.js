@@ -107,7 +107,7 @@ function renderLocalizedEditors(field, dispatch, Editor) {
         { renderEditor(languageField, dispatch, Editor) }
       </FormGroup>
     )
-  })
+  }).valueSeq()
 }
 
 function renderEditor(field, dispatch, Editor) {
