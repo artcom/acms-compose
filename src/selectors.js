@@ -7,6 +7,7 @@ import { evaluate } from "./condition"
 const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
 
+export const getVersion = (state) => state.version
 export const getOriginalContent = (state) => state.originalContent
 export const getChangedContent = (state) => state.changedContent
 export const getTemplates = (state) => state.templates

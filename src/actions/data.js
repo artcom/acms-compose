@@ -1,9 +1,34 @@
-import axios from "axios"
+import * as gitJsonApi from "../apis/gitJsonApi"
+import { getChangedContent, getVersion } from "../selectors"
 
-export function loadData(url, version = "master") {
+import { showError } from "./error"
+
+export function loadData() {
   return async function(dispatch) {
-    const response = await axios.get(version, { baseURL: url })
-    dispatch(updateData(response.data, response.headers.etag))
+    const { data, version } = await gitJsonApi.loadData()
+    dispatch(updateData(data, version))
+  }
+}
+
+export function saveData() {
+  return async function(dispatch, getState) {
+    const state = getState()
+    const version = getVersion(state)
+    const content = getChangedContent(state)
+
+    try {
+      dispatch(startSaving())
+      await gitJsonApi.updateContent(content.toJS(), version)
+      dispatch(loadData())
+    } catch (error) {
+      dispatch(showError(`Failed to save data (${error.message})`))
+    }
+  }
+}
+
+function startSaving() {
+  return {
+    type: "START_SAVING"
   }
 }
 

@@ -1,5 +1,29 @@
 import Immutable from "immutable"
 
+export function isSaving(state = false, { type }) {
+  switch (type) {
+    case "START_SAVING":
+      return true
+
+    case "UPDATE_DATA":
+    case "SHOW_ERROR":
+      return false
+
+    default:
+      return state
+  }
+}
+
+export function version(state = null, { type, payload }) {
+  switch (type) {
+    case "UPDATE_DATA":
+      return payload.version
+
+    default:
+      return state
+  }
+}
+
 export function config(state = null, { type, payload }) {
   switch (type) {
     case "UPDATE_DATA":
@@ -14,16 +38,6 @@ export function templates(state = null, { type, payload }) {
   switch (type) {
     case "UPDATE_DATA":
       return payload.templates
-
-    default:
-      return state
-  }
-}
-
-export function version(state = null, { type, payload }) {
-  switch (type) {
-    case "UPDATE_DATA":
-      return payload.version
 
     default:
       return state
@@ -121,6 +135,19 @@ export function path(state = [], { type, payload }) {
   switch (type) {
     case "UPDATE_PATH":
       return payload.path
+
+    default:
+      return state
+  }
+}
+
+export function error(state = null, { type, payload }) {
+  switch (type) {
+    case "SHOW_ERROR":
+      return payload.message
+
+    case "HIDE_ERROR":
+      return null
 
     default:
       return state

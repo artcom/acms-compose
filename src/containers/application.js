@@ -1,49 +1,76 @@
 import Immutable from "immutable"
 import startCase from "lodash/startCase"
 import React from "react"
-import { Breadcrumb, Button, Col, Grid, Row } from "react-bootstrap"
+import { Alert, Breadcrumb, Button, Col, Grid, Row } from "react-bootstrap"
 import { connect } from "react-redux"
 
+import { saveData } from "../actions/data"
+import { hideError } from "../actions/error"
 import { fromPath } from "../hash"
 
 export default connect(mapStateToProps)(Application)
 
 function mapStateToProps(state) {
   return {
+    error: state.error,
     hasChanged: !Immutable.is(state.originalContent, state.changedContent),
     isLoading: state.originalContent === null,
+    isSaving: state.isSaving,
     path: state.path
   }
 }
 
-function Application({ children, hasChanged, isLoading, path }) {
-  if (isLoading) {
+function Application(props) {
+  if (props.isLoading) {
     return null
   }
 
   return (
     <Grid style={ { marginTop: "15px" } }>
-      <Row>
-        <Col md={ 10 }>
-          <Breadcrumb>
-            <Breadcrumb.Item href={ fromPath([]) }>
-              Exhibition
-            </Breadcrumb.Item>
-            { path.map((item, i) =>
-              <Breadcrumb.Item
-                key={ item }
-                href={ fromPath(path.slice(0, i + 1)) }
-                active={ i === path.length - 1 }>
-                { startCase(item) }
-              </Breadcrumb.Item>
-            ) }
-          </Breadcrumb>
-        </Col>
-        <Col md={ 2 }>
-          <Button block disabled={ !hasChanged } bsStyle="info">Save</Button>
-        </Col>
-      </Row>
-      { children }
+      { renderError(props) }
+      { renderHeader(props) }
+      { props.children }
     </Grid>
+  )
+}
+
+function renderError({ dispatch, error }) {
+  if (error) {
+    return (
+      <Alert bsStyle="danger" onDismiss={ () => dispatch(hideError()) }>
+        <strong>ERROR:</strong> { error }
+      </Alert>
+    )
+  }
+}
+
+function renderHeader({ dispatch, hasChanged, isSaving, path }) {
+  return (
+    <Row>
+      <Col md={ 10 }>
+        <Breadcrumb>
+          <Breadcrumb.Item href={ fromPath([]) }>
+            Exhibition
+          </Breadcrumb.Item>
+          { path.map((item, i) =>
+            <Breadcrumb.Item
+              key={ item }
+              href={ fromPath(path.slice(0, i + 1)) }
+              active={ i === path.length - 1 }>
+              { startCase(item) }
+            </Breadcrumb.Item>
+          ) }
+        </Breadcrumb>
+      </Col>
+      <Col md={ 2 }>
+        <Button
+          block
+          bsStyle="info"
+          disabled={ !hasChanged || isSaving }
+          onClick={ () => dispatch(saveData()) }>
+          { isSaving ? "Saving..." : "Save" }
+        </Button>
+      </Col>
+    </Row>
   )
 }

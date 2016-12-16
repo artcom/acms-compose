@@ -1,4 +1,3 @@
-import querystring from "querystring"
 import React from "react"
 import { render } from "react-dom"
 import { Provider } from "react-redux"
@@ -14,10 +13,8 @@ import EntityRenamingModal from "./containers/entityRenamingModal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
-const params = querystring.parse(window.location.search.substring(1))
-
 const store = configureStore()
-store.dispatch(loadData(params.gitJsonApi))
+store.dispatch(loadData())
 
 window.addEventListener("hashchange", updatePathFromHash)
 updatePathFromHash()
