@@ -51,34 +51,57 @@ function Entity({ canHaveChildren, children, dispatch, fields }) {
 function renderChildren(children, dispatch) {
   return (
     <ListGroup>
-      { children.map(child =>
-        <ListGroupItem key={ child.name } bsStyle={ child.hasChanged ? "info" : undefined }>
-          <a href={ fromPath(child.path) }>{ startCase(child.name) }</a>
-
-          <Dropdown pullRight style={ { float: "right" } } id={ child.name }>
-            <Dropdown.Toggle noCaret bsSize="xsmall">
-              <Glyphicon glyph="option-vertical" />
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <MenuItem
-                onClick={ () => dispatch(startEntityRenaming(child.name)) }>
-                Rename
-              </MenuItem>
-              <MenuItem
-                disabled={ !child.hasChanged }
-                onClick={ () => dispatch(undoChanges(child.path)) }>
-                Undo Changes
-              </MenuItem>
-              <MenuItem
-                onClick={ () => dispatch(deleteEntity(child.path)) }>
-                Delete
-              </MenuItem>
-            </Dropdown.Menu>
-          </Dropdown>
-        </ListGroupItem>
-      ) }
+      { children.map(child => renderChild(child, dispatch)) }
     </ListGroup>
   )
+}
+
+function renderChild(child, dispatch) {
+  const displayName = startCase(child.name)
+  const link = child.isDeleted ? displayName : <a href={ fromPath(child.path) }>{ displayName }</a>
+
+  return (
+    <ListGroupItem key={ child.name } bsStyle={ childStyle(child) }>
+      { link }
+
+      <Dropdown pullRight style={ { float: "right" } } id={ child.name }>
+        <Dropdown.Toggle noCaret bsSize="xsmall">
+          <Glyphicon glyph="option-vertical" />
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <MenuItem
+            disabled={ child.isDeleted }
+            onClick={ () => dispatch(startEntityRenaming(child.name)) }>
+            Rename
+          </MenuItem>
+          <MenuItem
+            disabled={ !child.hasChanged }
+            onClick={ () => dispatch(undoChanges(child.path)) }>
+            Undo Changes
+          </MenuItem>
+          <MenuItem
+            disabled={ child.isDeleted }
+            onClick={ () => dispatch(deleteEntity(child.path)) }>
+            Delete
+          </MenuItem>
+        </Dropdown.Menu>
+      </Dropdown>
+    </ListGroupItem>
+  )
+}
+
+function childStyle(child) {
+  if (child.isNew) {
+    return "success"
+  }
+
+  if (child.isDeleted) {
+    return "danger"
+  }
+
+  if (child.hasChanged) {
+    return "info"
+  }
 }
 
 function renderFields(fields, dispatch) {

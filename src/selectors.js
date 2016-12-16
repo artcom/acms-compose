@@ -137,11 +137,17 @@ function isLocalized(value, languages) {
 
 export const getChildren = createSelector(
   [getOriginalEntity, getChangedEntity, getPath],
-  (originalEntity, changedEntity, path) => changedEntity.keySeq()
-    .filter(key => key !== INDEX_KEY)
-    .map(child => ({
-      hasChanged: !Immutable.is(originalEntity.get(child), changedEntity.get(child)),
-      name: child,
-      path: [...path, child]
-    }))
+  (originalEntity, changedEntity, path) => {
+    const childNames = new Immutable.Set(originalEntity.keySeq().concat(changedEntity.keySeq()))
+
+    return childNames
+      .filter(name => name !== INDEX_KEY)
+      .map(child => ({
+        hasChanged: !Immutable.is(originalEntity.get(child), changedEntity.get(child)),
+        isNew: !originalEntity.has(child),
+        isDeleted: !changedEntity.has(child),
+        name: child,
+        path: [...path, child]
+      }))
+  }
 )
