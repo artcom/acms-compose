@@ -71,6 +71,15 @@ export function startEntityCreation() {
   }
 }
 
+export function updateEntityCreation(params) {
+  return {
+    type: "UPDATE_ENTITY_CREATION",
+    payload: {
+      params
+    }
+  }
+}
+
 export function finishEntityCreation() {
   return {
     type: "FINISH_ENTITY_CREATION"

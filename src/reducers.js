@@ -53,6 +53,9 @@ export function newEntity(state = null, { type, payload }) {
     case "START_ENTITY_CREATION":
       return payload
 
+    case "UPDATE_ENTITY_CREATION":
+      return { ...state, ...payload.params }
+
     case "FINISH_ENTITY_CREATION":
       return null
 
