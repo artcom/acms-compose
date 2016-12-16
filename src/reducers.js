@@ -48,6 +48,27 @@ export function changedContent(state = null, { type, payload }) {
   }
 }
 
+export function newEntity(state = null, { type, payload }) {
+  switch (type) {
+    case "START_ENTITY_CREATION":
+      return {
+        name: "",
+        parentPath: payload.parentPath,
+        template: payload.template,
+        templateOptions: payload.templateOptions
+      }
+
+    case "FINISH_ENTITY_CREATION":
+      return null
+
+    case "CANCEL_ENTITY_CREATION":
+      return null
+
+    default:
+      return state
+  }
+}
+
 export function templates(state = null, { type, payload }) {
   switch (type) {
     case "UPDATE_DATA":

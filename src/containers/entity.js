@@ -1,12 +1,22 @@
 import Immutable from "immutable"
 import startCase from "lodash/startCase"
 import React from "react"
-import { Col, Dropdown, Glyphicon, ListGroup, ListGroupItem, MenuItem, Row } from "react-bootstrap"
 import { connect } from "react-redux"
+
+import {
+  Button,
+  Col,
+  Dropdown,
+  Glyphicon,
+  ListGroup,
+  ListGroupItem,
+  MenuItem,
+  Row
+ } from "react-bootstrap"
 
 import Field from "./field"
 
-import { deleteEntity, undoChanges } from "../actions"
+import { deleteEntity, startEntityCreation, undoChanges } from "../actions"
 import { evaluate } from "../condition"
 import { fromPath } from "../hash"
 
@@ -47,7 +57,8 @@ function mapStateToProps(state) {
 
   return {
     children,
-    fields
+    fields,
+    path: state.path
   }
 }
 
@@ -55,12 +66,15 @@ function isLocalized(value, languages) {
   return Immutable.Map.isMap(value) && languages.every(language => value.has(language))
 }
 
-function Entity({ children, dispatch, fields }) {
+function Entity({ children, dispatch, fields, path }) {
   return (
     <Row>
       <Col md={ 4 }>
         <h4>Children</h4>
         { renderChildren(children, dispatch) }
+        <Button onClick={ () => dispatch(startEntityCreation(path)) }>
+          <Glyphicon glyph="plus" />
+        </Button>
       </Col>
 
       <Col md={ 8 }>

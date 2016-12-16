@@ -55,6 +55,35 @@ export function undoChanges(path) {
   }
 }
 
+export function startEntityCreation(parentPath) {
+  return (dispatch, getState) => {
+    const state = getState()
+    const parentTemplate = state.changedContent.getIn([...parentPath, "index", "template"])
+    const templateOptions = state.templates[parentTemplate].children
+
+    dispatch({
+      type: "START_ENTITY_CREATION",
+      payload: {
+        parentPath,
+        template: templateOptions[0],
+        templateOptions
+      }
+    })
+  }
+}
+
+export function finishEntityCreation() {
+  return {
+    type: "FINISH_ENTITY_CREATION"
+  }
+}
+
+export function cancelEntityCreation() {
+  return {
+    type: "CANCEL_ENTITY_CREATION"
+  }
+}
+
 export function deleteEntity(path) {
   return {
     type: "DELETE_ENTITY",
