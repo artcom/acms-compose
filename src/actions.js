@@ -5,6 +5,7 @@ import startCase from "lodash/startCase"
 import { toPath } from "./hash"
 
 import {
+  getConfig,
   getNewEntityPath,
   getNewEntityValues,
   getPath,
@@ -23,9 +24,7 @@ function updateData(data, version) {
   return {
     type: "UPDATE_DATA",
     payload: {
-      config: data.config,
-      content: data.content,
-      templates: data.templates,
+      data,
       version
     }
   }
@@ -161,13 +160,13 @@ export function deleteEntity(path) {
 
 export function localize(path) {
   return (dispatch, getState) => {
-    const languages = getState().config.languages
+    const state = getState()
 
     dispatch({
       type: "LOCALIZE",
       payload: {
         path,
-        languages
+        languages: getConfig(state).languages
       }
     })
   }
@@ -175,13 +174,13 @@ export function localize(path) {
 
 export function unlocalize(path) {
   return (dispatch, getState) => {
-    const defaultLanguage = getState().config.languages[0]
+    const state = getState()
 
     dispatch({
       type: "UNLOCALIZE",
       payload: {
         path,
-        defaultLanguage
+        defaultLanguage: getConfig(state).languages[0]
       }
     })
   }
