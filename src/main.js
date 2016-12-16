@@ -9,6 +9,7 @@ import { configureStore } from "./store"
 import Application from "./containers/application"
 import Entity from "./containers/entity"
 import EntityCreationModal from "./containers/entityCreationModal"
+import EntityRenamingModal from "./containers/entityRenamingModal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -29,6 +30,7 @@ render(
     <Application>
       <Entity />
       <EntityCreationModal />
+      <EntityRenamingModal />
     </Application>
   </Provider>
 , document.getElementById("app"))

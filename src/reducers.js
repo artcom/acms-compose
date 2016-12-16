@@ -36,6 +36,12 @@ export function changedContent(state = null, { type, payload }) {
     case "FINISH_ENTITY_CREATION":
       return state.setIn(payload.path, payload.values)
 
+    case "FINISH_ENTITY_RENAMING": {
+      const parent = state.getIn(payload.path)
+      const renamed = parent.mapKeys(name => name === payload.oldName ? payload.newName : name)
+      return state.setIn(payload.path, renamed.toMap())
+    }
+
     case "DELETE_ENTITY":
       return state.deleteIn(payload.path)
 
@@ -65,6 +71,25 @@ export function newEntity(state = null, { type, payload }) {
       return null
 
     case "CANCEL_ENTITY_CREATION":
+      return null
+
+    default:
+      return state
+  }
+}
+
+export function renamedEntity(state = null, { type, payload }) {
+  switch (type) {
+    case "START_ENTITY_RENAMING":
+      return payload
+
+    case "UPDATE_ENTITY_RENAMING":
+      return { ...state, newName: payload.newName }
+
+    case "FINISH_ENTITY_RENAMING":
+      return null
+
+    case "CANCEL_ENTITY_RENAMING":
       return null
 
     default:

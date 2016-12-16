@@ -15,7 +15,7 @@ import {
 
 import Field from "./field"
 
-import { deleteEntity, startEntityCreation, undoChanges } from "../actions"
+import { deleteEntity, startEntityCreation, startEntityRenaming, undoChanges } from "../actions"
 import { fromPath } from "../hash"
 import { getChildren, getFields, getTemplateChildren } from "../selectors"
 
@@ -60,6 +60,10 @@ function renderChildren(children, dispatch) {
               <Glyphicon glyph="option-vertical" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
+              <MenuItem
+                onClick={ () => dispatch(startEntityRenaming(child.name)) }>
+                Rename
+              </MenuItem>
               <MenuItem
                 disabled={ !child.hasChanged }
                 onClick={ () => dispatch(undoChanges(child.path)) }>

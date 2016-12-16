@@ -1,7 +1,16 @@
 import axios from "axios"
+import kebabCase from "lodash/kebabCase"
+import startCase from "lodash/startCase"
 
 import { toPath } from "./hash"
-import { getNewEntityPath, getNewEntityValues, getTemplateChildren } from "./selectors"
+
+import {
+  getNewEntityPath,
+  getNewEntityValues,
+  getPath,
+  getRenamedEntity,
+  getTemplateChildren
+} from "./selectors"
 
 export function loadData(url, version = "master") {
   return async function(dispatch) {
@@ -97,6 +106,47 @@ export function finishEntityCreation() {
 export function cancelEntityCreation() {
   return {
     type: "CANCEL_ENTITY_CREATION"
+  }
+}
+
+export function startEntityRenaming(oldName) {
+  return {
+    type: "START_ENTITY_RENAMING",
+    payload: {
+      oldName,
+      newName: startCase(oldName)
+    }
+  }
+}
+
+export function updateEntityRenaming(newName) {
+  return {
+    type: "UPDATE_ENTITY_RENAMING",
+    payload: {
+      newName
+    }
+  }
+}
+
+export function finishEntityRenaming() {
+  return (dispatch, getState) => {
+    const state = getState()
+    const { oldName, newName } = getRenamedEntity(state)
+
+    dispatch({
+      type: "FINISH_ENTITY_RENAMING",
+      payload: {
+        path: getPath(state),
+        oldName,
+        newName: kebabCase(newName)
+      }
+    })
+  }
+}
+
+export function cancelEntityRenaming() {
+  return {
+    type: "CANCEL_ENTITY_RENAMING"
   }
 }
 

@@ -23,9 +23,27 @@ export const getNewEntity = (state) => {
   }
 
   return { ...state.newEntity,
-    isValidName: state.newEntity.name.length > 0 && state.newEntity.name !== "index",
+    isValidName: validateEntityName(state.newEntity.name),
     isVisible: true
   }
+}
+
+export const getRenamedEntity = (state) => {
+  if (!state.renamedEntity) {
+    return {
+      isVisible: false,
+      newName: ""
+    }
+  }
+
+  return { ...state.renamedEntity,
+    isValidName: validateEntityName(state.renamedEntity.newName),
+    isVisible: true
+  }
+}
+
+function validateEntityName(name) {
+  return name.length > 0 && name !== "index"
 }
 
 export const getNewEntityPath = createSelector(
