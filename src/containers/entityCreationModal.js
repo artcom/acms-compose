@@ -2,7 +2,7 @@ import startCase from "lodash/startCase"
 import React from "react"
 import { connect } from "react-redux"
 
-import { Button, ControlLabel, FormControl, FormGroup, Modal } from "react-bootstrap"
+import { Button, ControlLabel, Form, FormControl, FormGroup, Modal } from "react-bootstrap"
 
 import { cancelEntityCreation, finishEntityCreation, updateEntityCreation } from "../actions"
 
@@ -30,6 +30,7 @@ function mapStateToProps(state) {
 function EntityCreationModal({ dispatch, newEntity }) {
   return (
     <Modal show={ newEntity.isVisible } onHide={ () => dispatch(cancelEntityCreation()) }>
+      <Form>
       <Modal.Header closeButton>
         <Modal.Title>Add Child</Modal.Title>
       </Modal.Header>
@@ -39,6 +40,7 @@ function EntityCreationModal({ dispatch, newEntity }) {
           <FormControl
             type="text"
             value={ newEntity.name }
+            autoFocus
             onChange={ (event) => dispatch(updateEntityCreation({
               name: event.target.value
             })) } />
@@ -60,12 +62,14 @@ function EntityCreationModal({ dispatch, newEntity }) {
       </Modal.Body>
       <Modal.Footer>
         <Button
+          type="submit"
           bsStyle="info"
           disabled={ !newEntity.isValidName }
           onClick={ () => dispatch(finishEntityCreation()) }>
           Create
         </Button>
       </Modal.Footer>
+    </Form>
     </Modal>
   )
 }
