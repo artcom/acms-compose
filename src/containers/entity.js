@@ -15,7 +15,8 @@ import {
 
 import Field from "./field"
 
-import { deleteEntity, startEntityCreation, startEntityRenaming, undoChanges } from "../actions"
+import { deleteEntity, startEntityCreation, startEntityRenaming } from "../actions/entity"
+import { undoChanges } from "../actions/value"
 import { fromPath } from "../hash"
 import { getChildren, getFields, getTemplateChildren } from "../selectors"
 

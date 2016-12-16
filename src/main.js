@@ -3,7 +3,8 @@ import React from "react"
 import { render } from "react-dom"
 import { Provider } from "react-redux"
 
-import { loadData, updatePath } from "./actions"
+import { loadData } from "./actions/data"
+import { updatePath } from "./actions/path"
 import { configureStore } from "./store"
 
 import Application from "./containers/application"

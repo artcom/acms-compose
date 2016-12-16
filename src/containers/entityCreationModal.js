@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 import { Button, ControlLabel, Form, FormControl, FormGroup, Modal } from "react-bootstrap"
 
-import { cancelEntityCreation, finishEntityCreation, updateEntityCreation } from "../actions"
+import { cancelEntityCreation, finishEntityCreation, updateEntityCreation } from "../actions/entity"
 import { getNewEntity } from "../selectors"
 
 export default connect(mapStateToProps)(EntityCreationModal)

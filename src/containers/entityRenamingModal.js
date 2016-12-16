@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import { Button, ControlLabel, Form, FormControl, FormGroup, Modal } from "react-bootstrap"
 
-import { cancelEntityRenaming, finishEntityRenaming, updateEntityRenaming } from "../actions"
+import { cancelEntityRenaming, finishEntityRenaming, updateEntityRenaming } from "../actions/entity"
 import { getRenamedEntity } from "../selectors"
 
 export default connect(mapStateToProps)(EntityRenamingModal)

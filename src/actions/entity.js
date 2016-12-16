@@ -1,67 +1,13 @@
-import axios from "axios"
 import kebabCase from "lodash/kebabCase"
 import startCase from "lodash/startCase"
 
-import { toPath } from "./hash"
-
 import {
-  getConfig,
   getNewEntityPath,
   getNewEntityValues,
   getPath,
   getRenamedEntity,
   getTemplateChildren
-} from "./selectors"
-
-export function loadData(url, version = "master") {
-  return async function(dispatch) {
-    const response = await axios.get(version, { baseURL: url })
-    dispatch(updateData(response.data, response.headers.etag))
-  }
-}
-
-function updateData(data, version) {
-  return {
-    type: "UPDATE_DATA",
-    payload: {
-      data,
-      version
-    }
-  }
-}
-
-export function updatePath(hash) {
-  return {
-    type: "UPDATE_PATH",
-    payload: {
-      path: toPath(hash)
-    }
-  }
-}
-
-export function changeValue(path, value) {
-  return {
-    type: "CHANGE_VALUE",
-    payload: {
-      path,
-      value
-    }
-  }
-}
-
-export function undoChanges(path) {
-  return (dispatch, getState) => {
-    const originalValue = getState().originalContent.getIn(path)
-
-    dispatch({
-      type: "UNDO_CHANGES",
-      payload: {
-        path,
-        originalValue
-      }
-    })
-  }
-}
+} from "../selectors"
 
 export function startEntityCreation() {
   return (dispatch, getState) => {
@@ -155,33 +101,5 @@ export function deleteEntity(path) {
     payload: {
       path
     }
-  }
-}
-
-export function localize(path) {
-  return (dispatch, getState) => {
-    const state = getState()
-
-    dispatch({
-      type: "LOCALIZE",
-      payload: {
-        path,
-        languages: getConfig(state).languages
-      }
-    })
-  }
-}
-
-export function unlocalize(path) {
-  return (dispatch, getState) => {
-    const state = getState()
-
-    dispatch({
-      type: "UNLOCALIZE",
-      payload: {
-        path,
-        defaultLanguage: getConfig(state).languages[0]
-      }
-    })
   }
 }

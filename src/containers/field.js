@@ -7,7 +7,8 @@ import EnumEditor from "../editors/enumEditor"
 import MarkdownEditor from "../editors/markdownEditor"
 import StringEditor from "../editors/stringEditor"
 
-import { changeValue, undoChanges, localize, unlocalize } from "../actions"
+import { changeValue, undoChanges } from "../actions/value"
+import { localize, unlocalize } from "../actions/localization"
 
 const editors = {
   enum: EnumEditor,
