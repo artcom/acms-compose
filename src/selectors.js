@@ -9,9 +9,9 @@ const TEMPLATE_KEY = "template"
 
 export const getOriginalContent = (state) => state.originalContent
 export const getChangedContent = (state) => state.changedContent
-export const getTemplates = (state) => state.data.templates
+export const getTemplates = (state) => state.templates
 export const getPath = (state) => state.path
-export const getConfig = (state) => state.data.config
+export const getConfig = (state) => state.config
 
 export const getNewEntity = (state) => {
   if (!state.newEntity) {

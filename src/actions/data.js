@@ -11,7 +11,9 @@ function updateData(data, version) {
   return {
     type: "UPDATE_DATA",
     payload: {
-      data,
+      config: data.config,
+      content: data.content,
+      templates: data.templates,
       version
     }
   }
