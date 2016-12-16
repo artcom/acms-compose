@@ -31,6 +31,9 @@ export function changedContent(state = null, { type, payload }) {
     case "UNDO_CHANGES":
       return state.setIn(payload.path, payload.originalValue)
 
+    case "FINISH_ENTITY_CREATION":
+      return state.setIn(payload.path, payload.values)
+
     case "DELETE_ENTITY":
       return state.deleteIn(payload.path)
 

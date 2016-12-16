@@ -1,7 +1,7 @@
 import axios from "axios"
 
 import { toPath } from "./hash"
-import { getTemplateChildren } from "./selectors"
+import { getNewEntityPath, getNewEntityValues, getTemplateChildren } from "./selectors"
 
 export function loadData(url, version = "master") {
   return async function(dispatch) {
@@ -81,8 +81,16 @@ export function updateEntityCreation(params) {
 }
 
 export function finishEntityCreation() {
-  return {
-    type: "FINISH_ENTITY_CREATION"
+  return (dispatch, getState) => {
+    const state = getState()
+
+    dispatch({
+      type: "FINISH_ENTITY_CREATION",
+      payload: {
+        path: getNewEntityPath(state),
+        values: getNewEntityValues(state)
+      }
+    })
   }
 }
 
