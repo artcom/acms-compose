@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import { toPath } from "./hash"
+import { getTemplate } from "./selectors"
 
 export function loadData(url, version = "master") {
   return async function(dispatch) {
@@ -42,8 +43,7 @@ export function changeValue(path, value) {
 
 export function undoChanges(path) {
   return (dispatch, getState) => {
-    const state = getState()
-    const originalValue = state.originalContent.getIn(path)
+    const originalValue = getState().originalContent.getIn(path)
 
     dispatch({
       type: "UNDO_CHANGES",
@@ -55,18 +55,17 @@ export function undoChanges(path) {
   }
 }
 
-export function startEntityCreation(parentPath) {
+export function startEntityCreation() {
   return (dispatch, getState) => {
     const state = getState()
-    const parentTemplate = state.changedContent.getIn([...parentPath, "index", "template"])
-    const templateOptions = state.templates[parentTemplate].children
+    const templates = getTemplate(state).children
 
     dispatch({
       type: "START_ENTITY_CREATION",
       payload: {
-        parentPath,
-        template: templateOptions[0],
-        templateOptions
+        name: "",
+        template: templates[0],
+        templates
       }
     })
   }
@@ -95,8 +94,7 @@ export function deleteEntity(path) {
 
 export function localize(path) {
   return (dispatch, getState) => {
-    const state = getState()
-    const languages = state.config.languages
+    const languages = getState().config.languages
 
     dispatch({
       type: "LOCALIZE",
@@ -110,8 +108,7 @@ export function localize(path) {
 
 export function unlocalize(path) {
   return (dispatch, getState) => {
-    const state = getState()
-    const defaultLanguage = state.config.languages[0]
+    const defaultLanguage = getState().config.languages[0]
 
     dispatch({
       type: "UNLOCALIZE",

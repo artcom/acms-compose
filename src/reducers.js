@@ -51,12 +51,7 @@ export function changedContent(state = null, { type, payload }) {
 export function newEntity(state = null, { type, payload }) {
   switch (type) {
     case "START_ENTITY_CREATION":
-      return {
-        name: "",
-        parentPath: payload.parentPath,
-        template: payload.template,
-        templateOptions: payload.templateOptions
-      }
+      return payload
 
     case "FINISH_ENTITY_CREATION":
       return null

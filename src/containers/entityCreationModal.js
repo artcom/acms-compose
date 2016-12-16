@@ -11,7 +11,7 @@ export default connect(mapStateToProps)(EntityCreationModal)
 function mapStateToProps(state) {
   const newEntity = state.newEntity || {
     name: "",
-    templateOptions: []
+    templates: []
   }
 
   return {
@@ -36,9 +36,9 @@ function EntityCreationModal({ dispatch, isVisible, newEntity }) {
           <FormControl
             componentClass="select"
             value={ newEntity.template }
-            disabled={ newEntity.templateOptions.length < 2 }>
-            { newEntity.templateOptions.map(option =>
-              <option key={ option } value={ option }>{ startCase(option) }</option>
+            disabled={ newEntity.templates.length < 2 }>
+            { newEntity.templates.map(template =>
+              <option key={ template } value={ template }>{ startCase(template) }</option>
             ) }
           </FormControl>
         </FormGroup>
