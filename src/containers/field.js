@@ -45,7 +45,7 @@ function renderMenuItems(field, dispatch) {
     <MenuItem
       key="undo"
       disabled={ !field.hasChanged }
-      onClick={ () => dispatch(undoChanges(field.path)) }>
+      onSelect={ () => dispatch(undoChanges(field.path)) }>
       Undo Changes
     </MenuItem>
   ]
@@ -54,7 +54,7 @@ function renderMenuItems(field, dispatch) {
     items.push(
       <MenuItem
         key="unlocalize"
-        onClick={ () => dispatch(unlocalize(field.path)) }>
+        onSelect={ () => dispatch(unlocalize(field.path)) }>
         Unlocalize
       </MenuItem>
     )
@@ -62,7 +62,7 @@ function renderMenuItems(field, dispatch) {
     items.push(
       <MenuItem
         key="localize"
-        onClick={ () => dispatch(localize(field.path)) }>
+        onSelect={ () => dispatch(localize(field.path)) }>
         Localize
       </MenuItem>
     )

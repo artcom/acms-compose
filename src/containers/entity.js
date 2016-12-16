@@ -71,17 +71,17 @@ function renderChild(child, dispatch) {
         <Dropdown.Menu>
           <MenuItem
             disabled={ child.isDeleted }
-            onClick={ () => dispatch(startEntityRenaming(child.name)) }>
+            onSelect={ () => dispatch(startEntityRenaming(child.name)) }>
             Rename
           </MenuItem>
           <MenuItem
             disabled={ !child.hasChanged }
-            onClick={ () => dispatch(undoChanges(child.path)) }>
+            onSelect={ () => dispatch(undoChanges(child.path)) }>
             Undo Changes
           </MenuItem>
           <MenuItem
             disabled={ child.isDeleted }
-            onClick={ () => dispatch(deleteEntity(child.path)) }>
+            onSelect={ () => dispatch(deleteEntity(child.path)) }>
             Delete
           </MenuItem>
         </Dropdown.Menu>
