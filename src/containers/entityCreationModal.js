@@ -5,25 +5,13 @@ import { connect } from "react-redux"
 import { Button, ControlLabel, Form, FormControl, FormGroup, Modal } from "react-bootstrap"
 
 import { cancelEntityCreation, finishEntityCreation, updateEntityCreation } from "../actions"
+import { getNewEntity } from "../selectors"
 
 export default connect(mapStateToProps)(EntityCreationModal)
 
 function mapStateToProps(state) {
-  if (!state.newEntity) {
-    return {
-      newEntity: {
-        isVisible: false,
-        name: "",
-        templates: []
-      }
-    }
-  }
-
   return {
-    newEntity: { ...state.newEntity,
-      isValidName: state.newEntity.name.length > 0 && state.newEntity.name !== "index",
-      isVisible: true
-    }
+    newEntity: getNewEntity(state)
   }
 }
 
