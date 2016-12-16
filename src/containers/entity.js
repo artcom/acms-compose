@@ -17,24 +17,25 @@ import Field from "./field"
 
 import { deleteEntity, startEntityCreation, undoChanges } from "../actions"
 import { fromPath } from "../hash"
-import { getChildren, getFields } from "../selectors"
+import { getChildren, getFields, getTemplateChildren } from "../selectors"
 
 export default connect(mapStateToProps)(Entity)
 
 function mapStateToProps(state) {
   return {
+    canHaveChildren: getTemplateChildren(state).length > 0,
     children: getChildren(state),
     fields: getFields(state)
   }
 }
 
-function Entity({ children, dispatch, fields }) {
+function Entity({ canHaveChildren, children, dispatch, fields }) {
   return (
     <Row>
       <Col md={ 4 }>
         <h4>Children</h4>
         { renderChildren(children, dispatch) }
-        <Button onClick={ () => dispatch(startEntityCreation()) }>
+        <Button disabled={ !canHaveChildren } onClick={ () => dispatch(startEntityCreation()) }>
           <Glyphicon glyph="plus" />
         </Button>
       </Col>

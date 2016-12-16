@@ -37,6 +37,11 @@ export const getTemplate = createSelector(
   (templates, changedValues) => templates[changedValues.get(TEMPLATE_KEY)]
 )
 
+export const getTemplateChildren = createSelector(
+  [getTemplate],
+  (template) => template.children || []
+)
+
 export const getFields = createSelector(
   [getTemplate, getOriginalValues, getChangedValues, getPath, getConfig],
   (template, originalValues, changedValues, path, config) => template.fields
