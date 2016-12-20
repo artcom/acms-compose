@@ -8,7 +8,7 @@ export async function loadData(version = "master") {
   const response = await axios.get(version, { baseURL: url })
   return {
     data: response.data,
-    version: response.headers.etag
+    version: response.headers["git-commit-hash"]
   }
 }
 
