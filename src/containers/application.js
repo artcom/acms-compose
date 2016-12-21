@@ -12,7 +12,7 @@ export default connect(mapStateToProps)(Application)
 
 function mapStateToProps(state) {
   return {
-    error: state.error,
+    flash: state.flash,
     hasChanged: !Immutable.is(state.originalContent, state.changedContent),
     isLoading: state.originalContent === null,
     isSaving: state.isSaving,
@@ -21,24 +21,21 @@ function mapStateToProps(state) {
 }
 
 function Application(props) {
-  if (props.isLoading) {
-    return null
-  }
-
   return (
     <Grid style={ { marginTop: "15px" } }>
       { renderError(props) }
-      { renderHeader(props) }
-      { props.children }
+      { !props.isLoading && renderHeader(props) }
+      { !props.isLoading && props.children }
     </Grid>
   )
 }
 
-function renderError({ dispatch, error }) {
-  if (error) {
+function renderError({ dispatch, flash }) {
+  if (flash) {
     return (
       <Alert bsStyle="danger" onDismiss={ () => dispatch(hideError()) }>
-        <strong>ERROR:</strong> { error }
+        <h4>{ flash.title }</h4>
+        <pre><code>{ JSON.stringify(flash.error.response, null, 2) }</code></pre>
       </Alert>
     )
   }

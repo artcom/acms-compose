@@ -141,10 +141,10 @@ export function path(state = [], { type, payload }) {
   }
 }
 
-export function error(state = null, { type, payload }) {
+export function flash(state = null, { type, payload }) {
   switch (type) {
     case "SHOW_ERROR":
-      return payload.message
+      return payload
 
     case "HIDE_ERROR":
       return null

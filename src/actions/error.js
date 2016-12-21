@@ -1,8 +1,9 @@
-export function showError(message) {
+export function showError(title, error) {
   return {
     type: "SHOW_ERROR",
     payload: {
-      message
+      error,
+      title
     }
   }
 }

@@ -5,8 +5,12 @@ import { showError } from "./error"
 
 export function loadData() {
   return async function(dispatch) {
-    const { data, version } = await gitJsonApi.loadData()
-    dispatch(updateData(data, version))
+    try {
+      const { data, version } = await gitJsonApi.loadData()
+      dispatch(updateData(data, version))
+    } catch (error) {
+      dispatch(showError("Failed to Load Data", error))
+    }
   }
 }
 
@@ -21,7 +25,7 @@ export function saveData() {
       await gitJsonApi.updateContent(content.toJS(), version)
       dispatch(loadData())
     } catch (error) {
-      dispatch(showError(`Failed to save data (${error.message})`))
+      dispatch(showError("Failed to Save Data", error))
     }
   }
 }
