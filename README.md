@@ -44,7 +44,7 @@ On the top level, there must be a file named `config.json`. It must contain a JS
 
 Languages are specified by their [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code.
 
-### Templates
+### `templates/`
 
 Entities must have a template defining which fields and what kinds of children they can have. This is done in a file named after the entity, in the `templates` directory.
 
@@ -84,12 +84,12 @@ E.g., the template for a `book` entity would be defined in `templates/book.json`
 }
 ```
 
-### Content
+### `content/`
 
 The actual content resides in the `content` directory on the top level. It contains the root entity in a file named `index.json` (see below) and a subdirectory for every child of the entity.
 
 
-### index.json
+### `content/**/index.json`
 
 The `index.json` files contain a JSON object with the fields of the entity. Additionally, the entity template is defined under the `template` key.
 
