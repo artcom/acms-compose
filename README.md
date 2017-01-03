@@ -6,6 +6,7 @@ These field types are currently supported:
 * `string`
 * `markdown`
 * `enum`
+* `image`
 
 ## Content Repo Conventions
 
@@ -109,6 +110,7 @@ For the `book` example above, `content/index.json` might look like this:
 
 The app can be configured using query string parameters:
 
+* `assetServer` URL to a WebDAV server that stores image assets
 * `gitJsonApi` URL to the [Git JSON API](https://github.com/artcom/git-json-api) serving the content repo
 
 

@@ -5,6 +5,7 @@ import { ControlLabel, Dropdown, FormGroup, Glyphicon, MenuItem, Panel } from "r
 
 import { changeValue, undoChanges } from "../actions/value"
 import { localize, unlocalize } from "../actions/localization"
+import { uploadFile } from "../actions/file"
 
 import editors from "../editors"
 
@@ -108,6 +109,7 @@ function renderEditor(field, dispatch, Editor) {
     <Editor
       key={ field.path }
       field={ field }
-      onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) } />
+      onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) }
+      onDrop={ (files) => dispatch(uploadFile(field.path, files[0])) } />
   )
 }

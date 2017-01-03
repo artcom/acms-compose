@@ -2,6 +2,8 @@ import React from "react"
 import { Glyphicon } from "react-bootstrap"
 import Dropzone from "react-dropzone"
 
+import { assetUrl } from "../apis/assetServer"
+
 const style = {
   borderWidth: "2px",
   borderColor: "#555",
@@ -23,7 +25,7 @@ const rejectStyle = {
   borderStyle: "solid"
 }
 
-export default function ImageEditor({ field }) {
+export default function ImageEditor({ field, onDrop }) {
   return (
     <div>
       { renderImage(field) }
@@ -35,7 +37,8 @@ export default function ImageEditor({ field }) {
         multiple={ false }
         style={ style }
         activeStyle={ activeStyle }
-        rejectStyle={ rejectStyle }>
+        rejectStyle={ rejectStyle }
+        onDrop={ onDrop }>
         <div>Drop image here, or click to open file dialog.</div>
       </Dropzone>
     </div>
@@ -44,7 +47,7 @@ export default function ImageEditor({ field }) {
 
 function renderImage(field) {
   if (field.value) {
-    return <img src={ field.value.src } />
+    return <img src={ assetUrl(field.value.src) } style={ { width: "100%" } } />
   } else {
     return <Glyphicon glyph="picture" />
   }
