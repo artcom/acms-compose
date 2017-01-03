@@ -3,18 +3,10 @@ import startCase from "lodash/startCase"
 import React from "react"
 import { ControlLabel, Dropdown, FormGroup, Glyphicon, MenuItem, Panel } from "react-bootstrap"
 
-import EnumEditor from "../editors/enumEditor"
-import MarkdownEditor from "../editors/markdownEditor"
-import StringEditor from "../editors/stringEditor"
-
 import { changeValue, undoChanges } from "../actions/value"
 import { localize, unlocalize } from "../actions/localization"
 
-const editors = {
-  enum: EnumEditor,
-  markdown: MarkdownEditor,
-  string: StringEditor
-}
+import editors from "../editors"
 
 export default function Field(props) {
   const { style, content } = renderContent(props)
