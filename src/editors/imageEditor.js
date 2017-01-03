@@ -49,6 +49,6 @@ function renderImage(field) {
   if (field.value) {
     return <img src={ assetUrl(field.value.src) } style={ { width: "100%" } } />
   } else {
-    return <Glyphicon glyph="picture" />
+    return <Glyphicon glyph="picture" style={ { width: "100%", textAlign: "center" } } />
   }
 }
