@@ -1,36 +1,15 @@
 import React from "react"
 import { Glyphicon, ProgressBar } from "react-bootstrap"
-import Dropzone from "react-dropzone"
 
 import { assetUrl } from "../apis/assetServer"
+import FileSelector from "../components/fileSelector"
 
-const style = {
-  borderWidth: "2px",
-  borderColor: "#555",
-  borderStyle: "dashed",
-  borderRadius: "0.3rem",
-  padding: "1rem",
-  textAlign: "center"
-}
-
-const activeStyle = {
-  color: "#3c763d",
-  backgroundColor: "#dff0d8",
-  borderStyle: "solid"
-}
-
-const rejectStyle = {
-  color: "#a94442",
-  backgroundColor: "#f2dede",
-  borderStyle: "solid"
-}
-
-export default function ImageEditor({ field, onDrop }) {
+export default function ImageEditor({ field, onFileSelect }) {
   return (
     <div>
       { renderImage(field) }
       <hr />
-      { renderUpload(field, onDrop) }
+      { renderUpload(field, onFileSelect) }
     </div>
   )
 }
@@ -52,20 +31,14 @@ function renderImage(field) {
   }
 }
 
-function renderUpload(field, onDrop) {
+function renderUpload(field, onFileSelect) {
   if (field.progress !== undefined) {
     return <ProgressBar min={ 0 } max={ 1 } now={ field.progress } />
   } else {
     return (
-      <Dropzone
-        accept="image/*"
-        multiple={ false }
-        style={ style }
-        activeStyle={ activeStyle }
-        rejectStyle={ rejectStyle }
-        onDrop={ onDrop }>
+      <FileSelector accept="image/*" onSelect={ onFileSelect }>
         <div>Drop image here, or click to open file dialog.</div>
-      </Dropzone>
+      </FileSelector>
     )
   }
 }

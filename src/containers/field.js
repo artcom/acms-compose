@@ -120,6 +120,6 @@ function renderEditor(field, dispatch, Editor) {
     <Editor
       field={ field }
       onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) }
-      onDrop={ (files) => dispatch(uploadFile(field.path, files[0])) } />
+      onFileSelect={ (files) => dispatch(uploadFile(field.path, files[0])) } />
   )
 }
