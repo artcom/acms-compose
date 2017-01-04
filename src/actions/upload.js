@@ -15,14 +15,13 @@ export function uploadFile(path, file) {
 
     try {
       dispatch(startUpload(path))
-      const name = await hashName(file)
-      const fullPath = [...path, name].join("/")
+      const destination = await hashPath(file)
 
-      if (!await assetServer.exists(fullPath)) {
-        await assetServer.uploadFile(fullPath, file, { onUploadProgress })
+      if (!await assetServer.exists(destination)) {
+        await assetServer.uploadFile(destination, file, { onUploadProgress })
       }
 
-      dispatch(changeValue(path, { src: fullPath }))
+      dispatch(changeValue(path, { src: destination }))
     } catch (error) {
       dispatch(cancelUpload(path))
       dispatch(showError("Failed to Upload File", error))
@@ -30,11 +29,11 @@ export function uploadFile(path, file) {
   }
 }
 
-async function hashName(file) {
+async function hashPath(file) {
   const hash = await sha1(file)
   const extension = extname(file.name)
   const name = basename(file.name, extension)
-  return `${name}-${hash}${extension}`
+  return `${hash.substring(0, 2)}/${name}-${hash}${extension}`
 }
 
 async function sha1(file) {
