@@ -1,11 +1,12 @@
 import EnumEditor from "./enumEditor"
-import ImageEditor from "./imageEditor"
+import AssetEditor from "./assetEditor"
 import MarkdownEditor from "./markdownEditor"
 import StringEditor from "./stringEditor"
 
 export default {
   enum: EnumEditor,
-  image: ImageEditor,
+  image: AssetEditor,
   markdown: MarkdownEditor,
-  string: StringEditor
+  string: StringEditor,
+  video: AssetEditor
 }
