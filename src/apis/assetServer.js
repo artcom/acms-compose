@@ -7,9 +7,9 @@ const params = querystring.parse(window.location.search.substring(1))
 const baseURL = params.assetServer || defaultUrl()
 const api = axios.create({ baseURL })
 
-export async function uploadFile(path, file) {
+export async function uploadFile(path, file, options) {
   await ensureDirectory(dirname(path))
-  return await api.put(path, file)
+  return await api.put(path, file, options)
 }
 
 async function ensureDirectory(path) {

@@ -5,7 +5,7 @@ import { ControlLabel, Dropdown, FormGroup, Glyphicon, MenuItem, Panel } from "r
 
 import { changeValue, undoChanges } from "../actions/value"
 import { localize, unlocalize } from "../actions/localization"
-import { uploadFile } from "../actions/file"
+import { uploadFile } from "../actions/upload"
 
 import editors from "../editors"
 

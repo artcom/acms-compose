@@ -1,5 +1,5 @@
 import React from "react"
-import { Glyphicon } from "react-bootstrap"
+import { Glyphicon, ProgressBar } from "react-bootstrap"
 import Dropzone from "react-dropzone"
 
 import { assetUrl } from "../apis/assetServer"
@@ -29,18 +29,8 @@ export default function ImageEditor({ field, onDrop }) {
   return (
     <div>
       { renderImage(field) }
-
       <hr />
-
-      <Dropzone
-        accept="image/*"
-        multiple={ false }
-        style={ style }
-        activeStyle={ activeStyle }
-        rejectStyle={ rejectStyle }
-        onDrop={ onDrop }>
-        <div>Drop image here, or click to open file dialog.</div>
-      </Dropzone>
+      { renderUpload(field, onDrop) }
     </div>
   )
 }
@@ -50,5 +40,23 @@ function renderImage(field) {
     return <img src={ assetUrl(field.value.src) } style={ { width: "100%" } } />
   } else {
     return <Glyphicon glyph="picture" style={ { width: "100%", textAlign: "center" } } />
+  }
+}
+
+function renderUpload(field, onDrop) {
+  if (field.progress !== undefined) {
+    return <ProgressBar min={ 0 } max={ 1 } now={ field.progress } />
+  } else {
+    return (
+      <Dropzone
+        accept="image/*"
+        multiple={ false }
+        style={ style }
+        activeStyle={ activeStyle }
+        rejectStyle={ rejectStyle }
+        onDrop={ onDrop }>
+        <div>Drop image here, or click to open file dialog.</div>
+      </Dropzone>
+    )
   }
 }

@@ -153,3 +153,20 @@ export function flash(state = null, { type, payload }) {
       return state
   }
 }
+
+export function progress(state = new Immutable.Map(), { type, payload }) {
+  switch (type) {
+    case "START_UPLOAD":
+      return state.set(payload.path.toString(), 0)
+
+    case "PROGRESS_UPLOAD":
+      return state.set(payload.path.toString(), payload.progress)
+
+    case "CHANGE_VALUE":
+    case "CANCEL_UPLOAD":
+      return state.delete(payload.path.toString())
+
+    default:
+      return state
+  }
+}

@@ -35,7 +35,11 @@ function renderError({ dispatch, flash }) {
     return (
       <Alert bsStyle="danger" onDismiss={ () => dispatch(hideError()) }>
         <h4>{ flash.title }</h4>
-        <pre><code>{ JSON.stringify(flash.error.response, null, 2) }</code></pre>
+        <pre>
+          <code>
+            { JSON.stringify(flash.error.response, null, 2) || flash.error.stack }
+          </code>
+        </pre>
       </Alert>
     )
   }

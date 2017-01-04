@@ -13,6 +13,7 @@ export const getChangedContent = (state) => state.changedContent
 export const getTemplates = (state) => state.templates
 export const getPath = (state) => state.path
 export const getConfig = (state) => state.config
+export const getProgress = (state) => state.progress
 
 export const getNewEntity = (state) => {
   if (!state.newEntity) {
@@ -116,18 +117,20 @@ export const getTemplateChildren = createSelector(
 )
 
 export const getFields = createSelector(
-  [getTemplate, getOriginalValues, getChangedValues, getPath, getConfig],
-  (template, originalValues, changedValues, path, config) => template.fields
+  [getTemplate, getOriginalValues, getChangedValues, getPath, getConfig, getProgress],
+  (template, originalValues, changedValues, path, config, progress) => template.fields
     .filter(field => !field.condition || evaluate(field.condition, changedValues))
     .map(field => {
       const originalValue = originalValues.get(field.name)
       const changedValue = changedValues.get(field.name)
+      const fieldPath = [...path, INDEX_KEY, field.name]
 
       return { ...field,
         hasChanged: !Immutable.is(originalValue, changedValue),
         isLocalized: isLocalized(changedValue, config.languages),
-        path: [...path, INDEX_KEY, field.name],
-        value: changedValue
+        path: fieldPath,
+        value: changedValue,
+        progress: progress.get(fieldPath.toString())
       }
     })
 )
