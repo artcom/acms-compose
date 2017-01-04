@@ -17,7 +17,11 @@ export function uploadFile(path, file) {
       dispatch(startUpload(path))
       const name = await hashName(file)
       const fullPath = [...path, name].join("/")
-      await assetServer.uploadFile(fullPath, file, { onUploadProgress })
+
+      if (!await assetServer.exists(fullPath)) {
+        await assetServer.uploadFile(fullPath, file, { onUploadProgress })
+      }
+
       dispatch(changeValue(path, { src: fullPath }))
     } catch (error) {
       dispatch(cancelUpload(path))

@@ -23,7 +23,7 @@ async function ensureDirectory(path) {
   }
 }
 
-async function exists(path) {
+export async function exists(path) {
   try {
     await api.request({ method: "PROPFIND", headers: { Depth: 0 }, url: path })
     return true
