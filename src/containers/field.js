@@ -1,7 +1,16 @@
 import langs from "langs"
 import startCase from "lodash/startCase"
 import React from "react"
-import { ControlLabel, Dropdown, FormGroup, Glyphicon, MenuItem, Panel } from "react-bootstrap"
+
+import {
+  ControlLabel,
+  Dropdown,
+  Glyphicon,
+  ListGroup,
+  ListGroupItem,
+  MenuItem,
+  Panel
+} from "react-bootstrap"
 
 import { changeValue, undoChanges } from "../actions/value"
 import { localize, unlocalize } from "../actions/localization"
@@ -84,7 +93,7 @@ function renderContent({ field, dispatch }) {
 }
 
 function renderLocalizedEditors(field, dispatch, Editor) {
-  return field.value.map((value, language) => {
+  const items = field.value.map((value, language) => {
     const languageField = { ...field,
       path: [...field.path, language],
       value: field.value.get(language)
@@ -93,21 +102,22 @@ function renderLocalizedEditors(field, dispatch, Editor) {
     const languageName = langs.has(1, language) ? langs.where(1, language).name : "Custom Language"
 
     return (
-      <FormGroup key={ language }>
+      <ListGroupItem key={ language }>
         <ControlLabel>
           { languageName }
         </ControlLabel>
 
         { renderEditor(languageField, dispatch, Editor) }
-      </FormGroup>
+      </ListGroupItem>
     )
   }).valueSeq()
+
+  return <ListGroup fill>{ items }</ListGroup>
 }
 
 function renderEditor(field, dispatch, Editor) {
   return (
     <Editor
-      key={ field.path }
       field={ field }
       onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) }
       onDrop={ (files) => dispatch(uploadFile(field.path, files[0])) } />
