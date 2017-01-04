@@ -1,4 +1,8 @@
+import { basename, extname } from "path"
+import createHash from "sha.js"
+
 import * as assetServer from "../apis/assetServer"
+import { toTypedArray } from "../file"
 
 import { showError } from "./error"
 import { changeValue } from "./value"
@@ -9,10 +13,10 @@ export function uploadFile(path, file) {
       dispatch(progressUpload(path, event.loaded / event.total))
     }
 
-    dispatch(startUpload(path))
-    const fullPath = `${path.join("/")}/${file.name}`
-
     try {
+      dispatch(startUpload(path))
+      const name = await hashName(file)
+      const fullPath = [...path, name].join("/")
       await assetServer.uploadFile(fullPath, file, { onUploadProgress })
       dispatch(changeValue(path, { src: fullPath }))
     } catch (error) {
@@ -20,6 +24,19 @@ export function uploadFile(path, file) {
       dispatch(showError("Failed to Upload File", error))
     }
   }
+}
+
+async function hashName(file) {
+  const hash = await sha1(file)
+  const extension = extname(file.name)
+  const name = basename(file.name, extension)
+  return `${name}-${hash}${extension}`
+}
+
+async function sha1(file) {
+  const buffer = await toTypedArray(file)
+  const hash = createHash("sha1")
+  return hash.update(buffer).digest("hex")
 }
 
 function startUpload(path) {
