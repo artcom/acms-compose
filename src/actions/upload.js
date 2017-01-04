@@ -1,8 +1,7 @@
 import { basename, extname } from "path"
-import createHash from "sha.js"
 
 import * as assetServer from "../apis/assetServer"
-import { toTypedArray } from "../file"
+import { sha1 } from "../sha"
 
 import { showError } from "./error"
 import { changeValue } from "./value"
@@ -34,12 +33,6 @@ async function hashPath(file) {
   const extension = extname(file.name)
   const name = basename(file.name, extension)
   return `${hash.substring(0, 2)}/${name}-${hash}${extension}`
-}
-
-async function sha1(file) {
-  const buffer = await toTypedArray(file)
-  const hash = createHash("sha1")
-  return hash.update(buffer).digest("hex")
 }
 
 function startUpload(path) {
