@@ -37,9 +37,18 @@ export default function ImageEditor({ field, onDrop }) {
 
 function renderImage(field) {
   if (field.value) {
-    return <img src={ assetUrl(field.value.src) } style={ { width: "100%" } } />
+    return (
+      <img
+        key={ field.value.src }
+        src={ assetUrl(field.value.src) }
+        style={ { width: "100%" } } />
+    )
   } else {
-    return <Glyphicon glyph="picture" style={ { width: "100%", textAlign: "center" } } />
+    return (
+      <Glyphicon
+        glyph="picture"
+        style={ { width: "100%", textAlign: "center" } } />
+    )
   }
 }
 
