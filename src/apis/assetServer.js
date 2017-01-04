@@ -9,7 +9,7 @@ const api = axios.create({ baseURL })
 
 export async function uploadFile(path, file, options) {
   await ensureDirectory(dirname(path))
-  return await api.put(path, file, options)
+  await api.put(path, file, options)
 }
 
 async function ensureDirectory(path) {
