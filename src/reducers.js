@@ -60,7 +60,7 @@ export function changedContent(state = null, { type, payload }) {
       return Immutable.fromJS(payload.content)
 
     case "CHANGE_VALUE":
-      return state.setIn(payload.path, payload.value)
+      return state.setIn(payload.path, Immutable.fromJS(payload.value))
 
     case "UNDO_CHANGES":
       return payload.originalValue === undefined

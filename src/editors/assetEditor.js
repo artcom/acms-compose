@@ -15,8 +15,8 @@ export default function AssetEditor({ field, onFileSelect }) {
 }
 
 function renderView(field) {
-  const key = field.value.src
-  const src = assetUrl(field.value.src)
+  const key = field.value.get("src")
+  const src = assetUrl(key)
   const style = { width: "100%" }
 
   switch (field.type) {
