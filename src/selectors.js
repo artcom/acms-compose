@@ -146,6 +146,7 @@ export const getChildren = createSelector(
 
     return childNames
       .filter(name => name !== INDEX_KEY)
+      .sort()
       .map(child => ({
         hasChanged: !Immutable.is(originalEntity.get(child), changedEntity.get(child)),
         isNew: !originalEntity.has(child),
