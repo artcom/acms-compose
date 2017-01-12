@@ -5,6 +5,7 @@ A web frontend to edit content in JSON files inside a Git repo. Content is struc
 These field types are currently supported:
 * `string`
 * `markdown`
+* `number`
 * `enum`
 * `image`
 * `video` (currently limited to 256MB due to [an issue in sha.js](https://github.com/crypto-browserify/sha.js/pull/39))
