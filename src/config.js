@@ -6,10 +6,12 @@ import GitJsonApi from "./apis/gitJsonApi"
 
 export async function loadConfig() {
   const config = await doLoadConfig("config.json")
+  const params = querystring.parse(window.location.search.substring(1))
+  const merged = { ...config, ...params }
 
   return {
-    assetServer: new AssetServer(config.assetServer),
-    gitJsonApi: new GitJsonApi(config.gitJsonApi)
+    assetServer: new AssetServer(merged.assetServer),
+    gitJsonApi: new GitJsonApi(merged.gitJsonApi)
   }
 }
 
@@ -18,6 +20,6 @@ async function doLoadConfig(path) {
     const response = await axios.get(path)
     return response.data
   } catch (error) {
-    return querystring.parse(window.location.search.substring(1))
+    return {}
   }
 }
