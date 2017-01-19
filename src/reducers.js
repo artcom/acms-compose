@@ -1,5 +1,7 @@
 import Immutable from "immutable"
 
+import { isLocalized } from "./language"
+
 export function isSaving(state = false, { type }) {
   switch (type) {
     case "START_SAVING":
@@ -79,14 +81,31 @@ export function changedContent(state = null, { type, payload }) {
     case "DELETE_ENTITY":
       return state.deleteIn(payload.path)
 
-    case "LOCALIZE": {
+    case "ADD_LOCALIZATION": {
       const value = state.getIn(payload.path)
-      const pairs = payload.languages.map(language => [language.id, value])
-      return state.setIn(payload.path, new Immutable.Map(pairs))
+
+      if (isLocalized(value, payload.languages)) {
+        return state.setIn([...payload.path, payload.languageId], undefined)
+      } else {
+        const defaultLanguageId = payload.languages[0].id
+
+        return state.setIn(payload.path, new Immutable.Map({
+          [defaultLanguageId]: value,
+          [payload.languageId]: undefined
+        }))
+      }
     }
 
-    case "UNLOCALIZE":
-      return state.setIn(payload.path, state.getIn([...payload.path, payload.defaultLanguage.id]))
+    case "REMOVE_LOCALIZATION": {
+      const value = state.getIn(payload.path)
+      const newValue = value.delete(payload.languageId)
+
+      if (newValue.size === 1) {
+        return state.setIn(payload.path, newValue.valueSeq().first())
+      } else {
+        return state.setIn(payload.path, newValue)
+      }
+    }
 
     default:
       return state

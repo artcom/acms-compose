@@ -3,7 +3,7 @@ import kebabCase from "lodash/kebabCase"
 import { createSelector } from "reselect"
 
 import { evaluate } from "./condition"
-import { isLanguage } from "./language"
+import { isLocalized } from "./language"
 
 const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
@@ -140,10 +140,6 @@ export const getFields = createSelector(
       }
     })
 )
-
-function isLocalized(value, languages) {
-  return Immutable.Map.isMap(value) && value.keySeq().every(key => isLanguage(key, languages))
-}
 
 export const getChildren = createSelector(
   [getOriginalEntity, getChangedEntity, getPath],

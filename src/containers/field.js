@@ -14,7 +14,6 @@ import {
 import { getLanguageName } from "../language"
 
 import { changeValue, undoChanges } from "../actions/value"
-import { localize, unlocalize } from "../actions/localization"
 import { uploadFile } from "../actions/upload"
 
 import editors from "../editors"
@@ -45,34 +44,19 @@ function renderHeader({ field, dispatch }) {
 }
 
 function renderMenuItems(field, dispatch) {
-  const items = [
+  return [
     <MenuItem
       key="undo"
       disabled={ !field.hasChanged }
       onSelect={ () => dispatch(undoChanges(field.path)) }>
       Undo Changes
+    </MenuItem>,
+    <MenuItem
+      key="localize"
+      onSelect={ () => void 0 }>
+      Localize...
     </MenuItem>
   ]
-
-  if (field.isLocalized) {
-    items.push(
-      <MenuItem
-        key="unlocalize"
-        onSelect={ () => dispatch(unlocalize(field.path)) }>
-        Unlocalize
-      </MenuItem>
-    )
-  } else {
-    items.push(
-      <MenuItem
-        key="localize"
-        onSelect={ () => dispatch(localize(field.path)) }>
-        Localize
-      </MenuItem>
-    )
-  }
-
-  return items
 }
 
 function renderContent({ config, dispatch, field, languages }) {

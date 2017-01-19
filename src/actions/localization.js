@@ -1,29 +1,27 @@
 import { getLanguages } from "../selectors"
 
-export function localize(path) {
+export function addLocalization(path, languageId) {
   return (dispatch, getState) => {
     const state = getState()
+    const languages = getLanguages(state)
 
-    dispatch({
-      type: "LOCALIZE",
+    return {
+      type: "ADD_LOCALIZATION",
       payload: {
         path,
-        languages: getLanguages(state)
+        languageId,
+        languages
       }
-    })
+    }
   }
 }
 
-export function unlocalize(path) {
-  return (dispatch, getState) => {
-    const state = getState()
-
-    dispatch({
-      type: "UNLOCALIZE",
-      payload: {
-        path,
-        defaultLanguage: getLanguages(state)[0]
-      }
-    })
+export function removeLocalization(path, languageId) {
+  return {
+    type: "REMOVE_LOCALIZATION",
+    payload: {
+      path,
+      languageId
+    }
   }
 }
