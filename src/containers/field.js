@@ -1,4 +1,3 @@
-import langs from "langs"
 import startCase from "lodash/startCase"
 import React from "react"
 
@@ -11,6 +10,8 @@ import {
   MenuItem,
   Panel
 } from "react-bootstrap"
+
+import { getLanguageName } from "../language"
 
 import { changeValue, undoChanges } from "../actions/value"
 import { localize, unlocalize } from "../actions/localization"
@@ -74,7 +75,7 @@ function renderMenuItems(field, dispatch) {
   return items
 }
 
-function renderContent({ config, dispatch, field }) {
+function renderContent({ config, dispatch, field, languages }) {
   const Editor = editors[field.type]
 
   if (!Editor) {
@@ -87,24 +88,22 @@ function renderContent({ config, dispatch, field }) {
   return {
     style: field.hasChanged ? "info" : "default",
     content: field.isLocalized
-      ? renderLocalizedEditors(field, config, dispatch, Editor)
+      ? renderLocalizedEditors(field, languages, config, dispatch, Editor)
       : renderEditor(field, config, dispatch, Editor)
   }
 }
 
-function renderLocalizedEditors(field, config, dispatch, Editor) {
-  const items = field.value.map((value, language) => {
+function renderLocalizedEditors(field, languages, config, dispatch, Editor) {
+  const items = field.value.map((value, languageId) => {
     const languageField = { ...field,
-      path: [...field.path, language],
-      value: field.value.get(language)
+      path: [...field.path, languageId],
+      value: field.value.get(languageId)
     }
 
-    const languageName = langs.has(1, language) ? langs.where(1, language).name : "Custom Language"
-
     return (
-      <ListGroupItem key={ language }>
+      <ListGroupItem key={ languageId }>
         <ControlLabel>
-          { languageName }
+          { getLanguageName(languageId, languages) }
         </ControlLabel>
 
         { renderEditor(languageField, config, dispatch, Editor) }

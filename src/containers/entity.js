@@ -18,7 +18,7 @@ import Field from "./field"
 import { deleteEntity, startEntityCreation, startEntityRenaming } from "../actions/entity"
 import { undoChanges } from "../actions/value"
 import { fromPath } from "../hash"
-import { getChildren, getFields, getTemplateChildren } from "../selectors"
+import { getChildren, getFields, getLanguages, getTemplateChildren } from "../selectors"
 
 export default connect(mapStateToProps)(Entity)
 
@@ -26,11 +26,12 @@ function mapStateToProps(state) {
   return {
     canHaveChildren: getTemplateChildren(state).length > 0,
     children: getChildren(state),
-    fields: getFields(state)
+    fields: getFields(state),
+    languages: getLanguages(state)
   }
 }
 
-function Entity({ canHaveChildren, children, config, dispatch, fields }) {
+function Entity({ canHaveChildren, children, config, dispatch, fields, languages }) {
   return (
     <Row>
       <Col md={ 4 }>
@@ -43,7 +44,7 @@ function Entity({ canHaveChildren, children, config, dispatch, fields }) {
 
       <Col md={ 8 }>
         <h4>Fields</h4>
-        { renderFields(fields, config, dispatch) }
+        { renderFields(fields, languages, config, dispatch) }
       </Col>
     </Row>
   )
@@ -105,8 +106,13 @@ function childStyle(child) {
   }
 }
 
-function renderFields(fields, config, dispatch) {
+function renderFields(fields, languages, config, dispatch) {
   return fields.map(field =>
-    <Field key={ field.name } field={ field } config={ config } dispatch={ dispatch } />
+    <Field
+      key={ field.name }
+      field={ field }
+      languages={ languages }
+      config={ config }
+      dispatch={ dispatch } />
   )
 }

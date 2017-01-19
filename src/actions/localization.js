@@ -1,4 +1,4 @@
-import { getConfig } from "../selectors"
+import { getLanguages } from "../selectors"
 
 export function localize(path) {
   return (dispatch, getState) => {
@@ -8,7 +8,7 @@ export function localize(path) {
       type: "LOCALIZE",
       payload: {
         path,
-        languages: getConfig(state).languages
+        languages: getLanguages(state)
       }
     })
   }
@@ -22,7 +22,7 @@ export function unlocalize(path) {
       type: "UNLOCALIZE",
       payload: {
         path,
-        defaultLanguage: getConfig(state).languages[0]
+        defaultLanguage: getLanguages(state)[0]
       }
     })
   }

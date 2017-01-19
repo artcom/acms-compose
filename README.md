@@ -40,13 +40,17 @@ On the top level, there must be a file named `config.json`. It must contain a JS
 ```json
 {
   "languages": [
-    "de",
-    "en"
+    {
+      "id": "de",
+      "name": "German"
+    },
+    {
+      "id": "en",
+      "name": "English"
+    }
   ]
 }
 ```
-
-Languages are specified by their [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) code.
 
 ### `templates/`
 

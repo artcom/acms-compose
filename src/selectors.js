@@ -3,6 +3,7 @@ import kebabCase from "lodash/kebabCase"
 import { createSelector } from "reselect"
 
 import { evaluate } from "./condition"
+import { isLanguage } from "./language"
 
 const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
@@ -116,9 +117,14 @@ export const getTemplateChildren = createSelector(
   (template) => template.children || []
 )
 
+export const getLanguages = createSelector(
+  [getConfig],
+  (config) => config.languages
+)
+
 export const getFields = createSelector(
-  [getTemplate, getOriginalValues, getChangedValues, getPath, getConfig, getProgress],
-  (template, originalValues, changedValues, path, config, progress) => template.fields
+  [getTemplate, getOriginalValues, getChangedValues, getPath, getLanguages, getProgress],
+  (template, originalValues, changedValues, path, languages, progress) => template.fields
     .filter(field => !field.condition || evaluate(field.condition, changedValues))
     .map(field => {
       const originalValue = originalValues.get(field.name)
@@ -127,7 +133,7 @@ export const getFields = createSelector(
 
       return { ...field,
         hasChanged: !Immutable.is(originalValue, changedValue),
-        isLocalized: isLocalized(changedValue, config.languages),
+        isLocalized: isLocalized(changedValue, languages),
         path: fieldPath,
         value: changedValue,
         progress: progress.get(fieldPath.toString())
@@ -136,7 +142,7 @@ export const getFields = createSelector(
 )
 
 function isLocalized(value, languages) {
-  return Immutable.Map.isMap(value) && languages.every(language => value.has(language))
+  return Immutable.Map.isMap(value) && value.keySeq().every(key => isLanguage(key, languages))
 }
 
 export const getChildren = createSelector(
