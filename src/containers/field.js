@@ -74,7 +74,7 @@ function renderMenuItems(field, dispatch) {
   return items
 }
 
-function renderContent({ field, dispatch }) {
+function renderContent({ config, dispatch, field }) {
   const Editor = editors[field.type]
 
   if (!Editor) {
@@ -87,12 +87,12 @@ function renderContent({ field, dispatch }) {
   return {
     style: field.hasChanged ? "info" : "default",
     content: field.isLocalized
-      ? renderLocalizedEditors(field, dispatch, Editor)
-      : renderEditor(field, dispatch, Editor)
+      ? renderLocalizedEditors(field, config, dispatch, Editor)
+      : renderEditor(field, config, dispatch, Editor)
   }
 }
 
-function renderLocalizedEditors(field, dispatch, Editor) {
+function renderLocalizedEditors(field, config, dispatch, Editor) {
   const items = field.value.map((value, language) => {
     const languageField = { ...field,
       path: [...field.path, language],
@@ -107,7 +107,7 @@ function renderLocalizedEditors(field, dispatch, Editor) {
           { languageName }
         </ControlLabel>
 
-        { renderEditor(languageField, dispatch, Editor) }
+        { renderEditor(languageField, config, dispatch, Editor) }
       </ListGroupItem>
     )
   }).valueSeq()
@@ -115,11 +115,12 @@ function renderLocalizedEditors(field, dispatch, Editor) {
   return <ListGroup fill>{ items }</ListGroup>
 }
 
-function renderEditor(field, dispatch, Editor) {
+function renderEditor(field, config, dispatch, Editor) {
   return (
     <Editor
+      config={ config }
       field={ field }
       onChange={ (event) => dispatch(changeValue(field.path, event.target.value)) }
-      onFileSelect={ (files) => dispatch(uploadFile(field.path, files[0])) } />
+      onFileSelect={ (files) => dispatch(uploadFile(field.path, files[0], config.assetServer)) } />
   )
 }

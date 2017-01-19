@@ -45,7 +45,7 @@ function renderError({ dispatch, flash }) {
   }
 }
 
-function renderHeader({ dispatch, hasChanged, isSaving, path }) {
+function renderHeader({ config, dispatch, hasChanged, isSaving, path }) {
   return (
     <Row>
       <Col md={ 10 }>
@@ -68,7 +68,7 @@ function renderHeader({ dispatch, hasChanged, isSaving, path }) {
           block
           bsStyle="info"
           disabled={ !hasChanged || isSaving }
-          onClick={ () => dispatch(saveData()) }>
+          onClick={ () => dispatch(saveData(config.gitJsonApi)) }>
           { isSaving ? "Saving..." : "Save" }
         </Button>
       </Col>

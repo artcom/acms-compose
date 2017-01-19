@@ -1,22 +1,21 @@
 import React from "react"
 import { Glyphicon, ProgressBar } from "react-bootstrap"
 
-import { assetUrl } from "../apis/assetServer"
 import FileSelector from "../components/fileSelector"
 
-export default function AssetEditor({ field, onFileSelect }) {
+export default function AssetEditor({ config, field, onFileSelect }) {
   return (
     <div>
-      { field.value ? renderView(field) : renderPlaceholder() }
+      { field.value ? renderView(field, config) : renderPlaceholder() }
       <hr />
       { renderUpload(field, onFileSelect) }
     </div>
   )
 }
 
-function renderView(field) {
+function renderView(field, config) {
   const key = field.value.get("src")
-  const src = assetUrl(key)
+  const src = config.assetServer.assetUrl(key)
   const style = { width: "100%" }
 
   switch (field.type) {

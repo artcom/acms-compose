@@ -1,9 +1,8 @@
-import * as gitJsonApi from "../apis/gitJsonApi"
 import { getChangedContent, getVersion } from "../selectors"
 
 import { showError } from "./error"
 
-export function loadData() {
+export function loadData(gitJsonApi) {
   return async function(dispatch) {
     try {
       const { data, version } = await gitJsonApi.loadData()
@@ -14,7 +13,7 @@ export function loadData() {
   }
 }
 
-export function saveData() {
+export function saveData(gitJsonApi) {
   return async function(dispatch, getState) {
     const state = getState()
     const version = getVersion(state)
@@ -23,7 +22,7 @@ export function saveData() {
     try {
       dispatch(startSaving())
       await gitJsonApi.updateContent(content.toJS(), version)
-      dispatch(loadData())
+      dispatch(loadData(gitJsonApi))
     } catch (error) {
       dispatch(showError("Failed to Save Data", error))
     }

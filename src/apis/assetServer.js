@@ -1,52 +1,43 @@
 import axios from "axios"
 import { dirname, join } from "path"
-import querystring from "querystring"
 import { format, parse } from "url"
 
-const params = querystring.parse(window.location.search.substring(1))
-const baseURL = params.assetServer || defaultUrl()
-const api = axios.create({ baseURL })
+export default class AssetServer {
+  constructor(url = "/assets") {
+    this.api = axios.create({ baseURL: url })
+    this.url = parse(url)
+  }
 
-export async function uploadFile(path, file, options) {
-  await ensureDirectory(dirname(path))
-  await api.put(path, file, options)
-}
+  async uploadFile(path, file, options) {
+    await this.ensureDirectory(dirname(path))
+    await this.api.put(path, file, options)
+  }
 
-async function ensureDirectory(path) {
-  if (!await exists(path)) {
-    const parentPath = dirname(path)
+  async ensureDirectory(path) {
+    if (!await this.exists(path)) {
+      const parentPath = dirname(path)
 
-    if (parentPath !== path) {
-      await ensureDirectory(parentPath)
-      await makeDirectory(path)
+      if (parentPath !== path) {
+        await this.ensureDirectory(parentPath)
+        await this.makeDirectory(path)
+      }
     }
   }
-}
 
-export async function exists(path) {
-  try {
-    await api.request({ method: "PROPFIND", headers: { Depth: 0 }, url: path })
-    return true
-  } catch (error) {
-    return false
+  async exists(path) {
+    try {
+      await this.api.request({ method: "PROPFIND", headers: { Depth: 0 }, url: path })
+      return true
+    } catch (error) {
+      return false
+    }
   }
-}
 
-function makeDirectory(path) {
-  return api.request({ method: "MKCOL", url: path })
-}
+  makeDirectory(path) {
+    return this.api.request({ method: "MKCOL", url: path })
+  }
 
-export function assetUrl(path) {
-  const url = parse(baseURL)
-  return format({ ...url, pathname: join(url.pathname, path) })
-}
-
-function defaultUrl() {
-  const url = parse(window.location.href)
-
-  return format({
-    protocol: url.protocol,
-    slashes: true,
-    host: `asset-server.${url.host}`
-  })
+  assetUrl(path) {
+    return format({ ...this.url, pathname: join(this.url.pathname, path) })
+  }
 }
