@@ -73,7 +73,7 @@ function renderChild(child, dispatch) {
           <MenuItem
             disabled={ child.isDeleted }
             onSelect={ () => dispatch(startEntityRenaming(child.name)) }>
-            Rename
+            Rename...
           </MenuItem>
           <MenuItem
             disabled={ !child.hasChanged }
