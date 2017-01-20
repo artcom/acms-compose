@@ -9,8 +9,8 @@ import { configureStore } from "./store"
 
 import Application from "./containers/application"
 import Entity from "./containers/entity"
-import EntityCreationModal from "./containers/entityCreationModal"
-import EntityRenamingModal from "./containers/entityRenamingModal"
+import EntityCreationModal from "./modals/entityCreationModal"
+import EntityRenamingModal from "./modals/entityRenamingModal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
