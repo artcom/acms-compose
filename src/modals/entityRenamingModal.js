@@ -36,7 +36,7 @@ function EntityRenamingModal({ dispatch, renamedEntity }) {
             type="submit"
             bsStyle="info"
             disabled={ !renamedEntity.isValidName }
-            onClick={ () => dispatch(finishEntityRenaming()) }>
+            onClick={ (event) => { event.preventDefault(); dispatch(finishEntityRenaming()) } }>
             Rename
           </Button>
         </Modal.Footer>

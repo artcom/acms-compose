@@ -53,7 +53,7 @@ function EntityCreationModal({ dispatch, newEntity }) {
             type="submit"
             bsStyle="info"
             disabled={ !newEntity.isValidName }
-            onClick={ () => dispatch(finishEntityCreation()) }>
+            onClick={ (event) => { event.preventDefault(); dispatch(finishEntityCreation()) } }>
             Create
           </Button>
         </Modal.Footer>

@@ -87,6 +87,19 @@ function defaultValue(field) {
   }
 }
 
+export const getFieldLocalization = (state) => {
+  if (!state.fieldLocalization) {
+    return {
+      languageIds: new Immutable.Set(),
+      isVisible: false
+    }
+  }
+
+  return { ...state.fieldLocalization,
+    isVisible: true
+  }
+}
+
 export const getOriginalEntity = createSelector(
   [getOriginalContent, getPath],
   (originalContent, path) => originalContent.getIn(path, new Immutable.Map())

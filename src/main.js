@@ -11,6 +11,7 @@ import Application from "./containers/application"
 import Entity from "./containers/entity"
 import EntityCreationModal from "./modals/entityCreationModal"
 import EntityRenamingModal from "./modals/entityRenamingModal"
+import FieldLocalizationModal from "./modals/fieldLocalizationModal"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -31,6 +32,7 @@ loadConfig().then(config => {
         <Entity config={ config } />
         <EntityCreationModal />
         <EntityRenamingModal />
+        <FieldLocalizationModal />
       </Application>
     </Provider>
   , document.getElementById("app"))

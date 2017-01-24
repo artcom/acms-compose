@@ -13,8 +13,9 @@ import {
 
 import { getLanguageName } from "../language"
 
-import { changeValue, undoChanges } from "../actions/value"
+import { startFieldLocalization } from "../actions/localization"
 import { uploadFile } from "../actions/upload"
+import { changeValue, undoChanges } from "../actions/value"
 
 import editors from "../editors"
 
@@ -53,7 +54,7 @@ function renderMenuItems(field, dispatch) {
     </MenuItem>,
     <MenuItem
       key="localize"
-      onSelect={ () => void 0 }>
+      onSelect={ () => dispatch(startFieldLocalization(field)) }>
       Localize...
     </MenuItem>
   ]

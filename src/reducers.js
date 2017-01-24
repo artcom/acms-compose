@@ -1,7 +1,5 @@
 import Immutable from "immutable"
 
-import { isLocalized } from "./language"
-
 export function isSaving(state = false, { type }) {
   switch (type) {
     case "START_SAVING":
@@ -81,29 +79,35 @@ export function changedContent(state = null, { type, payload }) {
     case "DELETE_ENTITY":
       return state.deleteIn(payload.path)
 
-    case "ADD_LOCALIZATION": {
-      const value = state.getIn(payload.path)
+    case "FINISH_FIELD_LOCALIZATION": {
+      const { defaultLanguageId, fieldLocalization } = payload
+      const { field, languageIds } = fieldLocalization
+      const shouldBeLocalized = languageIds.size > 1
 
-      if (isLocalized(value, payload.languages)) {
-        return state.setIn([...payload.path, payload.languageId], undefined)
+      if (field.isLocalized) {
+        if (shouldBeLocalized) {
+          // Update localization
+          const localizedValues = languageIds.map(languageId =>
+            [languageId, field.value.get(languageId)]
+          )
+
+          return state.setIn(field.path, new Immutable.Map(localizedValues))
+        } else {
+          // Unlocalize field
+          return state.setIn(field.path, state.getIn([...field.path, defaultLanguageId]))
+        }
       } else {
-        const defaultLanguageId = payload.languages[0].id
+        if (shouldBeLocalized) {
+          // Localize field
+          const localizedValues = languageIds.map(languageId =>
+            [languageId, languageId === defaultLanguageId ? field.value : undefined]
+          )
 
-        return state.setIn(payload.path, new Immutable.Map({
-          [defaultLanguageId]: value,
-          [payload.languageId]: undefined
-        }))
-      }
-    }
-
-    case "REMOVE_LOCALIZATION": {
-      const value = state.getIn(payload.path)
-      const newValue = value.delete(payload.languageId)
-
-      if (newValue.size === 1) {
-        return state.setIn(payload.path, newValue.valueSeq().first())
-      } else {
-        return state.setIn(payload.path, newValue)
+          return state.setIn(field.path, new Immutable.Map(localizedValues))
+        } else {
+          // Leave field unlocalized
+          return state
+        }
       }
     }
 
@@ -121,8 +125,6 @@ export function newEntity(state = null, { type, payload }) {
       return { ...state, ...payload.params }
 
     case "FINISH_ENTITY_CREATION":
-      return null
-
     case "CANCEL_ENTITY_CREATION":
       return null
 
@@ -140,9 +142,28 @@ export function renamedEntity(state = null, { type, payload }) {
       return { ...state, newName: payload.newName }
 
     case "FINISH_ENTITY_RENAMING":
+    case "CANCEL_ENTITY_RENAMING":
       return null
 
-    case "CANCEL_ENTITY_RENAMING":
+    default:
+      return state
+  }
+}
+
+export function fieldLocalization(state = null, { type, payload }) {
+  switch (type) {
+    case "START_FIELD_LOCALIZATION":
+      return payload
+
+    case "UPDATE_FIELD_LOCALIZATION":
+      return { ...state,
+        languageIds: payload.addLocalization
+          ? state.languageIds.add(payload.languageId)
+          : state.languageIds.delete(payload.languageId)
+      }
+
+    case "FINISH_FIELD_LOCALIZATION":
+    case "CANCEL_FIELD_LOCALIZATION":
       return null
 
     default:
