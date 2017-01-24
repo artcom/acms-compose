@@ -90,7 +90,7 @@ function defaultValue(field) {
 export const getFieldLocalization = (state) => {
   if (!state.fieldLocalization) {
     return {
-      languageIds: new Immutable.Set(),
+      languageIds: new Immutable.OrderedMap(),
       isVisible: false
     }
   }

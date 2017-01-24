@@ -6,26 +6,25 @@ export function startFieldLocalization(field) {
   return (dispatch, getState) => {
     const state = getState()
     const languages = getLanguages(state)
-    const defaultLanguageId = languages[0].id
 
     dispatch({
       type: "START_FIELD_LOCALIZATION",
       payload: {
         field,
-        languageIds: field.isLocalized
-          ? field.value.keySeq().toSet()
-          : Immutable.Set.of(defaultLanguageId)
+        languageIds: new Immutable.OrderedMap(languages.map((language, i) =>
+          [language.id, i === 0 || field.isLocalized && field.value.has(language.id)]
+        ))
       }
     })
   }
 }
 
-export function updateFieldLocalization(languageId, addLocalization) {
+export function updateFieldLocalization(languageId, hasLocalization) {
   return {
     type: "UPDATE_FIELD_LOCALIZATION",
     payload: {
       languageId,
-      addLocalization
+      hasLocalization
     }
   }
 }

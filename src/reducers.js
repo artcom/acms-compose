@@ -82,14 +82,14 @@ export function changedContent(state = null, { type, payload }) {
     case "FINISH_FIELD_LOCALIZATION": {
       const { defaultLanguageId, fieldLocalization } = payload
       const { field, languageIds } = fieldLocalization
-      const shouldBeLocalized = languageIds.size > 1
+      const localizedLanguageIds = languageIds.filter(hasLocalization => hasLocalization)
+      const shouldBeLocalized = localizedLanguageIds.size > 1
 
       if (field.isLocalized) {
         if (shouldBeLocalized) {
           // Update localization
-          const localizedValues = languageIds.map(languageId =>
-            [languageId, field.value.get(languageId)]
-          )
+          const localizedValues = localizedLanguageIds
+            .map((_, languageId) => field.value.get(languageId))
 
           return state.setIn(field.path, new Immutable.Map(localizedValues))
         } else {
@@ -99,9 +99,8 @@ export function changedContent(state = null, { type, payload }) {
       } else {
         if (shouldBeLocalized) {
           // Localize field
-          const localizedValues = languageIds.map(languageId =>
-            [languageId, languageId === defaultLanguageId ? field.value : undefined]
-          )
+          const localizedValues = localizedLanguageIds
+            .map((_, languageId) => languageId === defaultLanguageId ? field.value : undefined)
 
           return state.setIn(field.path, new Immutable.Map(localizedValues))
         } else {
@@ -157,9 +156,7 @@ export function fieldLocalization(state = null, { type, payload }) {
 
     case "UPDATE_FIELD_LOCALIZATION":
       return { ...state,
-        languageIds: payload.addLocalization
-          ? state.languageIds.add(payload.languageId)
-          : state.languageIds.delete(payload.languageId)
+        languageIds: state.languageIds.set(payload.languageId, payload.hasLocalization)
       }
 
     case "FINISH_FIELD_LOCALIZATION":

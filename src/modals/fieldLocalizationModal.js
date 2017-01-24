@@ -39,7 +39,7 @@ function FieldLocalizationModal({ dispatch, fieldLocalization, languages }) {
                 return <Checkbox
                   key={ language.id }
                   disabled={ isDefault }
-                  checked={ fieldLocalization.languageIds.has(language.id) }
+                  checked={ fieldLocalization.languageIds.get(language.id) }
                   onChange={ (event) =>
                     dispatch(updateFieldLocalization(language.id, event.target.checked))
                   }>
