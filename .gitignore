@@ -4,3 +4,5 @@ npm-debug.log
 public/bundle.js
 public/bundle.js.map
 public/config.json
+
+.idea
