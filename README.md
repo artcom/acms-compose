@@ -120,6 +120,7 @@ The app can be configured using query string parameters:
 * `assetServer` URL to a WebDAV server that stores image assets
 * `gitJsonApi` URL to the [Git JSON API](https://github.com/artcom/git-json-api) serving the content repo
 
+  Example: `http://localhost:8080/webpack-dev-server/?assetServer=http://bocs-assets.local.bocs.dk&gitJsonApi=http://bocs-content.local.bocs.dk`
 
 ## Build
 
