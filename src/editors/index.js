@@ -7,6 +7,7 @@ import StringEditor from "./stringEditor"
 export default {
   enum: EnumEditor,
   image: AssetEditor,
+  file: AssetEditor,
   markdown: MarkdownEditor,
   number: NumberEditor,
   string: StringEditor,
