@@ -4,10 +4,16 @@ import path from "path"
 
 import FileSelector from "../components/fileSelector"
 
+const PLACEHOLDER_GLYPH = {
+  image: "picture",
+  video: "facetime-video",
+  file: "file"
+}
+
 export default function AssetEditor({ config, field, onFileSelect }) {
   return (
     <div>
-      { field.value ? renderView(field, config) : renderPlaceholder(field.type) }
+      { field.value ? renderView(field, config) : renderPlaceholder(field) }
       <hr />
       { renderUpload(field, onFileSelect) }
     </div>
@@ -26,14 +32,9 @@ function renderView(field, config) {
   }
 }
 
-function renderPlaceholder(type) {
-  if (type !== "file") {
-    return (
-      <Glyphicon
-        glyph="picture"
-        style={ { width: "100%", textAlign: "center" } } />
-    )
-  }
+function renderPlaceholder(field) {
+  const glyph = PLACEHOLDER_GLYPH[field.type]
+  return <Glyphicon glyph={ glyph } style={ { width: "100%", textAlign: "center" } } />
 }
 
 function renderUpload(field, onFileSelect) {
