@@ -1,5 +1,6 @@
 import Immutable from "immutable"
 import kebabCase from "lodash/kebabCase"
+import mapValues from "lodash/mapValues"
 import { createSelector } from "reselect"
 
 import { evaluate } from "./condition"
@@ -11,10 +12,15 @@ const TEMPLATE_KEY = "template"
 export const getVersion = (state) => state.version
 export const getOriginalContent = (state) => state.originalContent
 export const getChangedContent = (state) => state.changedContent
-export const getTemplates = (state) => state.templates
 export const getPath = (state) => state.path
 export const getConfig = (state) => state.config
 export const getProgress = (state) => state.progress
+
+export const getTemplates = (state) => mapValues(state.templates, template => ({
+  fields: [],
+  children: [],
+  ...template
+}))
 
 export const getNewEntity = (state) => {
   if (!state.newEntity) {
@@ -127,7 +133,7 @@ export const getTemplate = createSelector(
 
 export const getTemplateChildren = createSelector(
   [getTemplate],
-  (template) => template.children || []
+  (template) => template.children
 )
 
 export const getLanguages = createSelector(
