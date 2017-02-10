@@ -31,7 +31,7 @@ function renderPlaceholder(type) {
     return (
       <Glyphicon
         glyph="picture"
-        style={ {width: "100%", textAlign: "center"} }/>
+        style={ { width: "100%", textAlign: "center" } } />
     )
   }
 }
@@ -40,8 +40,10 @@ function renderUpload(field, onFileSelect) {
   if (field.progress !== undefined) {
     return <ProgressBar min={ 0 } max={ 1 } now={ field.progress } />
   } else {
+    const accept = field.type === "file" ? "" : `${field.type}/*`
+
     return (
-      <FileSelector accept={ field.type === "file" ? "" : `${field.type}/*` } onSelect={ onFileSelect }>
+      <FileSelector accept={ accept } onSelect={ onFileSelect }>
         <div>Drop { field.type } here, or click to open file dialog.</div>
       </FileSelector>
     )
