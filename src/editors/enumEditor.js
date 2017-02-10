@@ -1,7 +1,7 @@
 import React from "react"
 import { FormControl } from "react-bootstrap"
 
-export default function StringEditor({ field, onChange }) {
+export default function EnumEditor({ field, onChange }) {
   return (
     <FormControl componentClass="select" value={ field.value } onChange={ onChange }>
       { field.values.map(value =>
