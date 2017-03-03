@@ -1,7 +1,7 @@
 const handlers = {
-  "!in": ([item, list]) => list.includes(item),
-  "!get": ([key], values) => values.get(key),
-  "!list": (args) => args
+  GET: ([key], values) => values.get(key),
+  IN: ([item, list]) => list.includes(item),
+  LIST: (args) => args
 }
 
 export function evaluate(expression, values) {
