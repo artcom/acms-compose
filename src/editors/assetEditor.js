@@ -5,9 +5,10 @@ import path from "path"
 import FileSelector from "../components/fileSelector"
 
 const PLACEHOLDER_GLYPH = {
+  audio: "music",
+  file: "file",
   image: "picture",
-  video: "facetime-video",
-  file: "file"
+  video: "facetime-video"
 }
 
 export default function AssetEditor({ config, field, onFileSelect }) {
@@ -26,9 +27,10 @@ function renderView(field, config) {
   const style = { width: "100%" }
 
   switch (field.type) {
+    case "audio": return <audio controls key={ key } src={ src } style={ style } />
+    case "file": return <div key={ key } style={ style }>{ path.basename(key) }</div>
     case "image": return <img key={ key } src={ src } style={ style } />
     case "video": return <video controls key={ key } src={ src } style={ style } />
-    case "file": return <div key={ key } src={ src } style={ style }>{ path.basename(key) }</div>
   }
 }
 

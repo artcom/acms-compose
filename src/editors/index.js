@@ -5,6 +5,7 @@ import NumberEditor from "./numberEditor"
 import StringEditor from "./stringEditor"
 
 export default {
+  audio: AssetEditor,
   enum: EnumEditor,
   image: AssetEditor,
   file: AssetEditor,
