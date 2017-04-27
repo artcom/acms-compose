@@ -24,10 +24,10 @@ export function version(state = null, { type, payload }) {
   }
 }
 
-export function config(state = null, { type, payload }) {
+export function languages(state = null, { type, payload }) {
   switch (type) {
     case "UPDATE_DATA":
-      return payload.config
+      return payload.config.languages
 
     default:
       return state

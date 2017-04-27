@@ -13,7 +13,7 @@ export const getVersion = (state) => state.version
 export const getOriginalContent = (state) => state.originalContent
 export const getChangedContent = (state) => state.changedContent
 export const getPath = (state) => state.path
-export const getConfig = (state) => state.config
+export const getLanguages = (state) => state.languages
 export const getProgress = (state) => state.progress
 
 export const getTemplates = (state) => mapValues(state.templates, template => ({
@@ -134,11 +134,6 @@ export const getTemplate = createSelector(
 export const getTemplateChildren = createSelector(
   [getTemplate],
   (template) => template.children
-)
-
-export const getLanguages = createSelector(
-  [getConfig],
-  (config) => config.languages
 )
 
 export const getFields = createSelector(
