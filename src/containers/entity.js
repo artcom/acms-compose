@@ -18,15 +18,21 @@ import Field from "./field"
 import { deleteEntity, startEntityCreation, startEntityRenaming } from "../actions/entity"
 import { undoChanges } from "../actions/value"
 import { fromPath } from "../hash"
-import { getChildren, getFields, getLanguages, getTemplateChildren } from "../selectors"
+
+import {
+  getLanguages,
+  getTemplateChildren,
+  getWhitelistedChildren,
+  getWhitelistedFields
+} from "../selectors"
 
 export default connect(mapStateToProps)(Entity)
 
 function mapStateToProps(state) {
   return {
     canHaveChildren: getTemplateChildren(state).length > 0,
-    children: getChildren(state),
-    fields: getFields(state),
+    children: getWhitelistedChildren(state),
+    fields: getWhitelistedFields(state),
     languages: getLanguages(state)
   }
 }

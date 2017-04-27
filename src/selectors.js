@@ -138,7 +138,7 @@ export const getTemplateChildren = createSelector(
   (template) => template.children
 )
 
-export const getFields = createSelector(
+const getFields = createSelector(
   [getTemplate, getOriginalValues, getChangedValues, getPath, getLanguages, getProgress],
   (template, originalValues, changedValues, path, languages, progress) => template.fields
     .filter(field => !field.condition || evaluate(field.condition, changedValues))
@@ -157,13 +157,18 @@ export const getFields = createSelector(
     })
 )
 
-export const getChildren = createSelector(
-  [getOriginalEntity, getChangedEntity, getPath, getWhitelist],
-  (originalEntity, changedEntity, path, whitelist) => {
+export const getWhitelistedFields = createSelector(
+  [getFields, getWhitelist],
+  (fields, whitelist) => fields.filter(field => isWhitelisted(whitelist, field.path))
+)
+
+const getChildren = createSelector(
+  [getOriginalEntity, getChangedEntity, getPath],
+  (originalEntity, changedEntity, path) => {
     const childNames = new Immutable.Set(originalEntity.keySeq().concat(changedEntity.keySeq()))
 
     return childNames
-      .filter(name => name !== INDEX_KEY && isWhitelisted(whitelist, [...path, name]))
+      .filter(name => name !== INDEX_KEY)
       .sort()
       .map(child => ({
         hasChanged: !Immutable.is(originalEntity.get(child), changedEntity.get(child)),
@@ -173,4 +178,9 @@ export const getChildren = createSelector(
         path: [...path, child]
       }))
   }
+)
+
+export const getWhitelistedChildren = createSelector(
+  [getChildren, getWhitelist],
+  (children, whitelist) => children.filter(child => isWhitelisted(whitelist, child.path))
 )
