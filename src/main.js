@@ -4,6 +4,7 @@ import { Provider } from "react-redux"
 
 import { loadData } from "./actions/data"
 import { updatePath } from "./actions/path"
+import { whitelistPaths } from "./actions/whitelist"
 import { loadConfig } from "./config"
 import { configureStore } from "./store"
 
@@ -17,6 +18,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 loadConfig().then(config => {
   const store = configureStore()
+  store.dispatch(whitelistPaths(config.whitelist || ["**"]))
   store.dispatch(loadData(config.gitJsonApi))
 
   window.addEventListener("hashchange", updatePathFromHash)

@@ -5,6 +5,7 @@ import { createSelector } from "reselect"
 
 import { evaluate } from "./condition"
 import { isLocalized } from "./language"
+import { isWhitelisted } from "./whitelist"
 
 const INDEX_KEY = "index"
 const TEMPLATE_KEY = "template"
@@ -15,6 +16,7 @@ export const getChangedContent = (state) => state.changedContent
 export const getPath = (state) => state.path
 export const getLanguages = (state) => state.languages
 export const getProgress = (state) => state.progress
+export const getWhitelist = (state) => state.whitelist
 
 export const getTemplates = (state) => mapValues(state.templates, template => ({
   fields: [],
@@ -156,12 +158,12 @@ export const getFields = createSelector(
 )
 
 export const getChildren = createSelector(
-  [getOriginalEntity, getChangedEntity, getPath],
-  (originalEntity, changedEntity, path) => {
+  [getOriginalEntity, getChangedEntity, getPath, getWhitelist],
+  (originalEntity, changedEntity, path, whitelist) => {
     const childNames = new Immutable.Set(originalEntity.keySeq().concat(changedEntity.keySeq()))
 
     return childNames
-      .filter(name => name !== INDEX_KEY)
+      .filter(name => name !== INDEX_KEY && isWhitelisted(whitelist, [...path, name]))
       .sort()
       .map(child => ({
         hasChanged: !Immutable.is(originalEntity.get(child), changedEntity.get(child)),

@@ -11,7 +11,8 @@ export async function loadConfig() {
 
   return {
     assetServer: new AssetServer(merged.assetServer),
-    gitJsonApi: new GitJsonApi(merged.gitJsonApi)
+    gitJsonApi: new GitJsonApi(merged.gitJsonApi),
+    whitelist: merged.whitelist
   }
 }
 

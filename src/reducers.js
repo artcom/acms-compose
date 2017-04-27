@@ -207,3 +207,13 @@ export function progress(state = new Immutable.Map(), { type, payload }) {
       return state
   }
 }
+
+export function whitelist(state = null, { type, payload }) {
+  switch (type) {
+    case "WHITELIST_PATHS":
+      return payload.whitelist
+
+    default:
+      return state
+  }
+}
