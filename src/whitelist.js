@@ -15,10 +15,19 @@ function matchesPattern(path, patternString) {
       return true
     } else if (matcher === "*") {
       // continue
-    } else if (item !== matcher) {
+    } else if (!doesMatch(item, matcher)) {
       return false
     }
   }
 
   return true
+}
+
+function doesMatch(item, matcher) {
+  if (matcher.startsWith("!(") && matcher.endsWith(")")) {
+    const negativeMatcher = matcher.slice(2, -1)
+    return item !== negativeMatcher
+  } else {
+    return item === matcher
+  }
 }
