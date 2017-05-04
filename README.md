@@ -8,7 +8,7 @@ These field types are currently supported:
 * `number`
 * `enum`
 * `image`
-* `video` (currently limited to 256MB due to [an issue in sha.js](https://github.com/crypto-browserify/sha.js/pull/39))
+* `video`
 * `audio`
 * `file`
 

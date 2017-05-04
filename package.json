@@ -20,7 +20,7 @@
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
-    "sha.js": "^2.4.8"
+    "sha.js": "github:artcom/sha.js#aee24f1e0d7fefca68633e6c1be52670fb65a1a5"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",
