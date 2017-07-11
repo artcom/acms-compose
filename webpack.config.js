@@ -1,7 +1,6 @@
 /* eslint-disable import/no-commonjs */
 
 const path = require("path")
-const webpack = require("webpack")
 
 const publicPath = path.join(__dirname, "public")
 
@@ -12,25 +11,22 @@ module.exports = {
     filename: "bundle.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [path.resolve(__dirname, "src")],
-        loader: "babel"
+        use: ["babel-loader"]
       },
       {
         test: /\.css$/,
-        loaders: ["style", "css"]
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/,
-        loader: "file?name=[path][name].[ext]"
+        use: ["file-loader?name=[path][name].[ext]"]
       }
     ]
   },
-  plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV"]),
-  ],
   devServer: {
     contentBase: publicPath
   }
