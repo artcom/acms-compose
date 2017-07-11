@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack -p",
-    "release": "npm run build && cd public && zip -r ../git-json-cms-${TRAVIS_TAG:-master} *",
+    "release": "npm run build && cd public && zip -r ../git-json-cms-${TRAVIS_TAG:-master}.zip *",
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },
   "dependencies": {
