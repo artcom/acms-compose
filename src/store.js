@@ -1,6 +1,6 @@
 import Immutable from "immutable"
 import mapValues from "lodash/mapValues"
-import createLogger from "redux-logger"
+import { createLogger } from "redux-logger"
 import { applyMiddleware, combineReducers, createStore } from "redux"
 import thunkMiddleware from "redux-thunk"
 

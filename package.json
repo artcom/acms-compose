@@ -8,19 +8,19 @@
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.1",
     "lodash": "^4.17.2",
     "react": "^15.4.1",
-    "react-bootstrap": "^0.30.7",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.4.1",
     "react-dropzone": "^3.8.0",
-    "react-redux": "^4.4.6",
+    "react-redux": "^5.0.5",
     "redux": "^3.6.0",
-    "redux-logger": "^2.7.4",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.4",
+    "reselect": "^3.0.1",
     "sha.js": "github:artcom/sha.js#aee24f1e0d7fefca68633e6c1be52670fb65a1a5"
   },
   "devDependencies": {
