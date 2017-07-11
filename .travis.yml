@@ -12,3 +12,4 @@ deploy:
   file: git-json-cms-*.zip
   on:
     repo: artcom/git-json-cms
+    tags: true
