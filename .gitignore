@@ -5,6 +5,6 @@ public/bundle.js
 public/bundle.js.map
 public/config.json
 
-*.zip
+dist
 
 .idea

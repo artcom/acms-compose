@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eo pipefail
+
+DIST_DIR="dist"
+PUBLIC_DIR="public"
+
+echo "Cleaning up"
+rm -rf "${DIST_DIR}"
+git clean -dfx "${PUBLIC_DIR}"
+
+echo "Building"
+npm run build
+
+echo "Packaging"
+mkdir -p "${DIST_DIR}"
+cd "${PUBLIC_DIR}"
+zip -r -9 "../${DIST_DIR}/git-json-cms-${TRAVIS_TAG:-master}.zip" *
+tar czvf "../${DIST_DIR}/git-json-cms-${TRAVIS_TAG:-master}.tar.gz" *
