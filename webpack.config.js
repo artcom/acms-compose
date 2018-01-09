@@ -28,6 +28,7 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: publicPath
+    contentBase: publicPath,
+    host: "0.0.0.0"
   }
 }
