@@ -1,0 +1,44 @@
+version: "3.2"
+
+services:
+  nginx:
+    build: ./nginx
+    volumes:
+      - type: volume
+        source: content
+        target: /srv/content
+    ports:
+      - "80:80"
+    depends_on:
+      - content-repo
+
+  content-repo:
+    build: ./content-repo
+    volumes:
+      - type: volume
+        source: content
+        target: /srv/content
+    ports:
+      - "81:80"
+    tty: true
+
+  git-json-api:
+    image: "artcom/git-json-api:latest"
+    ports:
+      - "8081:3000"
+    environment:
+      - REPO_URI=http://localhost/git/content
+    depends_on:
+      - nginx
+
+  web:
+    build: .
+    ports:
+      - "8082:8080"
+    volumes:
+      - "/Users/jense/Development/art_com/eppsa/repos/git-json-cms:/usr/src/app"
+    depends_on:
+      - git-json-api
+
+volumes:
+  content:
