@@ -1,0 +1,14 @@
+version: "3.2"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    ports:
+      - "8080:8080"
+    depends_on:
+      - git-json-api
+
+volumes:
+  content:

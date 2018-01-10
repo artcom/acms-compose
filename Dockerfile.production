@@ -14,4 +14,4 @@ ADD webpack.config.js /usr/src/app/webpack.config.js
 RUN npm install
 
 # start app
-CMD ["npm", "run", "watch"]
+CMD ["npm", "start"]
