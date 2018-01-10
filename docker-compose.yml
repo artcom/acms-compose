@@ -27,8 +27,10 @@ services:
     ports:
       - "8081:3000"
     environment:
-      - REPO_URI=http://10.1.34.117/git/content/
+      - REPO_URI=http://nginx/git/content/
     depends_on:
+      - nginx
+    links:
       - nginx
 
   web:
