@@ -18,8 +18,6 @@ services:
       - type: volume
         source: content
         target: /srv/content
-    ports:
-      - "81:80"
     tty: true
 
   git-json-api:
