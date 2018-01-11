@@ -137,3 +137,10 @@ The app can be configured using query string parameters:
 * `npm install`
 * `npm run watch`
 * Open [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
+
+## Docker
+
+### Development
+
+Requirements: Docker >=v17.12
+`docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
