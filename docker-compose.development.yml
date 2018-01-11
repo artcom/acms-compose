@@ -13,4 +13,4 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - "/Users/jense/Development/art_com/eppsa/repos/git-json-cms:/usr/src/app"
+      - ".:/usr/src/app"
