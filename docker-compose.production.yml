@@ -1,14 +1,17 @@
 version: "3.2"
 
 services:
+  nginx:
+    ports:
+      - "8083:80"
+
+  git-json-api:
+    ports:
+      - "8086:3000"
+
   web:
     build:
       context: .
       dockerfile: Dockerfile.production
     ports:
       - "8080:8080"
-    depends_on:
-      - git-json-api
-
-volumes:
-  content:

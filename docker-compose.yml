@@ -7,8 +7,6 @@ services:
       - type: volume
         source: content
         target: /srv/content
-    ports:
-      - "80:80"
     depends_on:
       - content-repo
 
@@ -22,8 +20,6 @@ services:
 
   git-json-api:
     image: "artcom/git-json-api:latest"
-    ports:
-      - "8081:3000"
     environment:
       - REPO_URI=http://nginx/git/content/
     depends_on:
@@ -33,10 +29,6 @@ services:
 
   web:
     build: .
-    ports:
-      - "8080:8080"
-    volumes:
-      - "/Users/jense/Development/art_com/eppsa/repos/git-json-cms:/usr/src/app"
     depends_on:
       - git-json-api
 

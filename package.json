@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack -p",
-    "start": "npm run build && http-server ./public/ -p 8080",
+    "start": "http-server ./public/ -p 8080",
     "release": "./scripts/release",
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },

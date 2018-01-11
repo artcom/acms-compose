@@ -10,8 +10,15 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 # install and cache app dependencies
 ADD package.json /usr/src/app/package.json
 ADD package-lock.json /usr/src/app/package-lock.json
-ADD webpack.config.js /usr/src/app/webpack.config.js
 RUN npm install
+
+ADD webpack.config.js /usr/src/app/webpack.config.js
+ADD .babelrc /usr/src/app/.babelrc
+ADD src /usr/src/app/src
+
+RUN npm run build
+
+ADD public/index.html /usr/src/app/public/index.html
 
 # start app
 CMD ["npm", "start"]

@@ -1,0 +1,16 @@
+version: "3.2"
+
+services:
+  nginx:
+    ports:
+      - "80:80"
+
+  git-json-api:
+    ports:
+      - "8081:3000"
+
+  web:
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/Users/jense/Development/art_com/eppsa/repos/git-json-cms:/usr/src/app"
