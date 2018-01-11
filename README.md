@@ -143,4 +143,6 @@ The app can be configured using query string parameters:
 ### Development
 
 Requirements: Docker >=v17.12
-`docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
+
+* `docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
+* Open [http://localhost:8080/?gitJsonApi=http://localhost:8081/](http://localhost:8080/?gitJsonApi=http://localhost:8081/)
