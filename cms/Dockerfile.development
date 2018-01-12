@@ -6,7 +6,6 @@ WORKDIR /usr/src/app
 
 # install and cache app dependencies
 COPY package.json /usr/src/app/package.json
-COPY webpack.config.js /usr/src/app/webpack.config.js
 RUN npm install
 
 # start app
