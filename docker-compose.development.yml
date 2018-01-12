@@ -9,8 +9,12 @@ services:
     ports:
       - "8081:3000"
 
-  web:
+  cms:
+    build:
+      context: ./cms
+      dockerfile: Dockerfile.development
     ports:
       - "8080:8080"
     volumes:
-      - ".:/usr/src/app"
+      - "./cms:/usr/src/app"
+      - /usr/src/app/node_modules

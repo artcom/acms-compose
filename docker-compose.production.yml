@@ -9,9 +9,9 @@ services:
     ports:
       - "8086:3000"
 
-  web:
+  cms:
     build:
-      context: .
+      context: ./cms
       dockerfile: Dockerfile.production
     ports:
       - "8080:8080"

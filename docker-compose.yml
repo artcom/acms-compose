@@ -27,8 +27,7 @@ services:
     links:
       - nginx
 
-  web:
-    build: .
+  cms:
     depends_on:
       - git-json-api
 
