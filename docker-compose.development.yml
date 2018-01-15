@@ -9,6 +9,10 @@ services:
     ports:
       - "8081:3000"
 
+  asset-server:
+    ports:
+      - "8082:80"
+
   cms:
     build:
       context: ./cms

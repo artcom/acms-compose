@@ -18,6 +18,13 @@ services:
         target: /srv/content
     tty: true
 
+  asset-server:
+    build: ./asset-server
+    volumes:
+      - type: volume
+        source: assets
+        target: /var/www/webdav
+
   git-json-api:
     image: "artcom/git-json-api:latest"
     environment:
@@ -33,3 +40,4 @@ services:
 
 volumes:
   content:
+  assets:
