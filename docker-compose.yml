@@ -8,15 +8,9 @@ services:
         source: content
         target: /srv/content
     depends_on:
-      - content-repo
-
-  content-repo:
-    build: ./content-repo
-    volumes:
-      - type: volume
-        source: content
-        target: /srv/content
-    tty: true
+      - asset-server
+      - git-json-api
+      - cms
 
   asset-server:
     build: ./asset-server
@@ -27,16 +21,18 @@ services:
 
   git-json-api:
     image: "artcom/git-json-api:latest"
-    environment:
-      - REPO_URI=http://nginx/git/content/
     depends_on:
-      - nginx
-    links:
-      - nginx
+      - content-repo
+
+  content-repo:
+    build: ./content-repo
+    volumes:
+      - type: volume
+        source: content
+        target: /srv/content
+    tty: true
 
   cms:
-    depends_on:
-      - git-json-api
 
 volumes:
   content:

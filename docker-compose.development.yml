@@ -10,7 +10,7 @@ services:
     ports:
       - "8081:3000"
     environment:
-      - REPO_URI=http://10.1.34.113/git/content/
+      - REPO_URI=http://nginx/git/content/
 
   asset-server:
     ports:
