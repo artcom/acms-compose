@@ -142,9 +142,12 @@ The app can be configured using query string parameters:
 
 ## Docker
 
-### Development
-
 Requirements: Docker >=v17.12
 
+### Development
 * `docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
-* Open [http://localhost:8080/?gitJsonApi=http://localhost:8081/](http://localhost:8080/?gitJsonApi=http://localhost:8081/)
+* Open [https://localhost/webpack-dev-server/](https://localhost/webpack-dev-server/)
+
+### Production
+* `docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
+* Open [http://[host]]
