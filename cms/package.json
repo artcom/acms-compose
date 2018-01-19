@@ -3,8 +3,8 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production webpack --port 443 -p",
-    "start": "http-server ./public/ -p 8080",
+    "build": "NODE_ENV=production webpack -p",
+    "start": "http-server ./public/ -p 443",
     "release": "./scripts/release",
     "watch": "NODE_ENV=development webpack-dev-server -d"
   },
