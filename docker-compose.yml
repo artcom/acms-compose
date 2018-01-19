@@ -11,9 +11,6 @@ services:
       - asset-server
       - git-json-api
       - cms
-    ports:
-      - "80:80"
-      - "443:443"
 
   asset-server:
     build: ./asset-server
