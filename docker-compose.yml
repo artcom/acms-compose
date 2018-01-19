@@ -11,6 +11,9 @@ services:
       - asset-server
       - git-json-api
       - cms
+    ports:
+      - "80:80"
+      - "443:443"
 
   asset-server:
     build: ./asset-server
@@ -21,6 +24,8 @@ services:
 
   git-json-api:
     image: "artcom/git-json-api:latest"
+    environment:
+      - REPO_URI=http://nginx/git/content/
     depends_on:
       - content-repo
 
