@@ -150,4 +150,4 @@ Requirements: Docker >=v17.12
 
 ### Production
 * `docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
-* Open [http://[host]]
+* Open [http://[host]]()
