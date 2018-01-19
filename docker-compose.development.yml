@@ -7,21 +7,13 @@ services:
       - "443:443"
 
   git-json-api:
-    ports:
-      - "8081:3000"
     environment:
       - REPO_URI=http://nginx/git/content/
-
-  asset-server:
-    ports:
-      - "8082:80"
 
   cms:
     build:
       context: ./cms
       dockerfile: Dockerfile.development
-    ports:
-      - "8080:8080"
     volumes:
       - ./cms:/usr/src/app
       - /usr/src/app/node_modules
