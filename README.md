@@ -151,3 +151,10 @@ Requirements: Docker >=v17.12
 ### Production
 * `docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
 * Open [http://[host]:8080]()
+
+### Edit content
+The content repository will be set up with some sample data. To customize content and templates you have to edit the files manually first.
+* `git clone http://[host]/git/content`
+* Edit templates and content according to the content repo conventions with your favorite editor.
+* Commit and push your changes.
+* Reload the CMS.
