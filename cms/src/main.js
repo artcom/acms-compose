@@ -37,5 +37,5 @@ loadConfig().then(config => {
         <FieldLocalizationModal />
       </Application>
     </Provider>
-  , document.getElementById("app"))
+    , document.getElementById("app"))
 })
