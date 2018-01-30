@@ -3,7 +3,8 @@ version: "3.2"
 services:
   nginx:
     ports:
-      - "8080:443"
+      - "80:80"
+      - "443:443"
 
   cms:
     build:
