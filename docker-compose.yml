@@ -20,7 +20,7 @@ services:
         target: /var/www/webdav
 
   git-json-api:
-    build: "https://github.com/artcom/git-json-api.git"
+    image: "artcom/git-json-api:latest"
     environment:
       - REPO_URI=http://nginx/git/content/
     depends_on:
