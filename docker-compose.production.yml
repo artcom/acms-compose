@@ -1,9 +1,8 @@
 version: "3.2"
 
 services:
-  cms:
+  frontend:
     build:
-      context: ./cms
       dockerfile: Dockerfile.production
     environment:
       - PORT=80

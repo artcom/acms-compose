@@ -4,3 +4,6 @@
 [submodule "git-json-cms-content-repo"]
 	path = git-json-cms-content-repo
 	url = git@github.com:artcom/git-json-cms-content-repo.git
+[submodule "git-json-cms-frontend"]
+	path = git-json-cms-frontend
+	url = https://github.com/artcom/git-json-cms-frontend

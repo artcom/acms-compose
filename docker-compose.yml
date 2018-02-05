@@ -1,7 +1,7 @@
 version: "3.2"
 
 services:
-  git-json-api:
+  api:
     image: "artcom/git-json-api:latest"
     environment:
       - REPO_URI=http://content-repo:80/git/content/
@@ -28,7 +28,9 @@ services:
     ports:
       - 83:80
 
-  cms:
+  frontend:
+    build:
+      context: ./git-json-cms-frontend
 
 volumes:
   content:

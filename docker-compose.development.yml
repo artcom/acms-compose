@@ -1,12 +1,11 @@
 version: "3.2"
 
 services:
-  cms:
+  frontend:
     build:
-      context: ./cms
       dockerfile: Dockerfile.development
     volumes:
-      - ./cms:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./git-json-cms-frontend:/app
+      - /app/node_modules
     ports:
       - 8080:8080
