@@ -1,0 +1,6 @@
+[submodule "git-json-cms-asset-server"]
+	path = git-json-cms-asset-server
+	url = git@github.com:artcom/git-json-cms-asset-server.git
+[submodule "git-json-cms-content-repo"]
+	path = git-json-cms-content-repo
+	url = git@github.com:artcom/git-json-cms-content-repo.git

@@ -146,15 +146,15 @@ Requirements: Docker >=v17.12
 
 ### Development
 * `docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
-* Open [https://localhost/webpack-dev-server/](https://localhost/webpack-dev-server/)
+* Open [http://localhost:8080/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82](http://localhost/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82)
 
 ### Production
 * `docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
-* Open [http://[host]:8080]()
+* Open [http://localhost/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82](http://localhost/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82)
 
 ### Edit content
 The content repository will be set up with some sample data. To customize content and templates you have to edit the files manually first.
-* `git clone http://[host]/git/content`
+* `git clone http://[host]:83/git/content`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the CMS.

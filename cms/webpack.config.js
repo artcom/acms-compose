@@ -29,7 +29,6 @@ module.exports = {
   },
   devServer: {
     contentBase: publicPath,
-    host: "0.0.0.0",
-    port: 443
+    host: "0.0.0.0"
   }
 }

@@ -1,38 +1,32 @@
 version: "3.2"
 
 services:
-  nginx:
-    build: ./nginx
-    volumes:
-      - type: volume
-        source: content
-        target: /srv/content
+  git-json-api:
+    image: "artcom/git-json-api:latest"
+    environment:
+      - REPO_URI=http://content-repo:80/git/content/
     depends_on:
-      - asset-server
-      - git-json-api
-      - cms
+      - content-repo
+    ports:
+      - 81:3000
 
   asset-server:
-    build: ./asset-server
+    build: ./git-json-cms-asset-server
     volumes:
       - type: volume
         source: assets
         target: /var/www/webdav
-
-  git-json-api:
-    image: "artcom/git-json-api:latest"
-    environment:
-      - REPO_URI=http://nginx/git/content/
-    depends_on:
-      - content-repo
+    ports:
+      - 82:80
 
   content-repo:
-    build: ./content-repo
+    build: ./git-json-cms-content-repo
     volumes:
       - type: volume
         source: content
         target: /srv/content
-    tty: true
+    ports:
+      - 83:80
 
   cms:
 
