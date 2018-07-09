@@ -34,8 +34,8 @@ services:
     build:
       context: ./git-json-cms-frontend
     environment:
-      GIT_JSON_API_URI: http://localhost:81
-      ASSET_SERVER_URI: http://localhost:82
+      GIT_JSON_API_URI: http://${HOST}:81
+      ASSET_SERVER_URI: http://${HOST}:82
 
 volumes:
   content:
