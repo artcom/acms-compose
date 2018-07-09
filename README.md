@@ -59,6 +59,8 @@ On the top level, there must be a file named `config.json`. It must contain a JS
 
 Entities must have a template defining which fields and what kinds of children they can have. This is done in a file named after the entity, in the `templates` directory.
 
+A field declaration can have a default value which can be overwritten by the entity value.
+
 E.g., the template for a `book` entity would be defined in `templates/book.json` and might look as follows:
 
 ```json
@@ -66,7 +68,8 @@ E.g., the template for a `book` entity would be defined in `templates/book.json`
   "fields": [
     {
       "name": "author",
-      "type": "string"
+      "type": "string",
+      "default": "Robert C. Martin"
     },
     {
       "name": "title",
@@ -91,6 +94,37 @@ E.g., the template for a `book` entity would be defined in `templates/book.json`
     "preface",
     "chapter",
     "appendix"
+  ]
+}
+```
+
+
+#### Conditions
+
+Conditions can be used to show only a subset of entities, e.g.:
+
+```json
+{
+  "fields": [
+    {
+      "name": "cover",
+      "type": "enum",
+      "values": [
+        {
+          "name": "Hardcover",
+          "value": "hard"
+        },
+        {
+          "name": "Paperback",
+          "value": "paper"
+        }
+      ]
+    },
+    {
+      "name": "hardcoverImage",
+      "type": "image",
+      "condition": ["EQUALS", ["GET", "cover"], "Hardcover"]
+    },
   ]
 }
 ```
