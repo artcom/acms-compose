@@ -1,3 +1,5 @@
+`git clone --recursive https://github.com/artcom/git-json-cms.git`
+
 # Git JSON CMS
 
 A web frontend to edit content in JSON files inside a Git repo. Content is structured as a tree of entities that can have fields of different types and children, which are entities by themselves.
@@ -180,12 +182,12 @@ The app can be configured using query string parameters:
 Requirements: Docker >=v17.12
 
 ### Development
-* `docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
-* Open [http://localhost:8080/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82](http://localhost/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82)
+* `HOST=localhost docker-compose -f docker-compose.yml -f docker-compose.development.yml up`
+* Open [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
 
 ### Production
-* `docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
-* Open [http://localhost/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82](http://localhost/webpack-dev-server/?gitJsonApi=http://localhost:81&assetServer=http://localhost:82)
+* `HOST=<HOST> docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
+* Open [http://localhost](http://localhost/)
 
 ### Edit content
 The content repository will be set up with some sample data. To customize content and templates you have to edit the files manually first.
