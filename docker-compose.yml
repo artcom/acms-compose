@@ -4,12 +4,13 @@ services:
   api:
     image: "artcom/git-json-api:latest"
     environment:
-      - REPO_URI=http://content-repo:80/git/content/
+      - REPO_URI=http://content-repo/
       - BODY_SIZE_LIMIT=1mb
+      - PORT=80
     depends_on:
       - content-repo
     ports:
-      - 81:3000
+      - 81:80
 
   asset-server:
     build: ./git-json-cms-asset-server
@@ -32,6 +33,9 @@ services:
   frontend:
     build:
       context: ./git-json-cms-frontend
+    environment:
+      GIT_JSON_API_URI: http://localhost:81
+      ASSET_SERVER_URI: http://localhost:82
 
 volumes:
   content:
