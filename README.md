@@ -6,6 +6,7 @@ These field types are currently supported:
 * `string`
 * `markdown`
 * `number`
+* `boolean`
 * `enum`
 * `image`
 * `video`
@@ -154,7 +155,7 @@ Requirements: Docker >=v17.12
 
 ### Edit content
 The content repository will be set up with some sample data. To customize content and templates you have to edit the files manually first.
-* `git clone http://[host]:83/git/content`
+* `git clone http://[host]:83`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the CMS.
