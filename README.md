@@ -152,32 +152,7 @@ For the `book` example above, `content/index.json` might look like this:
 ```
 
 
-## Configuration
-
-The app can be configured using query string parameters:
-
-* `assetServer` URL to a WebDAV server that stores image assets
-* `gitJsonApi` URL to the [Git JSON API](https://github.com/artcom/git-json-api) serving the content repo
-
-  Example: `http://localhost:8080/webpack-dev-server/?assetServer=http://bocs-assets.local.bocs.dk&gitJsonApi=http://bocs-content.local.bocs.dk`
-
-## Build
-
-### Production
-
-* `cd cms`
-* `npm install`
-* `npm run build`
-* Find the build result in the `public` directory and serve it using any static web server.
-
-### Development
-
-* `cd cms`
-* `npm install`
-* `npm run watch`
-* Open [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/)
-
-## Docker
+## Deployment with Docker
 
 Requirements: Docker >=v17.12
 
@@ -189,7 +164,7 @@ Requirements: Docker >=v17.12
 * `HOST=<HOST> docker-compose -f docker-compose.yml -f docker-compose.production.yml up`
 * Open [http://localhost](http://localhost/)
 
-### Edit content
+## Edit content
 The content repository will be set up with some sample data. To customize content and templates you have to edit the files manually first.
 * `git clone http://[host]:83`
 * Edit templates and content according to the content repo conventions with your favorite editor.
