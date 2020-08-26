@@ -2,10 +2,11 @@ version: "3.2"
 
 services:
   api:
-    image: "artcom/git-json-api:latest"
+    image: "artcom/git-json-api:2.6.0"
     environment:
       - REPO_URI=http://content-repo/
-      - BODY_SIZE_LIMIT=1mb
+      - BACKEND_HOST=${HOST}
+      - BODY_SIZE_LIMIT=10mb
       - PORT=80
     depends_on:
       - content-repo
@@ -15,9 +16,7 @@ services:
   asset-server:
     build: ./git-json-cms-asset-server
     volumes:
-      - type: volume
-        source: assets
-        target: /var/www/webdav
+      - /srv/assets:/var/www/webdav
     ports:
       - 82:80
 
@@ -34,9 +33,11 @@ services:
     build:
       context: ./git-json-cms-frontend
     environment:
-      GIT_JSON_API_URI: http://${HOST}:81
-      ASSET_SERVER_URI: http://${HOST}:82
-
+      - ASSET_SERVER_URI=http://${HOST}:82
+      - CONFIG_SERVER_URI=http://${HOST}:81
+      - CMS_CONFIG_PATH=cmsConfig
+      - PORT=80
+    ports:
+      - 80:80
 volumes:
   content:
-  assets:
