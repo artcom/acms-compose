@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   api:
-    image: "artcom/git-json-api:2.6.0"
+    image: "artcom/git-json-api:2.6.1"
     environment:
       - REPO_URI=http://content-repo/
       - BACKEND_HOST=${HOST}
