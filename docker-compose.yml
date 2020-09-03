@@ -2,7 +2,7 @@ version: "3.2"
 
 services:
   api:
-    image: "artcom/git-json-api:2.7.1"
+    image: artcom/git-json-api:2.7.1
     environment:
       - REPO_URI=http://content-repo/
       - BACKEND_HOST=${HOST}
@@ -20,7 +20,7 @@ services:
     ports:
       - 82:80
 
-  content-rep:o
+  content-repo:
     build: ./git-json-cms-content-repo
     volumes:
       - type: volume
