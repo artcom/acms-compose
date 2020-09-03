@@ -8,9 +8,15 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 
 ## Deployment with Docker
 
-* Requirement: Docker >=v17.12
-* `HOST=<hostname> docker-compose -f docker-compose.yml up`
-* Open http://<hostname>
+### Requirements
+* Docker >=v17.12
+* directory `/srv/assets`
+
+### Deployment
+* clone this repository: `git clone https://github.com/artcom/git-json-cms.git`
+* create and setup with docker-compose: `HOST=<hostname> docker-compose -f docker-compose.yml up`
+  * to detach the process and run `docker-compose` in the background use option `-d`
+* browse to the CMS frontend: `http://<hostname>`
 
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:
