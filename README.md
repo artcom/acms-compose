@@ -13,7 +13,7 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * directory `/srv/assets`
 
 ### Deployment
-* clone this repository: `git clone https://github.com/artcom/git-json-cms.git`
+* clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
 * create and setup with docker-compose: `HOST=<hostname> docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * browse to the CMS frontend: `http://<hostname>`
