@@ -12,6 +12,7 @@ services:
       - content-repo
     ports:
       - 81:80
+    restart: unless-stopped
 
   asset-server:
     build: ./git-json-cms-asset-server
@@ -19,6 +20,7 @@ services:
       - /srv/assets:/var/www/webdav
     ports:
       - 82:80
+    restart: unless-stopped
 
   content-repo:
     build: ./git-json-cms-content-repo
@@ -28,6 +30,7 @@ services:
         target: /srv/content
     ports:
       - 83:80
+    restart: unless-stopped
 
   frontend:
     build:
@@ -39,5 +42,7 @@ services:
       - PORT=80
     ports:
       - 80:80
+    restart: unless-stopped
+
 volumes:
   content:
