@@ -9,12 +9,14 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 ## Deployment with Docker
 
 ### Requirements
-* Docker >=v17.12
-* directory `/srv/assets`
+* [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+* [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
+* Create directory `/srv/assets`
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
-* create and setup with docker-compose: `HOST=<hostname> docker-compose -f docker-compose.yml up`
+* edit the HOST variable in `.env.example` and save as file `.env`
+* create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * browse to the CMS frontend: `http://<hostname>`
 
