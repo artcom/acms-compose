@@ -11,7 +11,7 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 ### Requirements
 * [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
 * [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
-* Create directory `/srv/assets` (on `Docker For Mac` you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
+* Create directory `/srv/assets` (on _Docker For Mac_ you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
