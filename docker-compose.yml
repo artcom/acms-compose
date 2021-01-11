@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
 
   asset-server:
-    build: ./git-json-cms-asset-server
+    image: artcom/git-json-cms-asset-server:1.0.0
     volumes:
       - /srv/assets:/var/www/webdav
     ports:
