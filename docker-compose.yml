@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   content-repo:
-    build: ./git-json-cms-content-repo
+    build: artcom/git-json-cms-content-repo:1.0.1
     volumes:
       - type: volume
         source: content
