@@ -15,6 +15,19 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
+* download the frontend static files
+  ```bash
+  wget https://github.com/artcom/git-json-cms-frontend/releases/download/config_file-1.0.0/git-json-cms-frontend-config_file-1.0.0.tar.gz
+  tar -xvzf git-json-cms-frontend-config_file-1.0.0.tar.gz -C frontend
+  ```
+* edit the `frontend/config.json` file
+  ```json
+  {
+    "assetServerUri": "http://<hostname>/assets",
+    "configServerUri": "http://<hostname>/git-json-api",
+    "cmsConfigPath": "cmsConfig"
+  }
+  ```
 * edit the HOST variable in `.env.example` and save as file `.env`
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`

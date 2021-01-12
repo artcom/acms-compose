@@ -1,6 +1,26 @@
-version: "3.2"
+version: "3.8"
 
 services:
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - NGINX_SERVER_NAME=${HOST}
+      - NGINX_CERTIFICATE=/etc/nginx/certs/server.crt
+      - NGINX_KEY=/etc/nginx/certs/server.key
+    volumes:
+      - ./certificates/server.crt:/etc/nginx/certs/server.crt
+      - ./certificates/server.key:/etc/nginx/certs/server.key
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - api
+      - asset-server
+      - content-repo
+    restart: unless-stopped
+
   api:
     image: artcom/git-json-api:2.7.2
     environment:
@@ -10,38 +30,20 @@ services:
       - PORT=80
     depends_on:
       - content-repo
-    ports:
-      - 81:80
     restart: unless-stopped
 
   asset-server:
     image: artcom/git-json-cms-asset-server:1.0.0
     volumes:
-      - /srv/assets:/var/www/webdav
-    ports:
-      - 82:80
+      - ./assets:/var/www/webdav
     restart: unless-stopped
 
   content-repo:
-    build: artcom/git-json-cms-content-repo:1.0.1
+    image: artcom/git-json-cms-content-repo:1.0.1
     volumes:
       - type: volume
         source: content
         target: /srv/content
-    ports:
-      - 83:80
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./git-json-cms-frontend
-    environment:
-      - ASSET_SERVER_URI=http://${HOST}:82
-      - CONFIG_SERVER_URI=http://${HOST}:81
-      - CMS_CONFIG_PATH=cmsConfig
-      - PORT=80
-    ports:
-      - 80:80
     restart: unless-stopped
 
 volumes:
