@@ -28,7 +28,9 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
     "cmsConfigPath": "cmsConfig"
   }
   ```
-* edit the HOST variable in `.env.example` and save as file `.env`
+* edit the HOST variable in `.env.example`
+* edit the `CERTIFICATE` and `KEY` variables in `.env.example` with the SSL certificate and key locations.
+* save the `.env.example` file as `.env`
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * browse to the CMS frontend: `http://<hostname>`

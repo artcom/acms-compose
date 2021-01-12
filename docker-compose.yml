@@ -12,8 +12,8 @@ services:
       - NGINX_CERTIFICATE=/etc/nginx/certs/server.crt
       - NGINX_KEY=/etc/nginx/certs/server.key
     volumes:
-      - ./certificates/server.crt:/etc/nginx/certs/server.crt
-      - ./certificates/server.key:/etc/nginx/certs/server.key
+      - ${CERTIFICATE}:/etc/nginx/certs/server.crt
+      - ${KEY}:/etc/nginx/certs/server.key
       - ./frontend:/usr/share/nginx/html
     depends_on:
       - api

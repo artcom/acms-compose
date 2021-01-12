@@ -5,3 +5,4 @@ frontend/*
 !frontend/config.json
 certificates
 assets
+.secrets
