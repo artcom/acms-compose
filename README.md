@@ -34,6 +34,7 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
+* use the `--force-recreate` flag when any configurations in `gateway` have changed
 * browse to the CMS frontend: `http://<hostname>`
 
 ## Edit content

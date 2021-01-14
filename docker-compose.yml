@@ -2,18 +2,19 @@ version: "3.8"
 
 services:
   gateway:
-    build:
-      context: ./gateway
+    image: nginx:1.19.6
     ports:
       - 80:80
       - 443:443
     environment:
       - NGINX_SERVER_NAME=${HOST}
-      - NGINX_CERTIFICATE=/etc/nginx/certs/server.crt
-      - NGINX_KEY=/etc/nginx/certs/server.key
+      - NGINX_CERTIFICATE=/etc/ssl/certs/server.crt
+      - NGINX_KEY=/etc/ssl/private/server.key
     volumes:
-      - ${CERTIFICATE}:/etc/nginx/certs/server.crt
-      - ${KEY}:/etc/nginx/certs/server.key
+      - ./gateway/templates:/etc/nginx/templates
+      - ./gateway/locations:/etc/nginx/conf.d/locations
+      - ${CERTIFICATE}:/etc/ssl/certs/server.crt
+      - ${KEY}:/etc/ssl/private/server.key
       - ./frontend:/usr/share/nginx/html
     depends_on:
       - api
