@@ -35,7 +35,7 @@ services:
   asset-server:
     image: artcom/git-json-cms-asset-server:1.0.0
     volumes:
-      - ./assets:/var/www/webdav
+      - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
 
   content-repo:

@@ -11,7 +11,7 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 ### Requirements
 * [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
 * [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
-* Create directory `/srv/assets` (on _Docker For Mac_ you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
+* Create an assets directory (on _Docker For Mac_ you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
@@ -28,9 +28,10 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
     "cmsConfigPath": "cmsConfig"
   }
   ```
-* edit the HOST variable in `.env.example`
-* edit the `CERTIFICATE` and `KEY` variables in `.env.example` with the SSL certificate and key locations.
-* save the `.env.example` file as `.env`
+* create an `.env` file, available variables are listed in `.env.example`
+* edit the `HOST` variable in `.env` with the host name
+* edit the `ASSETS` variable in `.env` with the path to the assets directory
+* edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * browse to the CMS frontend: `http://<hostname>`
