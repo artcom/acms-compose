@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  gateway:
+    volumes:
+      - ./gateway/templates:/etc/nginx/templates
+      - ./gateway/locations-basic-auth:/etc/nginx/conf.d/locations
+      - ${CERTIFICATE}:/etc/ssl/certs/server.crt
+      - ${KEY}:/etc/ssl/private/server.key
+      - ./frontend:/usr/share/nginx/html
+      - ${AUTH_FILE}:/etc/nginx/.htpasswd

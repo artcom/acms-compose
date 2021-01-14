@@ -37,6 +37,14 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * use the `--force-recreate` flag when any configurations in `gateway` have changed
 * browse to the CMS frontend: `http://<hostname>`
 
+### Set up basic authentication
+* create a `.htpasswd` file
+```bash
+htpasswd -c /path/to/.htpasswd username
+```
+* edit the `AUTH_FILE` variable in `.env` with the location of the `.htpasswd` file
+* deploy with `docker-compose -f docker-compose.yml -f docker-compose-basic-auth.yml up`
+
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:
 * `git clone http://<hostname>:83`
