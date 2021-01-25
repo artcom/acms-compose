@@ -19,8 +19,8 @@ server {
   listen              443 ssl;
   listen              [::]:443 ssl;
   server_name         ${NGINX_SERVER_NAME};
-  ssl_certificate     ${NGINX_CERTIFICATE};
-  ssl_certificate_key ${NGINX_KEY};
+  ssl_certificate     /etc/ssl/certs/server.crt;
+  ssl_certificate_key /etc/ssl/private/server.key;
   ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
   ssl_ciphers         HIGH:!aNULL:!MD5;
 
