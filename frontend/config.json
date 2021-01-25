@@ -1,5 +1,5 @@
 {
-  "assetServerUri": "http://127.0.0.1/assets",
-  "configServerUri": "http://127.0.0.1/git-json-api",
+  "assetServerUri": "https://127.0.0.1/asset-server",
+  "configServerUri": "https://127.0.0.1/config-server",
   "cmsConfigPath": "cmsConfig"
 }

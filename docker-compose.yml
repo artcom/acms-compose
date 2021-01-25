@@ -15,12 +15,12 @@ services:
       - ${KEY}:/etc/ssl/private/server.key
       - ./frontend:/usr/share/nginx/html
     depends_on:
-      - api
+      - config-server
       - asset-server
       - content-repo
     restart: unless-stopped
 
-  api:
+  config-server:
     image: artcom/git-json-api:2.7.2
     environment:
       - REPO_URI=http://content-repo/
