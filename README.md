@@ -32,7 +32,11 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * edit the `HOST` variable in `.env` with the host name
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
 * edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
-* create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
+* generate a `dhparam.pem` file
+  ```bash
+  openssl dhparam -out /path/to/dhparam.pem 2048
+  ```
+* edit the `DHPARAM` variable in `.env` with the path to the `dhparam.pem` file
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * use the `--force-recreate` flag when any configurations in `gateway` have changed
