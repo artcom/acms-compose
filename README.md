@@ -23,8 +23,8 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * edit the `frontend/config.json` file
   ```json
   {
-    "assetServerUri": "http://<hostname>/assets",
-    "configServerUri": "http://<hostname>/git-json-api",
+    "assetServerUri": "https://<hostname>/asset-server",
+    "configServerUri": "https://<hostname>/config-server",
     "cmsConfigPath": "cmsConfig"
   }
   ```
@@ -33,9 +33,10 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
 * edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
+* create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * use the `--force-recreate` flag when any configurations in `gateway` have changed
-* browse to the CMS frontend: `http://<hostname>`
+* browse to the CMS frontend: `https://<hostname>`
 
 ### Set up basic authentication
 * create a `.htpasswd` file
@@ -43,11 +44,14 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 htpasswd -c /path/to/.htpasswd username
 ```
 * edit the `AUTH_FILE` variable in `.env` with the location of the `.htpasswd` file
-* deploy with `docker-compose -f docker-compose.yml -f docker-compose-basic-auth.yml up`
+* deploy with `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-basic-auth.yml up`
+
+### Custom gateway
+The `docker-compose.yml` file can be used in combination with a custom gateway.
 
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:
-* `git clone http://<hostname>:83`
+* `git clone https://<hostname>/content-repo`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the CMS.
