@@ -15,6 +15,8 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
+
+#### Set up frontend
 * download the frontend static files
   ```bash
   wget https://github.com/artcom/git-json-cms-frontend/releases/download/config_file-1.0.1/git-json-cms-frontend-config_file-1.0.1.tar.gz
@@ -28,6 +30,8 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
     "cmsConfigPath": "cmsConfig"
   }
   ```
+
+#### Set up gateway
 * create an `.env` file, available variables are listed in `.env.example`
 * edit the `HOST` variable in `.env` with the host name
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
