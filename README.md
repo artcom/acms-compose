@@ -19,8 +19,8 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 #### Set up frontend
 * download the frontend static files
   ```bash
-  wget https://github.com/artcom/git-json-cms-frontend/releases/download/config_file-1.0.1/git-json-cms-frontend-config_file-1.0.1.tar.gz
-  tar -xvzf git-json-cms-frontend-config_file-1.0.1.tar.gz -C frontend
+  wget https://github.com/artcom/git-json-cms-frontend/releases/download/v2.1.0/git-json-cms-frontend-v2.1.0.tar.gz
+  tar -xvzf git-json-cms-frontend-v2.1.0.tar.gz -C frontend
   ```
 * edit the `frontend/config.json` file
   ```json
