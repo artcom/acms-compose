@@ -3,7 +3,7 @@ version: "3.8"
 services:
   gateway:
     volumes:
-      - ./gateway/templates:/etc/nginx/templates
+      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template
       - ./gateway/locations-basic-auth:/etc/nginx/conf.d/locations
       - ${CERTIFICATE}:/etc/ssl/certs/server.crt
       - ${KEY}:/etc/ssl/private/server.key

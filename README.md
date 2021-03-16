@@ -31,7 +31,7 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
   }
   ```
 
-#### Set up gateway
+#### Set up HTTPS gateway
 * create an `.env` file, available variables are listed in `.env.example`
 * edit the `HOST` variable in `.env` with the host name
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
@@ -56,6 +56,14 @@ htpasswd -c /path/to/.htpasswd username
 
 ### Custom gateway
 The `docker-compose.yml` file can be used in combination with a custom gateway.
+
+### Unsafe demo with HTTP and no authentication
+* download the frontend static files
+  ```bash
+  wget https://github.com/artcom/git-json-cms-frontend/releases/download/v2.1.0/git-json-cms-frontend-v2.1.0.tar.gz
+  tar -xvzf git-json-cms-frontend-v2.1.0.tar.gz -C frontend
+  ```
+* deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:

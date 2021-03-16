@@ -5,15 +5,11 @@ services:
     image: nginx:1.19.6
     ports:
       - 80:80
-      - 443:443
     environment:
       - NGINX_SERVER_NAME=${HOST}
     volumes:
-      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template
+      - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template
       - ./gateway/locations:/etc/nginx/conf.d/locations
-      - ${CERTIFICATE}:/etc/ssl/certs/server.crt
-      - ${KEY}:/etc/ssl/private/server.key
-      - ${DHPARAM}:/etc/ssl/dhparam.pem
       - ./frontend:/usr/share/nginx/html
     depends_on:
       - config-server
