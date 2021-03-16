@@ -1,7 +1,7 @@
-version: "3.2"
+version: "3.8"
 
 services:
-  api:
+  config-server:
     image: artcom/git-json-api:2.7.2
     environment:
       - REPO_URI=http://content-repo/
@@ -10,38 +10,20 @@ services:
       - PORT=80
     depends_on:
       - content-repo
-    ports:
-      - 81:80
     restart: unless-stopped
 
   asset-server:
-    build: ./git-json-cms-asset-server
+    image: artcom/git-json-cms-asset-server:1.0.0
     volumes:
-      - /srv/assets:/var/www/webdav
-    ports:
-      - 82:80
+      - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
 
   content-repo:
-    build: ./git-json-cms-content-repo
+    image: artcom/git-json-cms-content-repo:1.0.1
     volumes:
       - type: volume
         source: content
         target: /srv/content
-    ports:
-      - 83:80
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./git-json-cms-frontend
-    environment:
-      - ASSET_SERVER_URI=http://${HOST}:82
-      - CONFIG_SERVER_URI=http://${HOST}:81
-      - CMS_CONFIG_PATH=cmsConfig
-      - PORT=80
-    ports:
-      - 80:80
     restart: unless-stopped
 
 volumes:

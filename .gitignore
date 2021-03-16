@@ -1,1 +1,7 @@
 .env
+git-json-cms-frontend-*.tar.gz
+!frontend/
+frontend/*
+!frontend/config.json
+certificates
+assets

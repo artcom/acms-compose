@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  gateway:
+    image: nginx:1.19.6
+    ports:
+      - 80:80
+    environment:
+      - NGINX_SERVER_NAME=${HOST}
+    volumes:
+      - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template
+      - ./gateway/locations:/etc/nginx/conf.d/locations
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - config-server
+      - asset-server
+      - content-repo
+    restart: unless-stopped

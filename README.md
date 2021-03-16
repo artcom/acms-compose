@@ -11,18 +11,63 @@ Check the [docker-compose](./docker-compose.yml) file for container setup relate
 ### Requirements
 * [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
 * [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
-* Create directory `/srv/assets` (on _Docker For Mac_ you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
+* Create an assets directory (on _Docker For Mac_ you need to add the directory via [File Sharing](https://docs.docker.com/docker-for-mac/))
 
 ### Deployment
 * clone this repository: `git clone --recurse-submodules https://github.com/artcom/git-json-cms.git`
-* edit the HOST variable in `.env.example` and save as file `.env`
-* create and setup with docker-compose: `docker-compose -f docker-compose.yml up`
+
+#### Set up frontend
+* download the frontend static files
+  ```bash
+  wget https://github.com/artcom/git-json-cms-frontend/releases/download/v2.1.0/git-json-cms-frontend-v2.1.0.tar.gz
+  tar -xvzf git-json-cms-frontend-v2.1.0.tar.gz -C frontend
+  ```
+* edit the `frontend/config.json` file
+  ```json
+  {
+    "assetServerUri": "https://<hostname>/asset-server",
+    "configServerUri": "https://<hostname>/config-server",
+    "cmsConfigPath": "cmsConfig"
+  }
+  ```
+
+#### Set up HTTPS gateway
+* create an `.env` file, available variables are listed in `.env.example`
+* edit the `HOST` variable in `.env` with the host name
+* edit the `ASSETS` variable in `.env` with the path to the assets directory
+* edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
+* generate a `dhparam.pem` file
+  ```bash
+  openssl dhparam -out /path/to/dhparam.pem 2048
+  ```
+* edit the `DHPARAM` variable in `.env` with the path to the `dhparam.pem` file
+* create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
-* browse to the CMS frontend: `http://<hostname>`
+* use the `--force-recreate` flag when any configurations in `gateway` have changed
+* browse to the CMS frontend: `https://<hostname>`
+
+### Set up basic authentication
+* create a `.htpasswd` file
+```bash
+htpasswd -c /path/to/.htpasswd username
+```
+* edit the `AUTH_FILE` variable in `.env` with the location of the `.htpasswd` file
+* deploy with `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-basic-auth.yml up`
+
+### Custom gateway
+The `docker-compose.yml` file can be used in combination with a custom gateway.
+
+### Unsafe demo with HTTP and no authentication
+* download the frontend static files
+  ```bash
+  wget https://github.com/artcom/git-json-cms-frontend/releases/download/v2.1.0/git-json-cms-frontend-v2.1.0.tar.gz
+  tar -xvzf git-json-cms-frontend-v2.1.0.tar.gz -C frontend
+  ```
+* deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:
-* `git clone http://<hostname>:83`
+* `git clone https://<hostname>/content-repo`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the CMS.

@@ -1,9 +1,0 @@
-[submodule "git-json-cms-asset-server"]
-	path = git-json-cms-asset-server
-	url = https://github.com/artcom/git-json-cms-asset-server
-[submodule "git-json-cms-content-repo"]
-	path = git-json-cms-content-repo
-	url = https://github.com/artcom/git-json-cms-content-repo
-[submodule "git-json-cms-frontend"]
-	path = git-json-cms-frontend
-	url = https://github.com/artcom/git-json-cms-frontend
