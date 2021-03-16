@@ -64,6 +64,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
   tar -xvzf git-json-cms-frontend-v2.1.0.tar.gz -C frontend
   ```
 * deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
+* the UI can be reached at http://127.0.0.1
 
 ## Edit content
 The content repository will be set up with some sample data. To replace/alter the content structure you have to edit the JSON files manually:
