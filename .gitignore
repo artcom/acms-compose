@@ -1,7 +1,7 @@
 .env
-git-json-cms-frontend-*.tar.gz
-!frontend/
-frontend/*
-!frontend/config.json
+acms-ui-*.tar.gz
+!ui/
+ui/*
+!ui/config.json
 certificates
 assets

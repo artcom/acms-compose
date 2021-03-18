@@ -10,9 +10,9 @@ services:
     volumes:
       - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template
       - ./gateway/locations:/etc/nginx/conf.d/locations
-      - ./frontend:/usr/share/nginx/html
+      - ./ui:/usr/share/nginx/html
     depends_on:
-      - config-server
-      - asset-server
-      - content-repo
+      - api
+      - assets
+      - config
     restart: unless-stopped

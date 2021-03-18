@@ -7,5 +7,5 @@ services:
       - ./gateway/locations-basic-auth:/etc/nginx/conf.d/locations
       - ${CERTIFICATE}:/etc/ssl/certs/server.crt
       - ${KEY}:/etc/ssl/private/server.key
-      - ./frontend:/usr/share/nginx/html
+      - ./ui:/usr/share/nginx/html
       - ${AUTH_FILE}:/etc/nginx/.htpasswd

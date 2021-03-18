@@ -14,9 +14,9 @@ services:
       - ${CERTIFICATE}:/etc/ssl/certs/server.crt
       - ${KEY}:/etc/ssl/private/server.key
       - ${DHPARAM}:/etc/ssl/dhparam.pem
-      - ./frontend:/usr/share/nginx/html
+      - ./ui:/usr/share/nginx/html
     depends_on:
-      - config-server
-      - asset-server
-      - content-repo
+      - api
+      - assets
+      - config
     restart: unless-stopped
