@@ -1,25 +1,25 @@
 version: "3.8"
 
 services:
-  api:
-    image: artcom/acms-api:2.7.2
+  acms-api:
+    image: artcom/acms-api:3.3.0
     environment:
-      - REPO_URI=http://config/
+      - REPO_URI=http://acms-config/
       - BACKEND_HOST=${HOST}
       - BODY_SIZE_LIMIT=10mb
       - PORT=80
     depends_on:
-      - config
+      - acms-config
     restart: unless-stopped
 
-  assets:
+  acms-assets:
     image: artcom/acms-assets:1.1.0
     volumes:
       - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
 
-  config:
-    image: artcom/acms-config:1.1.0
+  acms-config:
+    image: artcom/acms-config:1.1.1
     volumes:
       - type: volume
         source: content

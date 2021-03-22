@@ -16,7 +16,7 @@ services:
       - ${DHPARAM}:/etc/ssl/dhparam.pem
       - ./ui:/usr/share/nginx/html
     depends_on:
-      - api
-      - assets
-      - config
+      - acms-api
+      - acms-assets
+      - acms-config
     restart: unless-stopped

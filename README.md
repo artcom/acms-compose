@@ -25,8 +25,8 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 #### Set up UI
 * download the UI static files
   ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.4.0/acms-ui-v2.4.0.tar.gz
-  tar -xvzf acms-ui-v2.4.0.tar.gz -C ui
+  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
+  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
   ```
 * edit the `ui/config.json` file
   ```json
@@ -70,8 +70,8 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
 
 * download the UI static files
   ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.4.0/acms-ui-v2.4.0.tar.gz
-  tar -xvzf acms-ui-v2.4.0.tar.gz -C ui
+  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
+  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
   ```
 * deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 * the UI can be reached at http://127.0.0.1
