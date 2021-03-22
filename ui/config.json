@@ -1,5 +1,5 @@
 {
-  "assetServerUri": "http://127.0.0.1/assets/",
-  "configServerUri": "http://127.0.0.1/config",
+  "assetServerUri": "http://127.0.0.1/acms-assets/",
+  "configServerUri": "http://127.0.0.1/acms-config",
   "cmsConfigPath": "cmsConfig"
 }
