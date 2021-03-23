@@ -11,10 +11,10 @@ services:
     volumes:
       - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template
       - ./gateway/locations:/etc/nginx/conf.d/locations
+      - ./ui:/usr/share/nginx/html
       - ${CERTIFICATE}:/etc/ssl/certs/server.crt
       - ${KEY}:/etc/ssl/private/server.key
       - ${DHPARAM}:/etc/ssl/dhparam.pem
-      - ./ui:/usr/share/nginx/html
     depends_on:
       - acms-api
       - acms-assets
