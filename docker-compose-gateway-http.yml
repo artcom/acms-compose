@@ -8,9 +8,10 @@ services:
     environment:
       - NGINX_SERVER_NAME=${HOST}
     volumes:
-      - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template
-      - ./gateway/locations:/etc/nginx/conf.d/locations
-      - ./ui:/usr/share/nginx/html
+      - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template:ro
+      - ./gateway/locations/acms-ui.conf:/etc/nginx/conf.d/locations/acms-ui.conf:ro
+      - ./gateway/locations/services:/etc/nginx/conf.d/locations/services:ro
+      - ./ui:/usr/share/nginx/html:ro
     depends_on:
       - acms-api
       - acms-assets

@@ -30,4 +30,5 @@ server {
   add_header Strict-Transport-Security 'max-age=31536000; preload';
 
   include /etc/nginx/conf.d/locations/*.conf;
+  include /etc/nginx/conf.d/locations/services/*.conf;
 }

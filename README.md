@@ -31,8 +31,8 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 * edit the `ui/config.json` file
   ```json
   {
-    "acmsAssetsUri": "https://<hostname>/acms-assets",
-    "acmsApiUri": "https://<hostname>/acms-api",
+    "acmsAssetsUri": "https://<hostname>/services/acms-assets",
+    "acmsApiUri": "https://<hostname>/services/acms-api",
     "acmsConfigPath": "acmsConfig"
   }
   ```
@@ -89,7 +89,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
 ## Edit content
 
 The content repository will be set up with some sample data. To modify the content structure you have to edit the JSON files manually:
-* `git clone https://<hostname>/config`
+* `git clone https://<hostname>/services/config`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the ACMS.

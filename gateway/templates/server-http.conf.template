@@ -13,4 +13,5 @@ server {
   server_name         ${NGINX_SERVER_NAME};
 
   include /etc/nginx/conf.d/locations/*.conf;
+  include /etc/nginx/conf.d/locations/services/*.conf;
 }

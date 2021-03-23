@@ -3,9 +3,10 @@ version: "3.8"
 services:
   gateway:
     volumes:
-      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template
-      - ./gateway/locations-basic-auth:/etc/nginx/conf.d/locations
-      - ${CERTIFICATE}:/etc/ssl/certs/server.crt
-      - ${KEY}:/etc/ssl/private/server.key
-      - ./ui:/usr/share/nginx/html
-      - ${AUTH_FILE}:/etc/nginx/.htpasswd
+      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template:ro
+      - ./gateway/locations-basic-auth/acms-ui.conf:/etc/nginx/conf.d/locations/acms-ui.conf:ro
+      - ./gateway/locations-basic-auth/services:/etc/nginx/conf.d/locations/services:ro
+      - ./ui:/usr/share/nginx/html:ro
+      - ${CERTIFICATE}:/etc/ssl/certs/server.crt:ro
+      - ${KEY}:/etc/ssl/private/server.key:ro
+      - ${AUTH_FILE}:/etc/nginx/.htpasswd:ro

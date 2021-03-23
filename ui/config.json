@@ -1,5 +1,5 @@
 {
-  "acmsAssetsUri": "https://localhost/acms-assets",
-  "acmsApiUri": "https://localhost/acms-api",
+  "acmsAssetsUri": "https://cms.stefand.acmade.de/services/acms-assets",
+  "acmsApiUri": "https://cms.stefand.acmade.de/services/acms-api",
   "acmsConfigPath": "acmsConfig"
 }

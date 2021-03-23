@@ -9,12 +9,13 @@ services:
     environment:
       - NGINX_SERVER_NAME=${HOST}
     volumes:
-      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template
-      - ./gateway/locations:/etc/nginx/conf.d/locations
-      - ./ui:/usr/share/nginx/html
-      - ${CERTIFICATE}:/etc/ssl/certs/server.crt
-      - ${KEY}:/etc/ssl/private/server.key
-      - ${DHPARAM}:/etc/ssl/dhparam.pem
+      - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template:ro
+      - ./gateway/locations/acms-ui.conf:/etc/nginx/conf.d/locations/acms-ui.conf:ro
+      - ./gateway/locations/services:/etc/nginx/conf.d/locations/services:ro
+      - ./ui:/usr/share/nginx/html:ro
+      - ${CERTIFICATE}:/etc/ssl/certs/server.crt:ro
+      - ${KEY}:/etc/ssl/private/server.key:ro
+      - ${DHPARAM}:/etc/ssl/dhparam.pem:ro
     depends_on:
       - acms-api
       - acms-assets
