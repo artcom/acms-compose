@@ -22,9 +22,9 @@ services:
     image: artcom/acms-config:1.1.1
     volumes:
       - type: volume
-        source: content
-        target: /srv/content
+        source: config
+        target: /srv/config
     restart: unless-stopped
 
 volumes:
-  content:
+  config:
