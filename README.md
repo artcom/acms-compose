@@ -31,9 +31,9 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 * edit the `ui/config.json` file
   ```json
   {
-    "assetServerUri": "https://<hostname>/acms-assets",
-    "configServerUri": "https://<hostname>/acms-config",
-    "cmsConfigPath": "cmsConfig"
+    "acmsAssetsUri": "https://<hostname>/acms-assets",
+    "acmsApiUri": "https://<hostname>/acms-api",
+    "acmsConfigPath": "acmsConfig"
   }
   ```
 
@@ -43,11 +43,21 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 * edit the `HOST` variable in `.env` with the host name
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
 * edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
+  * see e.g. https://letsencrypt.org/docs/certificates-for-localhost/
 * generate a `dhparam.pem` file
   ```bash
   openssl dhparam -out /path/to/dhparam.pem 2048
   ```
 * edit the `DHPARAM` variable in `.env` with the path to the `dhparam.pem` file
+* localhost example
+  ```
+  HOST=localhost
+  ASSETS=./assets
+  CERTIFICATE=./localhost.crt
+  KEY=./localhost.key
+  DHPARAM=./dhparam.pem
+  AUTH_FILE=./htpasswd
+  ```
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * use the `--force-recreate` flag when any configurations in `gateway` have changed
@@ -60,7 +70,7 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 htpasswd -c /path/to/.htpasswd username
 ```
 * edit the `AUTH_FILE` variable in `.env` with the location of the `.htpasswd` file
-* deploy with `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-basic-auth.yml up`
+* deploy with `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-gateway-basic-auth.yml up`
 
 ### Custom gateway
 
