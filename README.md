@@ -8,8 +8,8 @@ It is centered around JSON files, which describe configuration, content and asse
 | :------------- | :---------- | :----------- |
 | ACMS Config | git repository to store JSON files  | [acms-config](https://github.com/artcom/acms-config)    |
 | ACMS API | HTTP methods to modify JSON files  | [acms-api](https://github.com/artcom/acms-api)    |
-| ACMS Assets | Webdav asset server to store media files  | [acms-assets](https://github.com/artcom/acms-config)    |
-| ACMS UI | Webapp to edit ACMS content with a UI | [acms-ui](https://github.com/artcom/acms-config)    |
+| ACMS Assets | Webdav asset server to store media files  | [acms-assets](https://github.com/artcom/acms-assets)    |
+| ACMS UI | Webapp to edit ACMS content with a UI | [acms-ui](https://github.com/artcom/acms-ui)    |
 
 This repository provides a [docker-compose](./docker-compose.yml) file to setup the ACMS. It orchestrates multiple containers to create the complete ACMS setup.
 
