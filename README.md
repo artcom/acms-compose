@@ -16,8 +16,8 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 ## Deployment with Docker
 
 ### Requirements
-* [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
-* [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
+* [Install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04) (>= 20.10.5)
+* [Install docker-compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) (>= 1.28.5)
 
 ### Deployment
 * `git clone https://github.com/artcom/acms-compose.git`
