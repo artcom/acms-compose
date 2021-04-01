@@ -85,6 +85,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
   ```
 * deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 * the UI can be reached at http://127.0.0.1
+* clone the config with ` git clone http://127.0.0.1/services/acms-config`
 
 ## Edit content
 
