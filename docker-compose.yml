@@ -2,11 +2,9 @@ version: "3.8"
 
 services:
   acms-api:
-    image: artcom/acms-api:3.3.0
+    image: artcom/acms-api:3.4.0
     environment:
       - REPO_URI=http://acms-config/
-      - BACKEND_HOST=${HOST}
-      - BODY_SIZE_LIMIT=10mb
       - PORT=80
     depends_on:
       - acms-config
