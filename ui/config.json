@@ -1,5 +1,5 @@
 {
-  "acmsAssetsUri": "https://127.0.0.1/services/acms-assets",
-  "acmsApiUri": "https://127.0.0.1/services/acms-api",
+  "acmsAssetsUri": "http://127.0.0.1/services/acms-assets",
+  "acmsApiUri": "http://127.0.0.1/services/acms-api",
   "acmsConfigPath": "acmsConfig"
 }
