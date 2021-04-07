@@ -6,6 +6,7 @@ services:
     environment:
       - REPO_URI=http://acms-config/
       - PORT=80
+      - ACMS_API_VAR_BACKEND_HOST=${ACMS_API_VAR_BACKEND_HOST}
     depends_on:
       - acms-config
     restart: unless-stopped

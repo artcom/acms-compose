@@ -41,6 +41,7 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 
 * create an `.env` file, available variables are listed in `.env.example`
 * edit the `HOST` variable in `.env` with the host name
+* edit the `ACMS_API_VAR_BACKEND_HOST` variable in `.env` with the host name you want to replace the config variable `$backendHost`. See [acms-api](https://github.com/artcom/acms-api) for details.
 * edit the `ASSETS` variable in `.env` with the path to the assets directory
 * edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
   * see e.g. https://letsencrypt.org/docs/certificates-for-localhost/
@@ -85,7 +86,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
   ```
 * deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 * the UI can be reached at http://127.0.0.1
-* clone the config with ` git clone http://127.0.0.1/services/acms-config`
+* clone the config with `git clone http://127.0.0.1/services/acms-config`
 
 ## Edit content
 
