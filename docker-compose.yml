@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   acms-assets:
-    image: artcom/acms-assets:1.1.0
+    image: artcom/acms-assets:1.2.0
     volumes:
       - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
