@@ -23,7 +23,7 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 * `git clone https://github.com/artcom/acms-compose.git`
 
 #### Set up UI
-* download the UI static files
+* download the UI static files inside the acms-compose folder
   ```bash
   wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
   tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
@@ -37,7 +37,20 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
   }
   ```
 
-#### Set up with HTTPS gateway
+### Now set up with either HTTP or HTTPS or HTTPS + Basic Auth
+
+### Unsafe demo with HTTP and no authentication
+
+* download the UI static files
+  ```bash
+  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
+  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
+  ```
+* deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
+* the UI can be reached at http://127.0.0.1
+* clone the config with `git clone http://127.0.0.1/services/acms-config`
+
+#### Set up with HTTPS gateway + optional basic auth
 
 * create an `.env` file, available variables are listed in `.env.example`
 * edit the `HOST` variable in `.env` with the host name
@@ -57,7 +70,7 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
   CERTIFICATE=./localhost.crt
   KEY=./localhost.key
   DHPARAM=./dhparam.pem
-  AUTH_FILE=./htpasswd
+  AUTH_FILE=./.htpasswd
   ```
 * create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
@@ -76,17 +89,6 @@ htpasswd -c /path/to/.htpasswd username
 ### Custom gateway
 
 The `docker-compose.yml` file can be used in combination with a custom gateway.
-
-### Unsafe demo with HTTP and no authentication
-
-* download the UI static files
-  ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
-  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
-  ```
-* deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
-* the UI can be reached at http://127.0.0.1
-* clone the config with `git clone http://127.0.0.1/services/acms-config`
 
 ## Edit content
 
