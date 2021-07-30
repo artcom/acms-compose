@@ -3,6 +3,7 @@ version: "3.8"
 services:
   gateway:
     volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./gateway/templates/server.conf.template:/etc/nginx/templates/server.conf.template:ro
       - ./gateway/locations-basic-auth/acms-ui.conf:/etc/nginx/conf.d/locations/acms-ui.conf:ro
       - ./gateway/locations-basic-auth/services:/etc/nginx/conf.d/locations/services:ro

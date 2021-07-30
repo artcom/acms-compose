@@ -8,6 +8,7 @@ services:
     environment:
       - NGINX_SERVER_NAME=${HOST}
     volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./gateway/templates/server-http.conf.template:/etc/nginx/templates/server.conf.template:ro
       - ./gateway/locations/acms-ui.conf:/etc/nginx/conf.d/locations/acms-ui.conf:ro
       - ./gateway/locations/services:/etc/nginx/conf.d/locations/services:ro
