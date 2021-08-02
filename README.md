@@ -93,7 +93,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
 ## Edit content
 
 The content repository will be set up with some sample data. To modify the content structure you have to edit the JSON files manually:
-* `git clone https://<hostname>/services/config`
+* `git clone https://<hostname>/services/acms-config`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
 * Reload the ACMS.
