@@ -22,7 +22,7 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 ### Deployment
 * `git clone https://github.com/artcom/acms-compose.git`
 
-#### Set up UI
+#### Setup UI
 * download the UI static files inside the acms-compose folder
   ```bash
   wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
@@ -37,32 +37,37 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
   }
   ```
 
-### Now set up with either HTTP or HTTPS or HTTPS + Basic Auth
+#### Setup UI Development
 
-### Unsafe demo with HTTP and no authentication
+* clone https://github.com/artcom/acms-ui and edit `config.json` as described above
+* uncomment CORS section in `gateway/nginx.conf`
+* `npm run watch` acms-ui and open under localhost
+
+### Now setup with either HTTP or HTTPS or HTTPS + Basic Auth
+
+### Setup HTTP and without authentication
 
 * download the UI static files
   ```bash
   wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
   tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
   ```
-* deploy with `docker-compose --env-file .env.demo -f docker-compose.yml -f docker-compose-gateway-http.yml up`
+* deploy with `docker-compose --env-file .env.http.example -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 * the UI can be reached at http://127.0.0.1
 * clone the config with `git clone http://127.0.0.1/services/acms-config`
 
-#### Set up with HTTPS gateway + optional basic auth
+#### Setup with HTTPS gateway + optional basic auth
 
-* create an `.env` file, available variables are listed in `.env.example`
-* edit the `HOST` variable in `.env` with the host name
-* edit the `ACMS_API_VAR_BACKEND_HOST` variable in `.env` with the host name you want to replace the config variable `$backendHost`. See [acms-api](https://github.com/artcom/acms-api) for details.
-* edit the `ASSETS` variable in `.env` with the path to the assets directory
-* edit the `CERTIFICATE` and `KEY` variables in `.env` with the SSL certificate and key locations
+* edit the `HOST` variable in `.env.https.example` with the host name
+* edit the `ACMS_API_VAR_BACKEND_HOST` variable in `.env.https.example` with the host name you want to replace the config variable `$backendHost`. See [acms-api](https://github.com/artcom/acms-api) for details.
+* edit the `ASSETS` variable in `.env.https.example` with the path to the assets directory
+* edit the `CERTIFICATE` and `KEY` variables in `.env.https.example` with the SSL certificate and key locations
   * see e.g. https://letsencrypt.org/docs/certificates-for-localhost/
 * generate a `dhparam.pem` file
   ```bash
   openssl dhparam -out /path/to/dhparam.pem 2048
   ```
-* edit the `DHPARAM` variable in `.env` with the path to the `dhparam.pem` file
+* edit the `DHPARAM` variable in `.env.https.example` with the path to the `dhparam.pem` file
 * localhost example
   ```
   HOST=localhost
@@ -72,19 +77,19 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
   DHPARAM=./dhparam.pem
   AUTH_FILE=./.htpasswd
   ```
-* create and setup with docker-compose: `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml up`
+* create and setup with docker-compose: `docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-compose-gateway-https.yml up`
   * to detach the process and run `docker-compose` in the background use option `-d`
 * use the `--force-recreate` flag when any configurations in `gateway` have changed
 * browse to the ACMS UI: `https://<hostname>`
 
-### Set up basic authentication
+### Setup basic authentication
 
 * create a `.htpasswd` file
 ```bash
 htpasswd -c /path/to/.htpasswd username
 ```
-* edit the `AUTH_FILE` variable in `.env` with the location of the `.htpasswd` file
-* deploy with `docker-compose -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-gateway-basic-auth.yml up`
+* edit the `AUTH_FILE` variable in `.env.https.example` with the location of the `.htpasswd` file
+* deploy with `docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-gateway-basic-auth.yml up`
 
 ### Custom gateway
 
@@ -92,7 +97,7 @@ The `docker-compose.yml` file can be used in combination with a custom gateway.
 
 ## Edit content
 
-The content repository will be set up with some sample data. To modify the content structure you have to edit the JSON files manually:
+The content repository will be setup with some sample data. To modify the content structure you have to edit the JSON files manually:
 * `git clone https://<hostname>/services/acms-config`
 * Edit templates and content according to the content repo conventions with your favorite editor.
 * Commit and push your changes.
