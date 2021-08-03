@@ -25,8 +25,8 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 #### Setup UI
 * download the UI static files inside the acms-compose folder
   ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
-  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
+  wget https://github.com/artcom/acms-ui/releases/download/v2.7.1/acms-ui-v2.7.1.tar.gz
+  tar -xvzf acms-ui-v2.7.1.tar.gz -C ui
   ```
 * edit the `ui/config.json` file
   ```json
@@ -47,11 +47,6 @@ This repository provides a [docker-compose](./docker-compose.yml) file to setup 
 
 ### Setup HTTP and without authentication
 
-* download the UI static files
-  ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.5.0/acms-ui-v2.5.0.tar.gz
-  tar -xvzf acms-ui-v2.5.0.tar.gz -C ui
-  ```
 * deploy with `docker-compose --env-file .env.http.example -f docker-compose.yml -f docker-compose-gateway-http.yml up`
 * the UI can be reached at http://127.0.0.1
 * clone the config with `git clone http://127.0.0.1/services/acms-config`
