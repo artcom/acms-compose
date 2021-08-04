@@ -32,9 +32,9 @@ This repository provides [docker-compose](./docker-compose.yml) files to setup t
   }
   ```
 
-## Start with HTTP, HTTPS or HTTPS + Basic Auth Gateway
+## Start Services
 
-### HTTP Gateway
+###  HTTP Gateway
 
 * edit the `.env.http.example` file
 * deploy with
@@ -63,7 +63,7 @@ docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-com
 ```
 * browse to the ACMS UI: `https://localhost`
 
-### Setup basic authentication
+### Basic Authentication
 
 * create a `.htpasswd` file
 ```bash
