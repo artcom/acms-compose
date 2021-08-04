@@ -1,7 +1,5 @@
-.env
-acms-ui-*.tar.gz
-!ui/
-ui/*
-!ui/config.json
-certificates
+**.pem
+**.key
+**.crt
+**.htpasswd
 assets
