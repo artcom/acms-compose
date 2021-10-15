@@ -70,7 +70,10 @@ docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-com
 htpasswd -c .htpasswd username
 ```
 * edit the `AUTH_FILE` variable in `.env.https.example`
-* deploy with `docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-gateway-basic-auth.yml up`
+* deploy with 
+```bash
+docker-compose --env-file .env.https.example -f docker-compose.yml -f docker-compose-gateway.yml -f docker-compose-gateway-basic-auth.yml up
+```
 
 ## CORS
 * to support cross origin requests uncomment the `CORS` section in `gateway/nginx.conf`
