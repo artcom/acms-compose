@@ -20,8 +20,9 @@ This repository provides [docker-compose](./docker-compose.yml) files to setup t
 ## Install the ACMS UI web page
 * download the UI static files inside the `acms-compose` folder
   ```bash
-  wget https://github.com/artcom/acms-ui/releases/download/v2.9.1/acms-ui-v2.9.1.tar.gz
-  tar -xvzf acms-ui-v2.9.1.tar.gz -C ui
+  wget https://github.com/artcom/acms-ui/releases/download/v2.10.0/acms-ui-v2.10.0.tar.gz
+  mkdir ui
+  tar -xvzf acms-ui-v2.10.0.tar.gz -C ui
   ```
 * edit the `ui/config.json` file
   ```json
