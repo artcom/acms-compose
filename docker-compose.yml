@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   acms-api:
-    image: artcom/acms-api:3.4.0
+    image: artcom/acms-api:v3.6.0
     environment:
       - REPO_URI=http://acms-config/
       - PORT=80
@@ -12,13 +12,13 @@ services:
     restart: unless-stopped
 
   acms-assets:
-    image: artcom/acms-assets:1.2.0
+    image: artcom/acms-assets:v1.3.6
     volumes:
       - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
 
   acms-config:
-    image: artcom/acms-config:1.3.0
+    image: artcom/acms-config:v1.4.1
     volumes:
       - type: volume
         source: config
