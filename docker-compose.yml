@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   acms-config:
-    image: artcom/acms-config:v1.4.1
+    image: artcom/acms-config:v1.5.0
     volumes:
       - type: volume
         source: config
