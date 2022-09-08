@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   acms-api:
-    image: artcom/acms-api:v3.6.0
+    image: artcom/acms-api:v3.8.1
     environment:
       - REPO_URI=http://acms-config/
       - PORT=80
@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   acms-config:
-    image: artcom/acms-config:v1.5.0
+    image: artcom/acms-config:v1.7.0
     volumes:
       - type: volume
         source: config
