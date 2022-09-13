@@ -12,13 +12,13 @@ services:
     restart: unless-stopped
 
   acms-assets:
-    image: artcom/acms-assets:v1.3.6
+    image: artcom/acms-assets:v1.4
     volumes:
       - ${ASSETS}:/var/www/webdav
     restart: unless-stopped
 
   acms-config:
-    image: artcom/acms-config:v1.7.0
+    image: artcom/acms-config:v1.9
     volumes:
       - type: volume
         source: config
