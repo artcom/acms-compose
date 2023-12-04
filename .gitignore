@@ -2,7 +2,6 @@
 **.key
 **.crt
 **.htpasswd
-assets
 ui
 !ui/config.json
 acms-ui-*.tar.gz
