@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
 
   acms-assets:
-    image: artcom/acms-assets:v1.4
+    image: artcom/acms-assets:v1.5
     volumes:
       - type: volume
         source: assets
