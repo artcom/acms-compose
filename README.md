@@ -97,7 +97,7 @@ The content repository will be setup with some sample data. To modify the conten
 
 if you're usting http
 ```bash
-git clone https://localhost/services/acms-config
+git clone http://localhost/services/acms-config
 ```
 
 if you're using https
