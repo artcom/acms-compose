@@ -95,6 +95,12 @@ docker compose --env-file .env.https.example -f docker-compose.yml -f docker-com
 
 The content repository will be setup with some sample data. To modify the content structure you can clone the config repository:
 
+if you're usting http
+```bash
+git clone https://localhost/services/acms-config
+```
+
+if you're using https
 ```bash
 git clone https://localhost/services/acms-config
 ```
